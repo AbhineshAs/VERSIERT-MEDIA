@@ -4,109 +4,82 @@ import eagleSketch from '../assets/eagle_sketch.png';
 import jaguarSketch from '../assets/jaguar_sketch.png';
 import octopusSketch from '../assets/octopus_sketch.png';
 import dolphinSketch from '../assets/dolphin_sketch.png';
-import owlSketch from '../assets/owl_sketch.png';
-import bearSketch from '../assets/bear_sketch.png';
 
 const WhatWeDo = () => {
   const services = [
     {
-      id: '01',
-      title: 'STRATEGY',
-      text: 'We go beyond trends. We build strategy that wins.',
-      image: eagleSketch
+      title: 'WEB DESIGN & DEVELOPMENT',
+      text: 'Modern, responsive and high-performing websites tailored to your brand.',
+      icon: '💻'
     },
     {
-      id: '02',
-      title: 'CONTENT EXECUTION',
-      text: 'Fast, precise, high-impact content that performs.',
-      image: jaguarSketch
+      title: 'BRANDING & IDENTITY',
+      text: 'Crafting unique brand identities that connect and leave a lasting impression.',
+      icon: '🎨'
     },
     {
-      id: '03',
-      title: 'MULTI-PLATFORM',
-      text: 'We handle every platform, every angle with ease.',
-      image: octopusSketch
+      title: 'DIGITAL MARKETING',
+      text: 'Data-driven marketing strategies to grow your brand and reach.',
+      icon: '📈'
     },
     {
-      id: '04',
-      title: 'ENGAGEMENT',
-      text: 'Smart storytelling that connects, engages and converts.',
-      image: dolphinSketch
-    },
-    {
-      id: '05',
-      title: 'ANALYTICS',
-      text: 'Data-driven insights to track and optimize growth.',
-      image: owlSketch
-    },
-    {
-      id: '06',
-      title: 'PERFORMANCE',
-      text: 'Aggressive marketing strategies for maximum ROI.',
-      image: bearSketch
+      title: 'UI/UX STRATEGY',
+      text: 'User-centered design strategies that create meaningful experiences.',
+      icon: '📱'
     }
   ];
 
   return (
-    <section id="what-we-do" className="what-we-do section-white">
+    <section id="what-we-do" className="what-we-do">
       <div className="container">
         <div className="section-header">
           <motion.span
-            className="section-label text-orange"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            className="section-pre-title"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
           >
-            WHAT WE DO —
+            WHAT WE DO
           </motion.span>
           <motion.h2
-            initial={{ opacity: 0, y: 30 }}
+            className="services-title"
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            Solutions that drive impact.
+            OUR SERVICES
           </motion.h2>
         </div>
 
         <div className="services-grid">
           {services.map((service, index) => (
             <motion.div
-              key={service.id}
+              key={index}
               className="service-card"
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{
-                y: -10,
-                rotateX: 2,
-                rotateY: -2,
-                boxShadow: "0 30px 60px rgba(0,0,0,0.1)"
-              }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
             >
-              <div className="card-content">
-                <span className="service-id">{service.id}</span>
-                <h3>{service.title}</h3>
-                <p>{service.text}</p>
-                <div className="card-arrow">→</div>
-              </div>
-              <div className="card-image">
-                <motion.img
-                  src={service.image}
-                  alt={service.title}
-                  whileHover={{ scale: 1.1, rotate: 2 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                />
-              </div>
+              <div className="service-icon">{service.icon}</div>
+              <h3 className="service-card-title">{service.title}</h3>
+              <p className="service-card-text">{service.text}</p>
+              <a href="#" className="learn-more-btn">LEARN MORE →</a>
             </motion.div>
           ))}
         </div>
       </div>
 
+      <div className="section-number-container">
+        <span className="section-number">.03</span>
+      </div>
+
       <style jsx>{`
         .what-we-do {
-          padding: 120px 0;
+          padding: 150px 0;
+          background: #000;
+          position: relative;
         }
 
         .section-header {
@@ -114,115 +87,101 @@ const WhatWeDo = () => {
           margin-bottom: 80px;
         }
 
-        .section-label {
-          font-size: 12px;
-          font-weight: 700;
-          letter-spacing: 2px;
-          margin-bottom: 20px;
+        .section-pre-title {
+          font-size: 10px;
+          letter-spacing: 4px;
+          color: var(--text-grey);
           display: block;
+          margin-bottom: 20px;
         }
 
-        h2 {
-          font-size: 42px;
+        .services-title {
+          font-size: 36px;
+          font-weight: 800;
+          color: #fff;
+          letter-spacing: 2px;
         }
 
         .services-grid {
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 25px;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 20px;
         }
 
         .service-card {
-          border: 1px solid #eee;
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          height: 350px;
-          overflow: hidden;
-          transition: var(--transition);
+          background: rgba(255, 255, 255, 0.02);
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          padding: 40px 30px;
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+          transition: 0.3s;
         }
 
         .service-card:hover {
-          border-color: var(--primary-orange);
-          box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+          background: rgba(255, 255, 255, 0.04);
+          border-color: rgba(255, 255, 255, 0.1);
+          transform: translateY(-5px);
         }
 
-        .card-content {
-          padding: 30px;
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-start;
-          position: relative;
+        .service-icon {
+          font-size: 24px;
+          margin-bottom: 30px;
+          opacity: 0.8;
         }
 
-        .service-id {
-          font-size: 12px;
-          font-weight: 800;
-          color: #ddd;
-          margin-bottom: 20px;
-        }
-
-        h3 {
-          font-size: 20px;
-          margin-bottom: 15px;
-        }
-
-        p {
+        .service-card-title {
           font-size: 14px;
-          color: var(--text-grey);
+          font-weight: 800;
+          color: #fff;
+          margin-bottom: 20px;
+          line-height: 1.4;
+        }
+
+        .service-card-text {
+          font-size: 12px;
+          color: var(--text-grey-light);
           line-height: 1.6;
+          margin-bottom: auto;
+          padding-bottom: 30px;
         }
 
-        .card-arrow {
+        .learn-more-btn {
+          font-size: 9px;
+          font-weight: 800;
+          letter-spacing: 1px;
+          color: #fff;
+          text-decoration: none;
+          opacity: 0.7;
+          transition: 0.3s;
+        }
+
+        .learn-more-btn:hover {
+          opacity: 1;
+        }
+
+        .section-number-container {
           position: absolute;
-          bottom: 30px;
-          left: 30px;
-          width: 40px;
-          height: 40px;
-          border: 1px solid #eee;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          transition: var(--transition);
+          left: 5%;
+          bottom: 5%;
         }
 
-        .service-card:hover .card-arrow {
-          background: var(--bg-black);
-          color: white;
-          border-color: var(--bg-black);
+        .section-number {
+          font-size: 24px;
+          font-weight: 800;
+          color: var(--text-grey);
+          opacity: 0.3;
         }
 
-        .card-image {
-          background: #fafafa;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          position: relative;
-        }
-
-        .card-image img {
-          width: 100%;
-          height: 100%;
-          object-fit: contain;
-          filter: contrast(1.1);
-        }
-
-        @media (max-width: 1024px) {
+        @media (max-width: 1200px) {
           .services-grid {
             grid-template-columns: repeat(2, 1fr);
           }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 600px) {
           .services-grid {
             grid-template-columns: 1fr;
-          }
-          .service-card {
-            grid-template-columns: 1fr;
-            height: auto;
-          }
-          .card-image {
-            height: 200px;
           }
         }
       `}</style>

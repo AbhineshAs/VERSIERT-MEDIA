@@ -1,15 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  --primary-orange: #FF4D00;
-  --primary-orange-hover: #E64500;
-  --bg-white: #FFFFFF;
   --bg-black: #000000;
-  --bg-card-dark: #0A0A0A;
+  --bg-dark-accent: #050505;
+  --bg-card: #0A0A0A;
   --text-white: #FFFFFF;
-  --text-black: #000000;
   --text-grey: #666666;
-  --text-grey-light: #A0A0A0;
+  --text-grey-light: #999999;
+  --accent-color: #FFFFFF;
   --font-main: 'Inter', 'Outfit', sans-serif;
   --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   --section-padding: 120px 8%;
@@ -22,8 +20,8 @@
 }
 
 body {
-  background-color: var(--bg-white);
-  color: var(--text-black);
+  background-color: var(--bg-black);
+  color: var(--text-white);
   font-family: var(--font-main);
   overflow-x: hidden;
   line-height: 1.6;
@@ -50,7 +48,10 @@ html.lenis {
   pointer-events: none;
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: -0.02em;
@@ -59,7 +60,9 @@ h1, h2, h3, h4 {
   display: inline-block;
 }
 
-h1:hover, h2:hover, h3:hover {
+h1:hover,
+h2:hover,
+h3:hover {
   transform: translateY(-5px) skewX(-5deg);
 }
 
@@ -78,8 +81,8 @@ button {
 
 /* Utilities */
 .section-white {
-  background-color: var(--bg-white);
-  color: var(--text-black);
+  background-color: var(--bg-black);
+  color: var(--text-white);
 }
 
 .section-black {
@@ -87,12 +90,21 @@ button {
   color: var(--text-white);
 }
 
-.text-orange {
-  color: var(--primary-orange);
+.section-number {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-grey);
+  margin-bottom: 20px;
+  display: block;
+  opacity: 0.5;
 }
 
-.bg-orange {
-  background-color: var(--primary-orange);
+.text-accent {
+  color: var(--accent-color);
+}
+
+.text-muted {
+  color: var(--text-grey);
 }
 
 .container {
@@ -106,12 +118,12 @@ button {
 }
 
 .btn-primary {
-  background-color: var(--primary-orange) !important;
-  color: #fff !important;
+  background-color: var(--text-white) !important;
+  color: var(--bg-black) !important;
   padding: 16px 32px;
   font-weight: 700;
   text-transform: uppercase;
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 2px;
   transition: var(--transition);
   display: inline-block;
@@ -119,10 +131,9 @@ button {
 }
 
 .btn-primary:hover {
-  background-color: #000 !important;
-  color: #fff !important;
+  background-color: var(--text-grey) !important;
+  color: var(--text-white) !important;
   transform: translateY(-3px);
-  letter-spacing: 4px;
 }
 
 .section-black .btn-primary:hover {
@@ -131,12 +142,12 @@ button {
 }
 
 .btn-outline {
-  border: 1px solid #000 !important;
-  color: #000 !important;
+  border: 1px solid var(--text-grey) !important;
+  color: var(--text-white) !important;
   padding: 16px 32px;
   font-weight: 700;
   text-transform: uppercase;
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 2px;
   transition: var(--transition);
   display: inline-block;
@@ -144,25 +155,32 @@ button {
 }
 
 .btn-outline:hover {
-  background-color: #000 !important;
-  color: #fff !important;
-  letter-spacing: 4px;
+  border-color: var(--text-white) !important;
+  background-color: var(--text-white) !important;
+  color: var(--bg-black) !important;
 }
 
 .section-black .btn-outline {
-  border-color: #fff !important;
-  color: #fff !important;
+  border-color: var(--text-grey) !important;
 }
 
 .section-black .btn-outline:hover {
-  background-color: #fff !important;
-  color: #000 !important;
+  background-color: var(--text-white) !important;
+  color: var(--bg-black) !important;
 }
 
 @media (max-width: 768px) {
-  h1 { font-size: 40px !important; }
-  h2 { font-size: 28px !important; }
-  h3 { font-size: 22px !important; }
+  h1 {
+    font-size: 40px !important;
+  }
+
+  h2 {
+    font-size: 28px !important;
+  }
+
+  h3 {
+    font-size: 22px !important;
+  }
 }
 
 /* Custom Scrollbar */
@@ -175,7 +193,7 @@ button {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--primary-orange);
+  background: var(--text-grey);
 }
 
 /* Animations */

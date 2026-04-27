@@ -27,9 +27,9 @@ const WhyVersiert = () => {
       <div className="container">
         <div className="why-grid">
           <div className="why-content">
-            <span className="section-label text-orange">WHY VERSIERT? —</span>
+            <span className="section-pre-title">WHY VERSIERT?</span>
             <h2>The instinct behind<br />every great brand.</h2>
-            
+
             <div className="reasons-grid">
               {reasons.map((r, i) => (
                 <div key={i} className="reason-item">
@@ -42,8 +42,8 @@ const WhyVersiert = () => {
           </div>
 
           <div className="why-visual">
-            <motion.img 
-              src={bearSketch} 
+            <motion.img
+              src={bearSketch}
               alt="Bear Sketch"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -57,8 +57,8 @@ const WhyVersiert = () => {
       <style jsx>{`
         .why-versiert {
           padding: 120px 0;
-          background-color: #fff;
-          border-top: 1px solid #eee;
+          background-color: var(--bg-black);
+          border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .why-grid {
@@ -73,17 +73,18 @@ const WhyVersiert = () => {
           max-width: 500px;
         }
 
-        .section-label {
-          font-size: 12px;
-          font-weight: 700;
-          letter-spacing: 2px;
-          margin-bottom: 20px;
+        .section-pre-title {
+          font-size: 10px;
+          letter-spacing: 4px;
+          color: var(--text-grey);
           display: block;
+          margin-bottom: 20px;
         }
 
         h2 {
           font-size: 42px;
           margin-bottom: 60px;
+          color: #fff;
         }
 
         .reasons-grid {
@@ -107,11 +108,12 @@ const WhyVersiert = () => {
           font-size: 16px;
           text-transform: none;
           letter-spacing: 0;
+          color: #fff;
         }
 
         .reason-item p {
           font-size: 14px;
-          color: var(--text-grey);
+          color: var(--text-grey-light);
           line-height: 1.5;
         }
 

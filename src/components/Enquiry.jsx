@@ -1,140 +1,165 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import deerSketch from '../assets/deer_sketch.png';
 
 const Enquiry = () => {
   return (
-    <section id="enquiry" className="enquiry section-black">
+    <section id="enquiry" className="enquiry">
       <div className="container">
         <div className="enquiry-grid">
-          <div className="enquiry-visual">
-            <motion.img 
-              src={deerSketch} 
-              alt="Deer Sketch"
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1 }}
-            />
+          <div className="enquiry-info">
+            <span className="section-pre-title">GET IN TOUCH</span>
+            <h2 className="enquiry-title">ENQUIRY FORM</h2>
+            
+            <div className="contact-details">
+              <div className="detail-item">
+                <label>EMAIL</label>
+                <p>hello@versiertmedia.com</p>
+              </div>
+              <div className="detail-item">
+                <label>PHONE</label>
+                <p>+1 (234) 567-8900</p>
+              </div>
+              <div className="detail-item">
+                <label>ADDRESS</label>
+                <p>123 Digital Street,<br />New York, NY 10001</p>
+              </div>
+            </div>
           </div>
 
-          <div className="enquiry-form-container">
-            <span className="section-label text-orange">ENQUIRY —</span>
-            <h2>Let's build something<br />powerful together.</h2>
-            
-            <form className="contact-form">
-              <div className="form-row">
-                <input type="text" placeholder="Your Name" />
-                <input type="text" placeholder="Brand - Company" />
+          <div className="enquiry-form-wrapper">
+            <form className="minimal-form">
+              <div className="form-group">
+                <input type="text" placeholder="Your Name" className="minimal-input" />
               </div>
-              <div className="form-row">
-                <input type="tel" placeholder="Phone Number" />
-                <input type="email" placeholder="Email Address" />
+              <div className="form-group">
+                <input type="email" placeholder="Your Email" className="minimal-input" />
               </div>
-              <div className="form-row">
-                <select>
-                  <option disabled selected>Service Needed</option>
-                  <option>Branding</option>
-                  <option>Content Strategy</option>
-                  <option>Digital Marketing</option>
-                </select>
-                <select>
-                  <option disabled selected>Budget Range</option>
-                  <option>₹ 50k - 1L</option>
-                  <option>₹ 1L - 5L</option>
-                  <option>₹ 5L+</option>
-                </select>
+              <div className="form-group">
+                <input type="text" placeholder="Company Name" className="minimal-input" />
               </div>
-              <textarea placeholder="Message"></textarea>
-              <button type="submit" className="btn-primary">LET'S TALK</button>
+              <div className="form-group">
+                <textarea placeholder="Your Message" className="minimal-input textarea"></textarea>
+              </div>
+              <button type="submit" className="minimal-submit">SEND ENQUIRY →</button>
             </form>
           </div>
         </div>
       </div>
 
+      <div className="section-number-container">
+        <span className="section-number">.06</span>
+      </div>
+
       <style jsx>{`
         .enquiry {
-          padding: 120px 0;
-          background-color: #050505;
+          padding: 150px 0;
+          background: #000;
+          position: relative;
+          border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .enquiry-grid {
           display: grid;
           grid-template-columns: 1fr 1.5fr;
-          gap: 80px;
-          align-items: center;
+          gap: 100px;
         }
 
-        .enquiry-visual img {
-          width: 100%;
-          max-width: 500px;
-          filter: brightness(0.8) contrast(1.1);
-        }
-
-        .section-label {
-          font-size: 12px;
-          font-weight: 700;
-          letter-spacing: 2px;
-          margin-bottom: 20px;
+        .section-pre-title {
+          font-size: 10px;
+          letter-spacing: 4px;
+          color: var(--text-grey);
           display: block;
+          margin-bottom: 20px;
         }
 
-        h2 {
-          font-size: 42px;
-          margin-bottom: 40px;
+        .enquiry-title {
+          font-size: 32px;
+          font-weight: 800;
+          color: #fff;
+          margin-bottom: 60px;
         }
 
-        .contact-form {
+        .contact-details {
           display: flex;
           flex-direction: column;
-          gap: 20px;
+          gap: 40px;
         }
 
-        .form-row {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 20px;
+        .detail-item label {
+          font-size: 8px;
+          letter-spacing: 2px;
+          color: var(--text-grey);
+          display: block;
+          margin-bottom: 10px;
         }
 
-        input, select, textarea {
-          background: #111;
-          border: 1px solid #222;
-          padding: 15px 20px;
-          color: white;
-          font-family: inherit;
+        .detail-item p {
           font-size: 14px;
-          border-radius: 4px;
-          transition: var(--transition);
+          color: #fff;
+          line-height: 1.6;
         }
 
-        input:focus, select:focus, textarea:focus {
-          border-color: var(--primary-orange);
+        .minimal-form {
+          display: flex;
+          flex-direction: column;
+          gap: 30px;
+        }
+
+        .minimal-input {
+          width: 100%;
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          padding: 20px;
+          color: #fff;
+          font-size: 13px;
           outline: none;
+          transition: 0.3s;
         }
 
-        textarea {
-          height: 120px;
+        .minimal-input:focus {
+          background: rgba(255, 255, 255, 0.05);
+          border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .textarea {
+          height: 150px;
           resize: none;
         }
 
-        .btn-primary {
-          align-self: flex-start;
-          margin-top: 10px;
+        .minimal-submit {
+          background: #fff;
+          color: #000;
+          border: none;
+          padding: 15px 30px;
+          font-size: 10px;
+          font-weight: 800;
+          letter-spacing: 2px;
+          width: fit-content;
+          cursor: pointer;
+          transition: 0.3s;
+        }
+
+        .minimal-submit:hover {
+          background: var(--text-grey-light);
+        }
+
+        .section-number-container {
+          position: absolute;
+          left: 5%;
+          bottom: 5%;
+        }
+
+        .section-number {
+          font-size: 24px;
+          font-weight: 800;
+          color: var(--text-grey);
+          opacity: 0.3;
         }
 
         @media (max-width: 1024px) {
           .enquiry-grid {
             grid-template-columns: 1fr;
-          }
-          .enquiry-visual {
-            display: flex;
-            justify-content: center;
-          }
-        }
-
-        @media (max-width: 600px) {
-          .form-row {
-            grid-template-columns: 1fr;
+            gap: 60px;
           }
         }
       `}</style>

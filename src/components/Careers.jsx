@@ -1,158 +1,153 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import wolvesSketch from '../assets/wolves_sketch.png';
 
 const Careers = () => {
   return (
-    <section id="work-with-us" className="careers section-white">
+    <section id="work-with-us" className="careers">
       <div className="container">
         <div className="careers-grid">
-          <div className="careers-form-container">
-            <span className="section-label text-orange">WORK WITH US —</span>
-            <h2>Join a team that<br />builds powerful brands.</h2>
-            
-            <form className="career-form">
-              <div className="form-row">
-                <input type="text" placeholder="Your Name" />
-                <select>
-                  <option disabled selected>Role Applying For</option>
+          <div className="careers-info">
+            <span className="section-pre-title">JOIN OUR TEAM</span>
+            <h2 className="careers-title">WORK WITH US</h2>
+            <p className="careers-text">
+              We are always looking for passionate people to join our team.
+            </p>
+          </div>
+
+          <div className="careers-form-wrapper">
+            <form className="minimal-form">
+              <div className="form-group">
+                <input type="text" placeholder="Your Name" className="minimal-input" />
+              </div>
+              <div className="form-group">
+                <input type="email" placeholder="Your Email" className="minimal-input" />
+              </div>
+              <div className="form-group">
+                <select className="minimal-select">
+                  <option disabled selected>Position Applying For</option>
                   <option>Graphic Designer</option>
                   <option>Content Writer</option>
                   <option>Performance Marketer</option>
                 </select>
               </div>
-              <div className="form-row">
-                <input type="url" placeholder="Portfolio Link" />
-                <input type="email" placeholder="Email Address" />
+              <div className="form-group">
+                <input type="url" placeholder="Portfolio / LinkedIn / Website" className="minimal-input" />
               </div>
-              <div className="file-upload">
-                <label>Upload Resume</label>
-                <input type="file" />
-                <span className="file-hint">Choose File - No file chosen</span>
+              <div className="form-group">
+                <textarea placeholder="Your Message" className="minimal-input textarea"></textarea>
               </div>
-              <button type="submit" className="btn-primary">APPLY NOW</button>
+              <button type="submit" className="minimal-submit">APPLY NOW →</button>
             </form>
-          </div>
-
-          <div className="careers-visual">
-            <motion.img 
-              src={wolvesSketch} 
-              alt="Wolves Sketch"
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1 }}
-            />
           </div>
         </div>
       </div>
 
+      <div className="section-number-container">
+        <span className="section-number">.07</span>
+      </div>
+
       <style jsx>{`
         .careers {
-          padding: 120px 0;
-          background-color: #fff;
+          padding: 150px 0;
+          background: #000;
+          position: relative;
+          border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .careers-grid {
           display: grid;
-          grid-template-columns: 1.5fr 1fr;
-          gap: 80px;
-          align-items: center;
+          grid-template-columns: 1fr 1.5fr;
+          gap: 100px;
         }
 
-        .careers-visual img {
-          width: 100%;
-          max-width: 500px;
-        }
-
-        .section-label {
-          font-size: 12px;
-          font-weight: 700;
-          letter-spacing: 2px;
-          margin-bottom: 20px;
+        .section-pre-title {
+          font-size: 10px;
+          letter-spacing: 4px;
+          color: var(--text-grey);
           display: block;
+          margin-bottom: 20px;
         }
 
-        h2 {
-          font-size: 42px;
-          margin-bottom: 40px;
+        .careers-title {
+          font-size: 32px;
+          font-weight: 800;
+          color: #fff;
+          margin-bottom: 30px;
         }
 
-        .career-form {
-          display: flex;
-          flex-direction: column;
-          gap: 20px;
-        }
-
-        .form-row {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 20px;
-        }
-
-        input, select {
-          background: #f8f8f8;
-          border: 1px solid #eee;
-          padding: 15px 20px;
-          color: black;
-          font-family: inherit;
+        .careers-text {
           font-size: 14px;
-          border-radius: 4px;
-          transition: var(--transition);
+          color: var(--text-grey-light);
+          line-height: 1.6;
+          max-width: 300px;
         }
 
-        input:focus, select:focus {
-          border-color: var(--primary-orange);
-          outline: none;
-        }
-
-        .file-upload {
-          background: #f8f8f8;
-          border: 1px dashed #ccc;
-          padding: 20px;
-          border-radius: 4px;
+        .minimal-form {
           display: flex;
           flex-direction: column;
-          gap: 10px;
+          gap: 30px;
         }
 
-        .file-upload label {
-          font-size: 12px;
-          font-weight: 700;
-          color: #888;
+        .minimal-input, .minimal-select {
+          width: 100%;
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          padding: 20px;
+          color: #fff;
+          font-size: 13px;
+          outline: none;
+          transition: 0.3s;
         }
 
-        .file-upload input {
-          display: none;
+        .minimal-select option {
+          background: #000;
+          color: #fff;
         }
 
-        .file-hint {
-          font-size: 12px;
-          color: #999;
+        .minimal-input:focus, .minimal-select:focus {
+          background: rgba(255, 255, 255, 0.05);
+          border-color: rgba(255, 255, 255, 0.1);
         }
 
-        .btn-primary {
-          align-self: flex-start;
-          margin-top: 10px;
+        .textarea {
+          height: 150px;
+          resize: none;
+        }
+
+        .minimal-submit {
+          background: #fff;
+          color: #000;
+          border: none;
+          padding: 15px 30px;
+          font-size: 10px;
+          font-weight: 800;
+          letter-spacing: 2px;
+          width: fit-content;
+          cursor: pointer;
+          transition: 0.3s;
+        }
+
+        .minimal-submit:hover {
+          background: var(--text-grey-light);
+        }
+
+        .section-number-container {
+          position: absolute;
+          left: 5%;
+          bottom: 5%;
+        }
+
+        .section-number {
+          font-size: 24px;
+          font-weight: 800;
+          color: var(--text-grey);
+          opacity: 0.3;
         }
 
         @media (max-width: 1024px) {
           .careers-grid {
             grid-template-columns: 1fr;
-          }
-          .careers-visual {
-            display: flex;
-            justify-content: center;
-            order: 1;
-          }
-          .careers-form-container {
-            order: 2;
-          }
-        }
-
-        @media (max-width: 600px) {
-          .form-row {
-            grid-template-columns: 1fr;
+            gap: 60px;
           }
         }
       `}</style>

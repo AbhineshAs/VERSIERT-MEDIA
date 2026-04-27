@@ -2,261 +2,278 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
 const QuoteBuilder = () => {
-  const [service, setService] = useState('Content Creation');
-  const [pkg, setPkg] = useState('6 Videos');
-  const [addons, setAddons] = useState(['Script Writing', 'Anchoring', 'Influencer Push']);
+  const [projectType, setProjectType] = useState('Website Design');
+  const [pages, setPages] = useState(5);
+  const [budget, setBudget] = useState('$3,000 - $5,000');
+  const [features, setFeatures] = useState(['E-commerce', 'SEO Optimization', 'Blog / CMS']);
 
-  const toggleAddon = (addon) => {
-    if (addons.includes(addon)) {
-      setAddons(addons.filter(a => a !== addon));
+  const toggleFeature = (f) => {
+    if (features.includes(f)) {
+      setFeatures(features.filter(item => item !== f));
     } else {
-      setAddons([...addons, addon]);
+      setFeatures([...features, f]);
     }
   };
 
   return (
-    <section id="quote-builder" className="quote-builder section-white">
+    <section id="quote-builder" className="quote-builder">
       <div className="container">
-        <div className="quote-grid">
-          <div className="quote-intro">
-            <span className="section-label text-orange">QUOTE BUILDER —</span>
-            <h2>Build your package.<br />Get an instant estimate.</h2>
-            <p>Tell us what you need and we'll show you the estimated cost in real time.</p>
-            <div className="arrow-curve">⤶</div>
-          </div>
+        <div className="section-header">
+          <span className="section-pre-title">GET STARTED</span>
+          <h2 className="builder-title">CUSTOM QUOTE MAKER</h2>
+        </div>
 
-          <div className="builder-tool">
-            <div className="builder-steps">
-              <div className="step">
-                <label>STEP 1</label>
-                <h3>Select Service</h3>
-                <div className="options">
-                  {['Content Creation', 'PR Campaign', 'Social Media Management'].map(s => (
-                    <div 
-                      key={s} 
-                      className={`option ${service === s ? 'active' : ''}`}
-                      onClick={() => setService(s)}
-                    >
-                      {s} {service === s && <span className="check">✓</span>}
-                    </div>
-                  ))}
+        <div className="builder-container">
+          <div className="builder-grid">
+            {/* Column 1 */}
+            <div className="builder-col">
+              <div className="input-group">
+                <label className="input-label">PROJECT TYPE</label>
+                <select className="minimal-select" value={projectType} onChange={(e) => setProjectType(e.target.value)}>
+                  <option>Website Design</option>
+                  <option>Branding</option>
+                  <option>Marketing</option>
+                </select>
+              </div>
+
+              <div className="input-group">
+                <label className="input-label">PAGES</label>
+                <div className="pages-control">
+                  <button className="page-btn" onClick={() => setPages(Math.max(1, pages - 1))}>-</button>
+                  <span className="page-count">{pages}</span>
+                  <button className="page-btn" onClick={() => setPages(pages + 1)}>+</button>
                 </div>
+                <input 
+                  type="range" 
+                  min="1" 
+                  max="20" 
+                  value={pages} 
+                  onChange={(e) => setPages(parseInt(e.target.value))}
+                  className="minimal-slider"
+                />
+              </div>
+            </div>
+
+            {/* Column 2 */}
+            <div className="builder-col">
+              <label className="input-label">FEATURES</label>
+              <div className="features-list">
+                {['E-commerce', 'SEO Optimization', 'Booking System', 'Blog / CMS', 'Payment Gateway'].map(f => (
+                  <label key={f} className="feature-item">
+                    <input 
+                      type="checkbox" 
+                      checked={features.includes(f)} 
+                      onChange={() => toggleFeature(f)}
+                    />
+                    <span className="feature-name">{f}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            {/* Column 3 */}
+            <div className="builder-col results-col">
+              <div className="input-group">
+                <label className="input-label">BUDGET RANGE</label>
+                <select className="minimal-select" value={budget} onChange={(e) => setBudget(e.target.value)}>
+                  <option>$3,000 - $5,000</option>
+                  <option>$5,000 - $10,000</option>
+                  <option>$10,000+</option>
+                </select>
               </div>
 
-              <div className="step">
-                <label>STEP 2</label>
-                <h3>Select Package</h3>
-                <div className="options">
-                  {['4 Videos', '6 Videos', '8 Videos'].map(p => (
-                    <div 
-                      key={p} 
-                      className={`option ${pkg === p ? 'active' : ''}`}
-                      onClick={() => setPkg(p)}
-                    >
-                      {p} {pkg === p && <span className="check">✓</span>}
-                    </div>
-                  ))}
-                </div>
+              <div className="estimate-display">
+                <label className="estimate-label">ESTIMATED QUOTE</label>
+                <div className="estimate-price">$4,250</div>
+                <span className="currency-label">USD</span>
               </div>
 
-              <div className="step">
-                <label>STEP 3</label>
-                <h3>Add-ons</h3>
-                <div className="checkboxes">
-                  {['Script Writing', 'Anchoring', 'Paid Ads', 'Influencer Push'].map(a => (
-                    <label key={a} className="checkbox-item">
-                      <input 
-                        type="checkbox" 
-                        checked={addons.includes(a)}
-                        onChange={() => toggleAddon(a)}
-                      />
-                      <span>{a}</span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              <div className="estimate-box">
-                <label>ESTIMATED COST</label>
-                <div className="price">₹ 89,999</div>
-                <p>*Exclusive of Taxes</p>
-                <button className="btn-primary full-width">GET FULL PROPOSAL</button>
-              </div>
+              <button className="btn-primary full-width">REQUEST DETAILED QUOTE →</button>
             </div>
           </div>
         </div>
       </div>
 
+      <div className="section-number-container">
+        <span className="section-number">.04</span>
+      </div>
+
       <style jsx>{`
         .quote-builder {
-          padding: 120px 0;
-          background-color: #fcfcfc;
+          padding: 150px 0;
+          background: #000;
+          position: relative;
         }
 
-        .quote-grid {
-          display: grid;
-          grid-template-columns: 1fr 2fr;
-          gap: 60px;
-          align-items: flex-start;
+        .section-header {
+          text-align: center;
+          margin-bottom: 80px;
         }
 
-        .section-label {
-          font-size: 12px;
-          font-weight: 700;
-          letter-spacing: 2px;
-          margin-bottom: 20px;
-          display: block;
-        }
-
-        h2 {
-          font-size: 36px;
-          margin-bottom: 20px;
-        }
-
-        .quote-intro p {
+        .section-pre-title {
+          font-size: 10px;
+          letter-spacing: 4px;
           color: var(--text-grey);
-          font-size: 14px;
-          max-width: 300px;
+          display: block;
+          margin-bottom: 20px;
         }
 
-        .arrow-curve {
-          font-size: 48px;
-          color: var(--primary-orange);
-          margin-top: 20px;
-          transform: rotate(-10deg);
+        .builder-title {
+          font-size: 36px;
+          font-weight: 800;
+          color: #fff;
+          letter-spacing: 2px;
         }
 
-        .builder-tool {
-          background: white;
-          padding: 40px;
-          border: 1px solid #eee;
-          box-shadow: 0 10px 40px rgba(0,0,0,0.02);
+        .builder-container {
+          background: rgba(255, 255, 255, 0.02);
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          padding: 60px;
         }
 
-        .builder-steps {
+        .builder-grid {
           display: grid;
-          grid-template-columns: 1fr 1fr 1fr 1.2fr;
+          grid-template-columns: 1fr 1fr 1.2fr;
+          gap: 60px;
+        }
+
+        .builder-col {
+          display: flex;
+          flex-direction: column;
           gap: 30px;
         }
 
-        .step label {
-          font-size: 10px;
+        .input-label {
+          font-size: 9px;
           font-weight: 700;
-          color: #bbb;
+          color: var(--text-grey);
+          letter-spacing: 1px;
+          margin-bottom: 15px;
+          display: block;
+        }
+
+        .minimal-select {
+          width: 100%;
+          background: rgba(255,255,255,0.05);
+          border: 1px solid rgba(255,255,255,0.1);
+          color: #fff;
+          padding: 12px 15px;
+          font-size: 13px;
+          outline: none;
+        }
+
+        .pages-control {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          margin-bottom: 15px;
+        }
+
+        .page-btn {
+          width: 30px;
+          height: 30px;
+          border: 1px solid rgba(255,255,255,0.1);
+          color: #fff;
+          background: transparent;
+          cursor: pointer;
+        }
+
+        .page-count {
+          font-size: 18px;
+          font-weight: 700;
+          color: #fff;
+          min-width: 20px;
+          text-align: center;
+        }
+
+        .minimal-slider {
+          width: 100%;
+          accent-color: #fff;
+          opacity: 0.3;
+        }
+
+        .features-list {
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+        }
+
+        .feature-item {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          cursor: pointer;
+        }
+
+        .feature-item input {
+          accent-color: #fff;
+        }
+
+        .feature-name {
+          font-size: 11px;
+          color: var(--text-grey-light);
+        }
+
+        .results-col {
+          border-left: 1px solid rgba(255,255,255,0.05);
+          padding-left: 60px;
+        }
+
+        .estimate-display {
+          margin: 40px 0;
+        }
+
+        .estimate-label {
+          font-size: 9px;
+          font-weight: 700;
+          color: var(--text-grey);
           display: block;
           margin-bottom: 10px;
         }
 
-        .step h3 {
-          font-size: 14px;
-          margin-bottom: 20px;
+        .estimate-price {
+          font-size: 48px;
+          font-weight: 900;
+          color: #fff;
+          line-height: 1;
         }
 
-        .options {
-          display: flex;
-          flex-direction: column;
-          gap: 10px;
-        }
-
-        .option {
-          padding: 12px 15px;
-          border: 1px solid #eee;
-          font-size: 12px;
-          cursor: pointer;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          transition: var(--transition);
-        }
-
-        .option.active {
-          border-color: var(--primary-orange);
-          color: var(--primary-orange);
-          font-weight: 600;
-        }
-
-        .check {
-          background: var(--primary-orange);
-          color: white;
-          width: 16px;
-          height: 16px;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+        .currency-label {
           font-size: 10px;
-        }
-
-        .checkboxes {
-          display: flex;
-          flex-direction: column;
-          gap: 12px;
-        }
-
-        .checkbox-item {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          font-size: 12px;
-          cursor: pointer;
-        }
-
-        .checkbox-item input {
-          accent-color: var(--primary-orange);
-        }
-
-        .estimate-box {
-          border-left: 1px solid #eee;
-          padding-left: 30px;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-        }
-
-        .estimate-box label {
-          font-size: 10px;
+          color: var(--text-grey);
           font-weight: 700;
-          color: #bbb;
-        }
-
-        .price {
-          font-size: 32px;
-          font-weight: 800;
-          margin: 10px 0;
-        }
-
-        .estimate-box p {
-          font-size: 10px;
-          color: #999;
-          margin-bottom: 20px;
         }
 
         .full-width {
           width: 100%;
         }
 
-        @media (max-width: 1200px) {
-          .builder-steps {
-            grid-template-columns: 1fr 1fr;
-          }
-          .estimate-box {
-            border-left: none;
-            border-top: 1px solid #eee;
-            padding-left: 0;
-            padding-top: 30px;
-            grid-column: span 2;
-          }
+        .section-number-container {
+          position: absolute;
+          left: 5%;
+          bottom: 5%;
         }
 
-        @media (max-width: 768px) {
-          .quote-grid {
+        .section-number {
+          font-size: 24px;
+          font-weight: 800;
+          color: var(--text-grey);
+          opacity: 0.3;
+        }
+
+        @media (max-width: 1024px) {
+          .builder-grid {
             grid-template-columns: 1fr;
+            gap: 40px;
           }
-          .builder-steps {
-            grid-template-columns: 1fr;
+          .results-col {
+            border-left: none;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-left: 0;
+            padding-top: 40px;
           }
-          .estimate-box {
-            grid-column: span 1;
+          .builder-container {
+            padding: 30px;
           }
         }
       `}</style>

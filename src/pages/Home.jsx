@@ -21,11 +21,10 @@ const Home = () => {
       <Hero />
       <WhoWeAre />
       <WhatWeDo />
-      <Projects />
       <QuoteBuilder />
+      <Projects />
       <Enquiry />
       <Careers />
-      <WhyVersiert />
     </motion.div>
   );
 };

@@ -14,20 +14,20 @@ const CareersPage = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      style={{ paddingTop: '100px' }}
+      className="page-wrapper"
     >
       <Careers />
 
-      <section className="culture section-white">
+      <section className="culture">
         <div className="container">
           <div className="culture-grid">
             <div className="culture-visual">
               <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" alt="Team Culture" />
             </div>
             <div className="culture-content">
-              <span className="detail-label text-orange">CULTURE —</span>
-              <h2>Life at the hunt.</h2>
-              <p>We work in a high-intensity, high-reward environment. We value raw instinct, creative courage, and the drive to deliver cinematic excellence in every project.</p>
+              <span className="section-pre-title">CULTURE</span>
+              <h2 className="page-title">LIFE AT THE HUNT.</h2>
+              <p className="page-text">We work in a high-intensity, high-reward environment. We value raw instinct, creative courage, and the drive to deliver cinematic excellence in every project.</p>
               <div className="perks-list">
                 <div>✓ Flexible "Work from Anywhere"</div>
                 <div>✓ Monthly Creative Workshops</div>
@@ -38,20 +38,20 @@ const CareersPage = () => {
         </div>
       </section>
 
-      <section className="openings section-black">
+      <section className="openings">
         <div className="container">
           <div className="section-header">
-            <span className="detail-label text-orange">JOIN US —</span>
-            <h2>Current Openings.</h2>
+            <span className="section-pre-title">JOIN US</span>
+            <h2 className="page-title">CURRENT OPENINGS.</h2>
           </div>
           <div className="jobs-list">
             {jobs.map((job, i) => (
               <div key={i} className="job-item">
                 <div className="job-info">
-                  <h3>{job.title}</h3>
-                  <span>{job.location} • {job.type}</span>
+                  <h3 className="job-title">{job.title}</h3>
+                  <span className="job-meta">{job.location} • {job.type}</span>
                 </div>
-                <button className="btn-outline">APPLY NOW</button>
+                <button className="minimal-btn">APPLY NOW →</button>
               </div>
             ))}
           </div>
@@ -59,25 +59,132 @@ const CareersPage = () => {
       </section>
 
       <style jsx>{`
-        .culture { padding: 120px 0; }
-        .culture-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-        .culture-visual { height: 500px; background: #f5f5f5; border-radius: 20px; overflow: hidden; }
-        .culture-visual img { width: 100%; height: 100%; object-fit: cover; }
-        .culture-content h2 { font-size: 48px; margin-bottom: 30px; }
-        .culture-content p { color: #666; font-size: 18px; line-height: 1.8; margin-bottom: 40px; }
-        .perks-list { display: flex; flex-direction: column; gap: 15px; }
-        .perks-list div { font-weight: 700; color: #333; }
+        .page-wrapper {
+          padding-top: 100px;
+          background: #000;
+        }
 
-        .openings { padding: 120px 0; }
-        .jobs-list { margin-top: 60px; }
-        .job-item { padding: 40px 0; border-bottom: 1px solid #222; display: flex; justify-content: space-between; align-items: center; }
-        .job-item:last-child { border-bottom: none; }
-        .job-info h3 { font-size: 24px; color: white; margin-bottom: 10px; }
-        .job-info span { color: #666; font-size: 14px; font-weight: 700; letter-spacing: 1px; }
+        .culture, .openings {
+          padding: 150px 0;
+          border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .section-pre-title {
+          font-size: 10px;
+          letter-spacing: 4px;
+          color: var(--text-grey);
+          display: block;
+          margin-bottom: 20px;
+        }
+
+        .page-title {
+          font-size: 36px;
+          font-weight: 800;
+          color: #fff;
+          letter-spacing: 2px;
+          margin-bottom: 40px;
+        }
+
+        .page-text {
+          font-size: 14px;
+          color: var(--text-grey-light);
+          line-height: 1.8;
+          margin-bottom: 40px;
+        }
+
+        .culture-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 80px;
+          align-items: center;
+        }
+
+        .culture-visual {
+          height: 500px;
+          background: #111;
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          overflow: hidden;
+        }
+
+        .culture-visual img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          filter: grayscale(1);
+        }
+
+        .perks-list {
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+        }
+
+        .perks-list div {
+          font-size: 13px;
+          font-weight: 700;
+          color: #fff;
+        }
+
+        .jobs-list {
+          margin-top: 60px;
+        }
+
+        .job-item {
+          padding: 40px 0;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .job-item:last-child {
+          border-bottom: none;
+        }
+
+        .job-title {
+          font-size: 20px;
+          font-weight: 800;
+          color: #fff;
+          margin-bottom: 10px;
+        }
+
+        .job-meta {
+          color: var(--text-grey);
+          font-size: 12px;
+          font-weight: 700;
+          letter-spacing: 1px;
+        }
+
+        .minimal-btn {
+          background: transparent;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          color: #fff;
+          padding: 12px 25px;
+          font-size: 10px;
+          font-weight: 800;
+          letter-spacing: 1px;
+          cursor: pointer;
+          transition: 0.3s;
+        }
+
+        .minimal-btn:hover {
+          background: #fff;
+          color: #000;
+        }
+
+        @media (max-width: 1024px) {
+          .culture-grid {
+            grid-template-columns: 1fr;
+            gap: 40px;
+          }
+        }
 
         @media (max-width: 768px) {
-          .culture-grid { grid-template-columns: 1fr; }
-          .job-item { flex-direction: column; align-items: flex-start; gap: 30px; }
+          .job-item {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 30px;
+          }
         }
       `}</style>
     </motion.div>

@@ -15,107 +15,176 @@ const WhatWeDoPage = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      style={{ paddingTop: '100px' }}
+      className="page-wrapper"
     >
       <WhatWeDo />
 
-      <section className="verticals section-black">
+      <section className="verticals">
         <div className="container">
           <div className="section-header">
-            <span className="detail-label text-orange">VERTICALS —</span>
-            <h2>Where we excel.</h2>
+            <span className="section-pre-title">VERTICALS</span>
+            <h2 className="page-title">WHERE WE EXCEL.</h2>
           </div>
           <div className="verticals-grid">
             {verticals.map((v, i) => (
               <div key={i} className="vertical-card">
                 <div className="v-num">0{i + 1}</div>
-                <h3>{v.title}</h3>
-                <p>{v.desc}</p>
+                <h3 className="v-title">{v.title}</h3>
+                <p className="v-desc">{v.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="workflow section-white">
+      <section className="workflow">
         <div className="container">
           <div className="section-header">
-            <span className="detail-label text-orange">WORKFLOW —</span>
-            <h2>Our 4-Step Dominance Engine.</h2>
+            <span className="section-pre-title">WORKFLOW</span>
+            <h2 className="page-title">OUR 4-STEP DOMINANCE ENGINE.</h2>
           </div>
           <div className="workflow-grid">
             <div className="work-step">
-              <span>01</span>
-              <h4>INFILTRATE</h4>
-              <p>We analyze your competitors, identifying every weakness and gap in their strategy.</p>
+              <span className="step-num">01</span>
+              <h4 className="step-title">INFILTRATE</h4>
+              <p className="step-desc">We analyze your competitors, identifying every weakness and gap in their strategy.</p>
             </div>
             <div className="work-step">
-              <span>02</span>
-              <h4>STRATEGIZE</h4>
-              <p>We build a custom predatory roadmap designed to steal attention and market share.</p>
+              <span className="step-num">02</span>
+              <h4 className="step-title">STRATEGIZE</h4>
+              <p className="step-desc">We build a custom predatory roadmap designed to steal attention and market share.</p>
             </div>
             <div className="work-step">
-              <span>03</span>
-              <h4>EXECUTE</h4>
-              <p>Cinematic production and high-speed delivery of your brand's new narrative.</p>
+              <span className="step-num">03</span>
+              <h4 className="step-title">EXECUTE</h4>
+              <p className="step-desc">Cinematic production and high-speed delivery of your brand's new narrative.</p>
             </div>
             <div className="work-step">
-              <span>04</span>
-              <h4>DOMINATE</h4>
-              <p>Scaling through performance data until your brand rules the digital jungle.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="service-details section-white">
-        <div className="container">
-          <div className="detail-row">
-            <div className="detail-text">
-              <h3>Content Execution</h3>
-              <p>We don't just "make content." We build cinematic narratives that glue people to their screens. From 4K brand films to viral social snippets, every pixel is polished for dominance.</p>
-              <ul className="v-list">
-                <li>Video Production</li>
-                <li>Commercial Photography</li>
-                <li>Motion Graphics</li>
-                <li>AI Content Systems</li>
-              </ul>
-            </div>
-            <div className="detail-visual">
-              <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=800&q=80" alt="Content Production" />
+              <span className="step-num">04</span>
+              <h4 className="step-title">DOMINATE</h4>
+              <p className="step-desc">Scaling through performance data until your brand rules the digital jungle.</p>
             </div>
           </div>
         </div>
       </section>
 
       <style jsx>{`
-        .verticals { padding: 120px 0; }
-        .verticals-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; margin-top: 60px; }
-        .vertical-card { padding: 40px; border: 1px solid #222; position: relative; overflow: hidden; }
-        .vertical-card:hover { border-color: var(--primary-orange); }
-        .v-num { font-size: 80px; font-weight: 900; color: #111; position: absolute; top: -10px; right: -10px; line-height: 1; }
-        .vertical-card h3 { font-size: 20px; color: white; margin-bottom: 20px; position: relative; z-index: 2; }
-        .vertical-card p { color: #888; font-size: 14px; line-height: 1.6; position: relative; z-index: 2; }
+        .page-wrapper {
+          padding-top: 100px;
+          background: #000;
+        }
 
-        .workflow { padding: 120px 0; background: #fafafa; }
-        .workflow-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; margin-top: 60px; }
-        .work-step span { font-size: 48px; font-weight: 900; color: #eee; line-height: 1; display: block; margin-bottom: 20px; }
-        .work-step h4 { font-size: 18px; color: var(--primary-orange); margin-bottom: 15px; }
-        .work-step p { font-size: 14px; color: #666; line-height: 1.6; }
+        .verticals, .workflow {
+          padding: 150px 0;
+          border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
 
-        .service-details { padding: 120px 0; }
-        .detail-row { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; }
-        .detail-text h3 { font-size: 32px; margin-bottom: 30px; }
-        .detail-text p { font-size: 18px; color: #666; margin-bottom: 30px; line-height: 1.8; }
-        .v-list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .v-list li { font-weight: 700; font-size: 14px; color: var(--primary-orange); }
-        .v-list li::before { content: "→ "; }
-        .detail-visual { height: 500px; background: #f5f5f5; border-radius: 20px; overflow: hidden; }
-        .detail-visual img { width: 100%; height: 100%; object-fit: cover; }
+        .section-pre-title {
+          font-size: 10px;
+          letter-spacing: 4px;
+          color: var(--text-grey);
+          display: block;
+          margin-bottom: 20px;
+        }
+
+        .page-title {
+          font-size: 36px;
+          font-weight: 800;
+          color: #fff;
+          letter-spacing: 2px;
+          margin-bottom: 60px;
+        }
+
+        .verticals-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 30px;
+        }
+
+        .vertical-card {
+          padding: 40px;
+          background: rgba(255, 255, 255, 0.02);
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          position: relative;
+          overflow: hidden;
+          transition: 0.3s;
+        }
+
+        .vertical-card:hover {
+          background: rgba(255, 255, 255, 0.04);
+          border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .v-num {
+          font-size: 60px;
+          font-weight: 900;
+          color: rgba(255, 255, 255, 0.03);
+          position: absolute;
+          top: -10px;
+          right: -10px;
+          line-height: 1;
+        }
+
+        .v-title {
+          font-size: 16px;
+          font-weight: 800;
+          color: #fff;
+          margin-bottom: 20px;
+          position: relative;
+          z-index: 2;
+        }
+
+        .v-desc {
+          color: var(--text-grey-light);
+          font-size: 13px;
+          line-height: 1.6;
+          position: relative;
+          z-index: 2;
+        }
+
+        .workflow {
+          background: rgba(255, 255, 255, 0.01);
+        }
+
+        .workflow-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 40px;
+        }
+
+        .step-num {
+          font-size: 40px;
+          font-weight: 900;
+          color: rgba(255, 255, 255, 0.05);
+          line-height: 1;
+          display: block;
+          margin-bottom: 20px;
+        }
+
+        .step-title {
+          font-size: 14px;
+          font-weight: 800;
+          color: #fff;
+          margin-bottom: 15px;
+          letter-spacing: 1px;
+        }
+
+        .step-desc {
+          font-size: 12px;
+          color: var(--text-grey-light);
+          line-height: 1.6;
+        }
 
         @media (max-width: 1024px) {
-          .verticals-grid { grid-template-columns: 1fr 1fr; }
-          .detail-row { grid-template-columns: 1fr; gap: 50px; }
+          .verticals-grid, .workflow-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        @media (max-width: 600px) {
+          .verticals-grid, .workflow-grid {
+            grid-template-columns: 1fr;
+          }
         }
       `}</style>
     </motion.div>

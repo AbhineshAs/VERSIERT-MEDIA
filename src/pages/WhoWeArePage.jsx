@@ -14,17 +14,17 @@ const WhoWeArePage = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      style={{ paddingTop: '100px' }}
+      className="page-wrapper"
     >
       <WhoWeAre />
 
-      <section className="dna-section section-white">
+      <section className="dna-section">
         <div className="container">
           <div className="dna-grid">
             <div className="dna-content">
-              <span className="detail-label text-orange">BRAND DNA —</span>
-              <h2>Built on instinct.</h2>
-              <p>We don't just follow trends; we set them. Our DNA is a mix of predatory precision and artistic elegance. We believe that in the digital jungle, the most creative brands are the ones that survive and dominate.</p>
+              <span className="section-pre-title">BRAND DNA</span>
+              <h2 className="page-title">BUILT ON INSTINCT.</h2>
+              <p className="page-text">We don't just follow trends; we set them. Our DNA is a mix of predatory precision and artistic elegance. We believe that in the digital jungle, the most creative brands are the ones that survive and dominate.</p>
             </div>
             <div className="dna-stats">
               <div className="stat-card">
@@ -40,11 +40,11 @@ const WhoWeArePage = () => {
         </div>
       </section>
 
-      <section className="milestones section-white">
+      <section className="milestones">
         <div className="container">
           <div className="section-header">
-            <span className="detail-label text-orange">JOURNEY —</span>
-            <h2>Our Milestones.</h2>
+            <span className="section-pre-title">JOURNEY</span>
+            <h2 className="page-title">OUR MILESTONES.</h2>
           </div>
           <div className="timeline">
             <div className="timeline-item">
@@ -72,11 +72,11 @@ const WhoWeArePage = () => {
         </div>
       </section>
 
-      <section className="leadership section-black">
+      <section className="leadership">
         <div className="container">
           <div className="section-header">
-            <span className="detail-label text-orange">LEADERSHIP —</span>
-            <h2>THE MINDS BEHIND THE HUNT.</h2>
+            <span className="section-pre-title">LEADERSHIP</span>
+            <h2 className="page-title">THE MINDS BEHIND THE HUNT.</h2>
           </div>
           <div className="team-grid">
             {team.map((member, i) => (
@@ -85,7 +85,7 @@ const WhoWeArePage = () => {
                   <img src={member.img} alt={member.name} />
                 </div>
                 <span className="team-role">{member.role}</span>
-                <h3>{member.name}</h3>
+                <h3 className="team-name">{member.name}</h3>
               </div>
             ))}
           </div>
@@ -93,44 +93,185 @@ const WhoWeArePage = () => {
       </section>
 
       <style jsx>{`
-        .dna-section { padding: 120px 0; }
-        .dna-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-        .dna-content h2 { font-size: 48px; margin-bottom: 30px; }
-        .dna-content p { color: #666; font-size: 18px; line-height: 1.8; }
-        .dna-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-        .stat-card { padding: 40px; background: #f9f9f9; text-align: center; }
-        .stat-card h4 { font-size: 32px; color: var(--primary-orange); margin-bottom: 10px; }
-        .stat-card p { font-size: 11px; font-weight: 800; color: #aaa; letter-spacing: 2px; }
+        .page-wrapper {
+          padding-top: 100px;
+          background: #000;
+        }
 
-        .milestones { padding: 120px 0; border-top: 1px solid #f0f0f0; }
-        .timeline { margin-top: 60px; }
-        .timeline-item { display: flex; gap: 50px; margin-bottom: 50px; position: relative; }
-        .timeline-item::before { content: ""; position: absolute; left: 100px; top: 0; bottom: -50px; width: 1px; background: #eee; }
-        .timeline-item:last-child::before { display: none; }
-        .t-year { font-size: 24px; font-weight: 900; color: var(--primary-orange); min-width: 100px; }
-        .t-content h3 { font-size: 20px; margin-bottom: 10px; }
-        .t-content p { color: #666; font-size: 16px; }
+        .dna-section, .milestones, .leadership {
+          padding: 150px 0;
+          border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
 
-        .leadership { padding: 120px 0; }
-        .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 60px; }
-        .team-card { text-align: center; }
-        .team-img-container { height: 400px; background: #111; margin-bottom: 25px; transition: 0.5s; overflow: hidden; }
-        .team-img-container img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); transition: 0.8s; }
-        .team-card:hover .team-img-container img { filter: grayscale(0); transform: scale(1.1); }
-        .team-card:hover .team-img-container { border-color: var(--primary-orange); }
-        .team-role { font-size: 10px; font-weight: 800; color: var(--primary-orange); letter-spacing: 2px; display: block; margin-bottom: 10px; }
-        .team-card h3 { font-size: 20px; color: white; }
+        .section-pre-title {
+          font-size: 10px;
+          letter-spacing: 4px;
+          color: var(--text-grey);
+          display: block;
+          margin-bottom: 20px;
+        }
 
-        @media (max-width: 992px) {
-          .dna-grid { grid-template-columns: 1fr; gap: 40px; }
-          .team-grid { grid-template-columns: repeat(2, 1fr); }
+        .page-title {
+          font-size: 36px;
+          font-weight: 800;
+          color: #fff;
+          letter-spacing: 2px;
+          margin-bottom: 40px;
+        }
+
+        .page-text {
+          font-size: 14px;
+          color: var(--text-grey-light);
+          line-height: 1.8;
+          max-width: 600px;
+        }
+
+        .dna-grid {
+          display: grid;
+          grid-template-columns: 1.5fr 1fr;
+          gap: 80px;
+          align-items: center;
+        }
+
+        .dna-stats {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 30px;
+        }
+
+        .stat-card {
+          padding: 40px;
+          background: rgba(255, 255, 255, 0.02);
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          text-align: center;
+        }
+
+        .stat-card h4 {
+          font-size: 32px;
+          color: #fff;
+          margin-bottom: 10px;
+        }
+
+        .stat-card p {
+          font-size: 9px;
+          font-weight: 800;
+          color: var(--text-grey);
+          letter-spacing: 2px;
+        }
+
+        .timeline {
+          margin-top: 60px;
+        }
+
+        .timeline-item {
+          display: flex;
+          gap: 50px;
+          margin-bottom: 60px;
+          position: relative;
+        }
+
+        .timeline-item::before {
+          content: "";
+          position: absolute;
+          left: 100px;
+          top: 0;
+          bottom: -60px;
+          width: 1px;
+          background: rgba(255, 255, 255, 0.1);
+        }
+
+        .timeline-item:last-child::before {
+          display: none;
+        }
+
+        .t-year {
+          font-size: 24px;
+          font-weight: 900;
+          color: #fff;
+          min-width: 100px;
+        }
+
+        .t-content h3 {
+          font-size: 18px;
+          font-weight: 800;
+          color: #fff;
+          margin-bottom: 15px;
+        }
+
+        .t-content p {
+          font-size: 14px;
+          color: var(--text-grey-light);
+          line-height: 1.6;
+        }
+
+        .team-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 40px;
+          margin-top: 60px;
+        }
+
+        .team-img-container {
+          height: 450px;
+          background: #111;
+          margin-bottom: 25px;
+          overflow: hidden;
+          border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .team-img-container img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          filter: grayscale(1);
+          transition: 0.8s;
+        }
+
+        .team-card:hover img {
+          filter: grayscale(0);
+          transform: scale(1.05);
+        }
+
+        .team-role {
+          font-size: 9px;
+          font-weight: 800;
+          color: var(--text-grey);
+          letter-spacing: 2px;
+          display: block;
+          margin-bottom: 10px;
+        }
+
+        .team-name {
+          font-size: 16px;
+          font-weight: 800;
+          color: #fff;
+        }
+
+        @media (max-width: 1024px) {
+          .dna-grid {
+            grid-template-columns: 1fr;
+            gap: 40px;
+          }
+          .team-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
         }
 
         @media (max-width: 768px) {
-          .team-grid { grid-template-columns: 1fr; }
-          .timeline-item { flex-direction: column; gap: 15px; padding-left: 30px; }
-          .timeline-item::before { left: 0; }
-          .t-year { min-width: auto; font-size: 20px; }
+          .team-grid {
+            grid-template-columns: 1fr;
+          }
+          .timeline-item {
+            flex-direction: column;
+            gap: 15px;
+            padding-left: 30px;
+          }
+          .timeline-item::before {
+            left: 0;
+          }
+          .t-year {
+            min-width: auto;
+          }
         }
       `}</style>
     </motion.div>

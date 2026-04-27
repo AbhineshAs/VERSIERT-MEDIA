@@ -1,190 +1,184 @@
 import React from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import elephantSketch from '../assets/elephant_sketch.png';
+import { motion } from 'framer-motion';
 
-const WhoWeAre = ({ isFullPage = false }) => {
-  const { scrollYProgress } = useScroll();
-  const y = useTransform(scrollYProgress, [0, 1], [0, 150]);
+const WhoWeAre = () => {
+  const stats = [
+    { label: 'YEARS OF EXPERIENCE', value: '10+' },
+    { label: 'PROJECTS COMPLETED', value: '50+' },
+    { label: 'HAPPY CLIENTS', value: '30+' }
+  ];
 
   return (
-    <section id="who-we-are" className="who-we-are section-black">
+    <section id="who-we-are" className="who-we-are">
       <div className="container">
         <div className="who-grid">
           <div className="who-content">
             <motion.div
-              initial={{ opacity: 0, x: -50 }}
+              initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+              viewport={{ once: true }}
+              transition={{ duration: 1 }}
             >
-              <span className="section-label text-orange">WHO WE ARE —</span>
-              <h2>More than creators,<br />we are brand builders.</h2>
+              <span className="section-pre-title">WHO WE ARE</span>
+              <h2 className="who-title">WE ARE VERSIERT MEDIA</h2>
               <p className="who-text">
-                We blend strategy, creativity and consistency to build long-term brand authority. Every campaign we create is backed by insight and crafted to deliver real results.
+                We are a team of creatives, designers, developers and strategists helping brands grow in the digital world.
               </p>
-
-              <div className="pillars">
-                {['🎯 STRATEGIC THINKERS', '🎨 CREATIVE STORYTELLERS', '📈 RESULTS FOCUSED'].map((p, i) => (
-                  <motion.div
-                    key={i}
-                    className="pillar"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.2 + i * 0.1 }}
-                  >
-                    <div className="pillar-icon">{p.split(' ')[0]}</div>
-                    <div className="pillar-label">{p.split(' ').slice(1).join(' ')}</div>
-                  </motion.div>
+              <a href="#" className="learn-more">LEARN MORE →</a>
+              
+              <div className="stats-container">
+                {stats.map((stat, i) => (
+                  <div key={i} className="stat-card">
+                    <span className="stat-value">{stat.value}</span>
+                    <span className="stat-label">{stat.label}</span>
+                  </div>
                 ))}
               </div>
             </motion.div>
           </div>
 
-          <div className="who-image">
-            <motion.img
-              src={elephantSketch}
-              alt="Elephant Sketch"
-              style={{ y }}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.2 }}
-            />
+          <div className="who-visual">
+            <div className="visual-wrapper">
+              <div className="spotlight"></div>
+              <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800" alt="Team" className="team-img" />
+            </div>
           </div>
         </div>
+      </div>
 
-        {isFullPage && (
-          <motion.div
-            className="extra-details"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-          >
-            <div className="who-extra-grid">
-              <div className="extra-box">
-                <h3>OUR VISION</h3>
-                <p>To redefine the boundary between content and dominance, creating a world where every brand we touch becomes a leader in its industry.</p>
-              </div>
-              <div className="extra-box">
-                <h3>OUR MISSION</h3>
-                <p>To provide high-impact strategy and creative execution that transforms standard marketing into cinematic brand authority.</p>
-              </div>
-              <div className="extra-box">
-                <h3>OUR STORY</h3>
-                <p>Founded on the instinct of survival and dominance, Versiert Media was born to bridge the gap between simple content creation and strategic authority.</p>
-              </div>
-            </div>
-          </motion.div>
-        )}
+      <div className="section-number-container">
+        <span className="section-number">.02</span>
       </div>
 
       <style jsx>{`
-        /* ... existing styles ... */
-        .extra-details {
-          margin-top: 100px;
-          border-top: 1px solid #222;
-          padding-top: 80px;
-        }
-
-        .who-extra-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 50px;
-        }
-
-        .extra-box h3 {
-          font-size: 14px;
-          color: var(--primary-orange);
-          margin-bottom: 20px;
-          letter-spacing: 2px;
-        }
-
-        .extra-box p {
-          color: #888;
-          font-size: 16px;
-          line-height: 1.8;
-        }
-
-        @media (max-width: 768px) {
-          .who-extra-grid {
-            grid-template-columns: 1fr;
-          }
-        }
-      `}</style>
-
-      <style jsx>{`
         .who-we-are {
-          padding: 120px 0;
+          padding: 150px 0;
+          background: #000;
+          position: relative;
           overflow: hidden;
         }
 
         .who-grid {
           display: grid;
           grid-template-columns: 1fr 1fr;
+          gap: 100px;
           align-items: center;
-          gap: 80px;
         }
 
-        .section-label {
-          font-size: 12px;
-          font-weight: 700;
-          letter-spacing: 2px;
-          margin-bottom: 20px;
+        .section-pre-title {
+          font-size: 10px;
+          letter-spacing: 4px;
+          color: var(--text-grey);
           display: block;
+          margin-bottom: 20px;
         }
 
-        h2 {
-          font-size: 48px;
+        .who-title {
+          font-size: 42px;
+          font-weight: 800;
           margin-bottom: 30px;
+          color: #fff;
         }
 
         .who-text {
+          font-size: 14px;
           color: var(--text-grey-light);
-          font-size: 18px;
-          margin-bottom: 50px;
-          max-width: 500px;
+          line-height: 1.8;
+          max-width: 400px;
+          margin-bottom: 30px;
         }
 
-        .pillars {
-          display: flex;
-          gap: 40px;
+        .learn-more {
+          font-size: 10px;
+          font-weight: 800;
+          letter-spacing: 2px;
+          color: #fff;
+          text-decoration: none;
+          display: inline-block;
+          margin-bottom: 60px;
         }
 
-        .pillar {
+        .stats-container {
           display: flex;
           flex-direction: column;
-          align-items: center;
-          text-align: center;
-          gap: 15px;
+          gap: 20px;
+          background: rgba(255, 255, 255, 0.03);
+          padding: 30px;
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          width: fit-content;
         }
 
-        .pillar-icon {
+        .stat-card {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .stat-value {
           font-size: 24px;
+          font-weight: 800;
+          color: #fff;
         }
 
-        .pillar-label {
-          font-size: 10px;
-          font-weight: 700;
-          letter-spacing: 1px;
-          max-width: 80px;
+        .stat-label {
+          font-size: 8px;
+          letter-spacing: 2px;
+          color: var(--text-grey);
+          text-transform: uppercase;
         }
 
-        .who-image img {
+        .who-visual {
+          position: relative;
+        }
+
+        .visual-wrapper {
+          position: relative;
           width: 100%;
-          max-width: 600px;
-          filter: brightness(0.8) contrast(1.2);
+          height: 500px;
+          overflow: hidden;
+          background: #111;
+        }
+
+        .team-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          opacity: 0.6;
+          filter: grayscale(1);
+        }
+
+        .spotlight {
+          position: absolute;
+          top: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 200px;
+          height: 100%;
+          background: linear-gradient(to bottom, rgba(255,255,255,0.1), transparent);
+          z-index: 1;
+          pointer-events: none;
+        }
+
+        .section-number-container {
+          position: absolute;
+          left: 5%;
+          bottom: 5%;
+        }
+
+        .section-number {
+          font-size: 24px;
+          font-weight: 800;
+          color: var(--text-grey);
+          opacity: 0.3;
         }
 
         @media (max-width: 1024px) {
           .who-grid {
             grid-template-columns: 1fr;
-            text-align: center;
+            gap: 60px;
           }
-          .who-content { order: 2; }
-          .who-image { order: 1; }
-          .who-text { margin: 0 auto 50px auto; }
-          .pillars { justify-content: center; }
+          .who-visual {
+            height: 400px;
+          }
         }
       `}</style>
     </section>

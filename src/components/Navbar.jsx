@@ -3,58 +3,48 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 50);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const navLinks = [
-    { name: 'WHO WE ARE', path: '/who-we-are' },
-    { name: 'WHAT WE DO', path: '/what-we-do' },
-    { name: 'OUR WORK', path: '/our-work' },
-    { name: 'QUOTE BUILDER', path: '/quote-builder' },
-    { name: 'ENQUIRY', path: '/enquiry' },
-    { name: 'WORK WITH US', path: '/careers' },
+    { name: 'Who We Are', href: '/who-we-are' },
+    { name: 'What We Do', href: '/what-we-do' },
+    { name: 'Projects', href: '/our-work' },
+    { name: 'Careers', href: '/careers' },
+    { name: 'Contact', href: '/enquiry' }
   ];
 
   return (
-    <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
+    <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="nav-container">
-        <Link to="/" className="logo" onClick={() => setIsMenuOpen(false)}>
-          VERSIERT
-          <span>MEDIA</span>
-        </Link>
+        <div className="logo">
+          <Link to="/">VERSIERT<br /><span>MEDIA</span></Link>
+        </div>
 
-        <div className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
+        <div className={`nav-links ${isOpen ? 'active' : ''}`}>
           {navLinks.map((link) => (
             <Link 
               key={link.name} 
-              to={link.path} 
+              to={link.href} 
               className="nav-item"
-              onClick={() => setIsMenuOpen(false)}
+              onClick={() => setIsOpen(false)}
             >
               {link.name}
             </Link>
           ))}
-          <Link to="/enquiry" className="mobile-talk-btn" onClick={() => setIsMenuOpen(false)}>
-            LET'S TALK
-          </Link>
         </div>
 
-        <div className="nav-actions">
-          <Link to="/enquiry">
-            <button className="btn-talk">LET'S TALK</button>
-          </Link>
-          <button className="menu-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            <div className={`bar ${isMenuOpen ? 'open' : ''}`}></div>
-            <div className={`bar ${isMenuOpen ? 'open' : ''}`}></div>
-          </button>
+        <div className={`mobile-toggle ${isOpen ? 'active' : ''}`} onClick={() => setIsOpen(!isOpen)}>
+          <div className="bar"></div>
+          <div className="bar"></div>
         </div>
       </div>
 
@@ -65,16 +55,15 @@ const Navbar = () => {
           left: 0;
           width: 100%;
           z-index: 1000;
-          padding: 25px 0;
-          transition: var(--transition);
+          padding: 30px 0;
+          transition: 0.3s;
           background: transparent;
         }
 
         .navbar.scrolled {
-          padding: 15px 0;
-          background: rgba(255, 255, 255, 0.95);
+          padding: 20px 0;
+          background: rgba(0, 0, 0, 0.9);
           backdrop-filter: blur(10px);
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         }
 
         .nav-container {
@@ -86,153 +75,113 @@ const Navbar = () => {
           align-items: center;
         }
 
-        .logo {
-          font-weight: 800;
-          font-size: 24px;
+        .logo a {
+          font-weight: 900;
+          font-size: 14px;
           letter-spacing: 2px;
-          display: flex;
-          flex-direction: column;
           line-height: 1;
+          color: #fff;
+          text-decoration: none;
+          display: block;
         }
 
         .logo span {
           font-size: 10px;
           letter-spacing: 4px;
           font-weight: 400;
-          color: var(--text-grey);
+          color: #888;
         }
 
         .nav-links {
           display: flex;
-          gap: 30px;
+          gap: 40px;
         }
 
         .nav-item {
-          font-size: 11px;
-          font-weight: 600;
-          letter-spacing: 1px;
-          color: var(--text-black);
-          position: relative;
-        }
-
-        .nav-item::after {
-          content: '';
-          position: absolute;
-          bottom: -5px;
-          left: 0;
-          width: 0;
-          height: 2px;
-          background: var(--primary-orange);
-          transition: var(--transition);
-        }
-
-        .nav-item:hover::after {
-          width: 100%;
-        }
-
-        .nav-actions {
-          display: flex;
-          align-items: center;
-          gap: 20px;
-        }
-
-        .btn-talk {
-          background: var(--bg-black);
-          color: var(--text-white);
-          padding: 10px 25px;
-          font-size: 11px;
+          font-size: 10px;
           font-weight: 700;
-          letter-spacing: 1px;
-          border-radius: 4px;
-          transition: var(--transition);
+          letter-spacing: 2px;
+          color: #ccc;
+          text-decoration: none;
+          transition: 0.3s;
         }
 
-        .btn-talk:hover {
-          background: var(--primary-orange);
-          transform: translateY(-2px);
+        .nav-item:hover {
+          color: #fff;
         }
 
-        .mobile-talk-btn {
+        .mobile-toggle {
           display: none;
-        }
-
-        .menu-toggle {
-          display: none;
+          cursor: pointer;
           flex-direction: column;
           gap: 6px;
         }
 
         .bar {
-          width: 25px;
+          width: 20px;
           height: 2px;
-          background: var(--bg-black);
-          transition: var(--transition);
+          background: #fff;
+          transition: 0.3s;
         }
 
-        @media (max-width: 1024px) {
+        @media (max-width: 768px) {
           .nav-links {
             position: fixed;
             top: 0;
             right: -100%;
             width: 100%;
             height: 100vh;
-            background: #fff;
+            background: #000;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 25px;
-            transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 1000;
+            transition: 0.5s;
           }
 
           .nav-links.active {
             right: 0;
           }
 
-          .nav-item {
-            font-size: 18px;
-            font-weight: 800;
-          }
-
-          .mobile-talk-btn {
-            display: block;
-            background: var(--primary-orange);
-            color: white;
-            padding: 12px 30px;
-            font-size: 12px;
-            font-weight: 900;
-            letter-spacing: 2px;
-            border-radius: 4px;
-            margin-top: 15px;
-          }
-
-          .menu-toggle {
+          .mobile-toggle {
             display: flex;
             z-index: 1001;
             padding: 10px;
             position: relative;
+            flex-direction: column;
+            gap: 7px;
+          }
+
+          .bar {
+            width: 30px;
+            height: 3px;
+            background: #000 !important;
+            transition: var(--transition);
+            border-radius: 10px;
           }
 
           .bar.open:nth-child(1) {
-            transform: translateY(4px) rotate(45deg);
-            background: #000;
+            transform: translateY(5px) rotate(45deg);
           }
 
           .bar.open:nth-child(2) {
-            transform: translateY(-4px) rotate(-45deg);
-            background: #000;
+            transform: translateY(-5px) rotate(-45deg);
           }
 
           .nav-actions {
             z-index: 1002;
+            display: flex;
+            align-items: center;
           }
         }
 
         @media (max-width: 480px) {
-          .btn-talk { display: none; }
           .logo { 
             font-size: 18px; 
             z-index: 1002;
+          }
+          .btn-talk {
+            padding: 8px 15px;
+            font-size: 10px;
           }
         }
       `}</style>
