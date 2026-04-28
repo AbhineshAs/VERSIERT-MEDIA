@@ -20,19 +20,27 @@ const WhoWeAre = () => {
               transition={{ duration: 1 }}
             >
               <span className="section-pre-title">WHO WE ARE</span>
-              <h2 className="who-title">WE ARE VERSIERT MEDIA</h2>
+              <h2 className="who-title">A Team Built for Impact</h2>
               <p className="who-text">
-                We are a team of creatives, designers, developers and strategists helping brands grow in the digital world.
+                Versiert is a collective of strategists, creators, and digital thinkers passionate about driving measurable growth.
               </p>
-              <a href="#" className="learn-more">LEARN MORE →</a>
-              
-              <div className="stats-container">
-                {stats.map((stat, i) => (
-                  <div key={i} className="stat-card">
-                    <span className="stat-value">{stat.value}</span>
-                    <span className="stat-label">{stat.label}</span>
-                  </div>
-                ))}
+
+              <div className="features-grid">
+                <div className="feature-item">
+                  <div className="feature-icon">🎯</div>
+                  <span className="feature-label">OUR MISSION</span>
+                  <p className="feature-desc">To help brands grow through intelligent strategy, powerful content, and meaningful engagement.</p>
+                </div>
+                <div className="feature-item">
+                  <div className="feature-icon">💡</div>
+                  <span className="feature-label">OUR APPROACH</span>
+                  <p className="feature-desc">We blend creativity with analytics to deliver solutions that are both innovative and effective.</p>
+                </div>
+                <div className="feature-item">
+                  <div className="feature-icon">🤝</div>
+                  <span className="feature-label">OUR TEAM</span>
+                  <p className="feature-desc">Our strength lies in collaboration—bringing together diverse skills to solve complex challenges and deliver exceptional results.</p>
+                </div>
               </div>
             </motion.div>
           </div>
@@ -98,32 +106,36 @@ const WhoWeAre = () => {
           margin-bottom: 60px;
         }
 
-        .stats-container {
+        .features-grid {
           display: flex;
           flex-direction: column;
-          gap: 20px;
-          background: rgba(255, 255, 255, 0.03);
-          padding: 30px;
-          border: 1px solid rgba(255, 255, 255, 0.05);
-          width: fit-content;
+          gap: 30px;
+          margin-top: 40px;
         }
 
-        .stat-card {
+        .feature-item {
           display: flex;
           flex-direction: column;
+          align-items: flex-start;
+          gap: 10px;
         }
 
-        .stat-value {
+        .feature-icon {
           font-size: 24px;
+          opacity: 0.9;
+        }
+
+        .feature-label {
+          font-size: 10px;
+          letter-spacing: 2px;
           font-weight: 800;
           color: #fff;
         }
 
-        .stat-label {
-          font-size: 8px;
-          letter-spacing: 2px;
-          color: var(--text-grey);
-          text-transform: uppercase;
+        .feature-desc {
+          font-size: 14px;
+          color: var(--text-grey-light);
+          line-height: 1.6;
         }
 
         .who-visual {

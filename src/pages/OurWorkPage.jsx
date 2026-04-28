@@ -1,13 +1,10 @@
 import React from 'react';
 import Projects from '../components/Projects';
+import Testimonials from '../components/Testimonials';
+import AnimatedCounter from '../components/AnimatedCounter';
 import { motion } from 'framer-motion';
 
 const OurWorkPage = () => {
-  const testimonials = [
-    { name: 'Kunal B.', company: 'FinTech Founder', text: '"Versiert didn\'t just grow our social numbers; they changed our entire market perception. Truly elite."' },
-    { name: 'Elena R.', company: 'Luxury Brand CEO', text: '"The cinematic quality they bring to every single piece of content is unmatched in the industry."' }
-  ];
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -16,45 +13,25 @@ const OurWorkPage = () => {
       className="page-wrapper"
     >
       <Projects />
-
-      <section className="testimonials">
-        <div className="container">
-          <div className="section-header">
-            <span className="section-pre-title">TRUSTED BY</span>
-            <h2 className="page-title">WORDS FROM THE LEADERS.</h2>
-          </div>
-          <div className="test-grid">
-            {testimonials.map((t, i) => (
-              <div key={i} className="test-card">
-                <div className="test-quote">"</div>
-                <p className="test-text">{t.text}</p>
-                <div className="test-author">
-                  <strong className="author-name">{t.name}</strong>
-                  <span className="author-company">{t.company}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <Testimonials />
 
       <section className="key-stats">
         <div className="container">
           <div className="stats-strip">
             <div className="s-item">
-              <h3>500M+</h3>
+              <h3><AnimatedCounter value={500} />M+</h3>
               <span className="s-label">TOTAL VIEWS</span>
             </div>
             <div className="s-item">
-              <h3>85%</h3>
+              <h3><AnimatedCounter value={85} />%</h3>
               <span className="s-label">CLIENT RETENTION</span>
             </div>
             <div className="s-item">
-              <h3>12+</h3>
+              <h3><AnimatedCounter value={12} />+</h3>
               <span className="s-label">GLOBAL AWARDS</span>
             </div>
             <div className="s-item">
-              <h3>$25M+</h3>
+              <h3>$<AnimatedCounter value={25} />M+</h3>
               <span className="s-label">AD SPEND MANAGED</span>
             </div>
           </div>
@@ -87,7 +64,7 @@ const OurWorkPage = () => {
           background: #000;
         }
 
-        .testimonials, .insight-section {
+        .insight-section {
           padding: 150px 0;
           border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
@@ -106,51 +83,6 @@ const OurWorkPage = () => {
           color: #fff;
           letter-spacing: 2px;
           margin-bottom: 60px;
-        }
-
-        .test-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 40px;
-        }
-
-        .test-card {
-          padding: 60px;
-          background: rgba(255, 255, 255, 0.02);
-          border: 1px solid rgba(255, 255, 255, 0.05);
-          position: relative;
-        }
-
-        .test-quote {
-          font-size: 80px;
-          color: rgba(255, 255, 255, 0.05);
-          position: absolute;
-          top: 20px;
-          left: 30px;
-        }
-
-        .test-text {
-          font-size: 20px;
-          font-style: italic;
-          color: var(--text-grey-light);
-          margin-bottom: 40px;
-          line-height: 1.6;
-          position: relative;
-          z-index: 2;
-        }
-
-        .author-name {
-          display: block;
-          font-size: 16px;
-          color: #fff;
-          margin-bottom: 5px;
-        }
-
-        .author-company {
-          font-size: 11px;
-          color: var(--text-grey);
-          font-weight: 700;
-          letter-spacing: 1px;
         }
 
         .key-stats {
@@ -239,9 +171,6 @@ const OurWorkPage = () => {
         }
 
         @media (max-width: 1024px) {
-          .test-grid {
-            grid-template-columns: 1fr;
-          }
           .insight-content {
             grid-template-columns: 1fr;
             gap: 40px;

@@ -1,26 +1,24 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import projectVideo1 from '../assets/video_2026-04-28_11-01-02.mp4';
+import projectVideo2 from '../assets/vid 3.mp4';
+import projectVideo3 from '../assets/0916 (2)(1).mp4';
+import projectVideo4 from '../assets/COOPER.mp4';
 
 const Projects = () => {
   const projects = [
-    {
-      title: 'LUXE STUDIO',
-      category: 'E-COMMERCE WEBSITE',
-      image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&q=80&w=800'
-    },
-    {
-      title: 'MODERN ARC',
-      category: 'BRAND IDENTITY',
-      image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800'
-    }
+    { title: 'VERSIERT SHOWREEL', category: 'Brand Film', video: projectVideo1, desc: 'A cinematic showcase of our best work.' },
+    { title: 'CAMPAIGN 01', category: 'Content Series', video: projectVideo2, desc: 'A modern brand experience built for dominance.' },
+    { title: 'CAMPAIGN 02', category: 'Performance Ads', video: projectVideo3, desc: 'A modern brand experience built for dominance.' },
+    { title: 'COOPER', category: 'Product Launch', video: projectVideo4, desc: 'A modern brand experience built for dominance.' }
   ];
 
   return (
     <section id="our-work" className="our-work">
       <div className="container">
         <div className="section-header">
-          <span className="section-pre-title">FEATURED WORK</span>
-          <h2 className="projects-title">OUR WORK</h2>
+          <span className="section-pre-title">OUR WORK</span>
+          <h2 className="projects-title">Work that speaks for us.</h2>
         </div>
 
         <div className="projects-slider">
@@ -33,12 +31,23 @@ const Projects = () => {
               viewport={{ once: true }}
             >
               <div className="project-image-container">
-                <img src={project.image} alt={project.title} className="project-img" />
+                {project.video ? (
+                  <video 
+                    src={project.video} 
+                    className="project-img" 
+                    autoPlay 
+                    loop 
+                    muted 
+                    playsInline
+                  />
+                ) : (
+                  <img src={project.image} alt={project.title} className="project-img" />
+                )}
               </div>
               <div className="project-info">
                 <span className="project-category">{project.category}</span>
                 <h3 className="project-name">{project.title}</h3>
-                <p className="project-desc">A modern brand experience built for dominance.</p>
+                <p className="project-desc">{project.desc}</p>
                 <a href="#" className="view-project-link">VIEW PROJECT →</a>
               </div>
             </motion.div>
@@ -78,26 +87,30 @@ const Projects = () => {
         }
 
         .projects-slider {
-          display: flex;
-          flex-direction: column;
-          gap: 40px;
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 20px;
         }
 
         .project-slide {
-          width: 100%;
-          display: grid;
-          grid-template-columns: 1.5fr 1fr;
-          gap: 60px;
-          align-items: center;
           background: rgba(255, 255, 255, 0.02);
           border: 1px solid rgba(255, 255, 255, 0.05);
-          padding: 60px;
+          padding: 30px;
+          display: flex;
+          flex-direction: column;
+          transition: 0.3s;
+        }
+
+        .project-slide:hover {
+          background: rgba(255, 255, 255, 0.04);
+          transform: translateY(-5px);
         }
 
         .project-image-container {
           width: 100%;
-          height: 500px;
+          height: 200px;
           overflow: hidden;
+          margin-bottom: 25px;
         }
 
         .project-img {
@@ -110,7 +123,7 @@ const Projects = () => {
 
         .project-slide:hover .project-img {
           filter: grayscale(0);
-          transform: scale(1.05);
+          transform: scale(1.1);
         }
 
         .project-category {
@@ -118,30 +131,38 @@ const Projects = () => {
           letter-spacing: 2px;
           color: var(--text-grey);
           font-weight: 700;
-          margin-bottom: 15px;
+          margin-bottom: 10px;
           display: block;
+          text-transform: uppercase;
         }
 
         .project-name {
-          font-size: 32px;
+          font-size: 18px;
           font-weight: 800;
           color: #fff;
-          margin-bottom: 20px;
+          margin-bottom: 15px;
+          letter-spacing: 1px;
         }
 
         .project-desc {
-          font-size: 14px;
+          font-size: 12px;
           color: var(--text-grey-light);
           line-height: 1.6;
-          margin-bottom: 30px;
+          margin-bottom: 20px;
         }
 
         .view-project-link {
-          font-size: 10px;
+          font-size: 9px;
           font-weight: 800;
           letter-spacing: 1px;
           color: #fff;
           text-decoration: none;
+          opacity: 0.7;
+          transition: 0.3s;
+        }
+
+        .view-project-link:hover {
+          opacity: 1;
         }
 
         .section-number-container {
@@ -158,12 +179,14 @@ const Projects = () => {
         }
 
         @media (max-width: 1024px) {
-          .project-slide {
-            grid-template-columns: 1fr;
-            padding: 30px;
+          .projects-slider {
+            grid-template-columns: repeat(2, 1fr);
           }
-          .project-image-container {
-            height: 300px;
+        }
+
+        @media (max-width: 768px) {
+          .projects-slider {
+            grid-template-columns: 1fr;
           }
         }
       `}</style>

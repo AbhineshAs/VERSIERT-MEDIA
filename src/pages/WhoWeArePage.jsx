@@ -1,5 +1,6 @@
 import React from 'react';
 import WhoWeAre from '../components/WhoWeAre';
+import AnimatedCounter from '../components/AnimatedCounter';
 import { motion } from 'framer-motion';
 
 const WhoWeArePage = () => {
@@ -28,11 +29,11 @@ const WhoWeArePage = () => {
             </div>
             <div className="dna-stats">
               <div className="stat-card">
-                <h4>99.9%</h4>
+                <h4><AnimatedCounter value={99.9} decimals={1} />%</h4>
                 <p>UPTIME DOMINANCE</p>
               </div>
               <div className="stat-card">
-                <h4>12+</h4>
+                <h4><AnimatedCounter value={12} />+</h4>
                 <p>GLOBAL MARKETS</p>
               </div>
             </div>

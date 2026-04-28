@@ -2,12 +2,15 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Hero from '../components/Hero';
 import WhoWeAre from '../components/WhoWeAre';
+import ClientMarquee from '../components/ClientMarquee';
 import WhatWeDo from '../components/WhatWeDo';
-import Projects from '../components/Projects';
 import QuoteBuilder from '../components/QuoteBuilder';
+import Projects from '../components/Projects';
+import Testimonials from '../components/Testimonials';
 import Enquiry from '../components/Enquiry';
 import Careers from '../components/Careers';
 import WhyVersiert from '../components/WhyVersiert';
+import BottomCTA from '../components/BottomCTA';
 
 
 const Home = () => {
@@ -20,11 +23,15 @@ const Home = () => {
     >
       <Hero />
       <WhoWeAre />
+      <ClientMarquee />
       <WhatWeDo />
       <QuoteBuilder />
       <Projects />
+      <Testimonials />
       <Enquiry />
       <Careers />
+      <WhyVersiert />
+      <BottomCTA />
     </motion.div>
   );
 };

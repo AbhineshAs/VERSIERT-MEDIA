@@ -8,9 +8,9 @@ import SmoothScroll from './components/SmoothScroll';
 import WhoWeArePage from './pages/WhoWeArePage';
 import WhatWeDoPage from './pages/WhatWeDoPage';
 import OurWorkPage from './pages/OurWorkPage';
-import QuoteBuilderPage from './pages/QuoteBuilderPage';
 import EnquiryPage from './pages/EnquiryPage';
 import CareersPage from './pages/CareersPage';
+import ThanksPage from './pages/ThanksPage';
 
 // Scroll to top on route change
 const ScrollToTop = () => {
@@ -30,9 +30,9 @@ const AnimatedRoutes = () => {
         <Route path="/who-we-are" element={<WhoWeArePage />} />
         <Route path="/what-we-do" element={<WhatWeDoPage />} />
         <Route path="/our-work" element={<OurWorkPage />} />
-        <Route path="/quote-builder" element={<QuoteBuilderPage />} />
         <Route path="/enquiry" element={<EnquiryPage />} />
         <Route path="/careers" element={<CareersPage />} />
+        <Route path="/thanks" element={<ThanksPage />} />
       </Routes>
     </AnimatePresence>
   );

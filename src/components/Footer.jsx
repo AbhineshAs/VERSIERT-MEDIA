@@ -17,7 +17,7 @@ const Footer = () => {
           </motion.div>
 
           <div className="footer-bottom">
-            <p className="copyright">© 2024 Versiert Media. All rights reserved.</p>
+            <p className="copyright">© 2026 Versiert Media. All rights reserved.</p>
             <div className="footer-links">
               <a href="#">PRIVACY POLICY</a>
               <a href="#">TERMS & CONDITIONS</a>

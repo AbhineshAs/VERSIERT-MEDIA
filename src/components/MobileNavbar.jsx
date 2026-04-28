@@ -18,10 +18,9 @@ const MobileNavbar = () => {
     { name: 'HOME', path: '/' },
     { name: 'WHO WE ARE', path: '/who-we-are' },
     { name: 'WHAT WE DO', path: '/what-we-do' },
-    { name: 'OUR WORK', path: '/our-work' },
-    { name: 'QUOTE BUILDER', path: '/quote-builder' },
-    { name: 'ENQUIRY', path: '/enquiry' },
-    { name: 'WORK WITH US', path: '/careers' },
+    { name: 'PROJECTS', path: '/our-work' },
+    { name: 'CAREERS', path: '/careers' },
+    { name: 'CONTACT', path: '/enquiry' },
   ];
 
   return (

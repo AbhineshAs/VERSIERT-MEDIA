@@ -31,9 +31,9 @@ const Navbar = () => {
 
         <div className={`nav-links ${isOpen ? 'active' : ''}`}>
           {navLinks.map((link) => (
-            <Link 
-              key={link.name} 
-              to={link.href} 
+            <Link
+              key={link.name}
+              to={link.href}
               className="nav-item"
               onClick={() => setIsOpen(false)}
             >
@@ -153,18 +153,18 @@ const Navbar = () => {
 
           .bar {
             width: 30px;
-            height: 3px;
-            background: #000 !important;
-            transition: var(--transition);
+            height: 2px;
+            background: #fff !important;
+            transition: 0.3s;
             border-radius: 10px;
           }
 
-          .bar.open:nth-child(1) {
-            transform: translateY(5px) rotate(45deg);
+          .mobile-toggle.active .bar:nth-child(1) {
+            transform: translateY(4.5px) rotate(45deg);
           }
 
-          .bar.open:nth-child(2) {
-            transform: translateY(-5px) rotate(-45deg);
+          .mobile-toggle.active .bar:nth-child(2) {
+            transform: translateY(-4.5px) rotate(-45deg);
           }
 
           .nav-actions {

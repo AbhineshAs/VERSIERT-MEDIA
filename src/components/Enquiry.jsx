@@ -7,40 +7,65 @@ const Enquiry = () => {
       <div className="container">
         <div className="enquiry-grid">
           <div className="enquiry-info">
-            <span className="section-pre-title">GET IN TOUCH</span>
-            <h2 className="enquiry-title">ENQUIRY FORM</h2>
-            
+            <span className="section-pre-title">ENQUIRY</span>
+            <h2 className="enquiry-title">Let's build something powerful together.</h2>
+
             <div className="contact-details">
               <div className="detail-item">
                 <label>EMAIL</label>
-                <p>hello@versiertmedia.com</p>
+                <p>hello@versiert.in</p>
               </div>
               <div className="detail-item">
                 <label>PHONE</label>
-                <p>+1 (234) 567-8900</p>
-              </div>
-              <div className="detail-item">
-                <label>ADDRESS</label>
-                <p>123 Digital Street,<br />New York, NY 10001</p>
+                <p>+91 88219 55799</p>
               </div>
             </div>
           </div>
 
           <div className="enquiry-form-wrapper">
-            <form className="minimal-form">
-              <div className="form-group">
-                <input type="text" placeholder="Your Name" className="minimal-input" />
+            <form action="https://formsubmit.co/hello@versiert.in" method="POST" className="minimal-form">
+              <input type="hidden" name="_next" value={window.location.origin + "/thanks"} />
+              <input type="hidden" name="_captcha" value="false" />
+              <div className="form-row">
+                <input type="text" name="name" placeholder="Your Name" className="minimal-input" required />
+                <input type="text" name="company" placeholder="Brand / Company" className="minimal-input" />
+              </div>
+              <div className="form-row">
+                <input type="tel" name="phone" placeholder="Phone Number" className="minimal-input" required />
+                <input type="email" name="email" placeholder="Email Address" className="minimal-input" required />
+              </div>
+              <div className="form-row">
+                <select name="service" className="minimal-input select" required>
+                  <option value="" disabled selected>Service Needed</option>
+                  <option>Video Production</option>
+                  <option>Influencer Marketing</option>
+                  <option>Brand Strategy</option>
+                  <option>Performance Marketing</option>
+                  <option>PR & Media Relations</option>
+                  <option>Web Development</option>
+                  <option>Anchor</option>
+                  <option>Cameraman</option>
+                  <option>Digital Marketer</option>
+                  <option>Content Analyst</option>
+                  <option>Business Development Executive</option>
+                  <option>Scriptwriter</option>
+                  <option>Video editor</option>
+                  <option>Graphics designer</option>
+                </select>
+                <select name="budget" className="minimal-input select" required>
+                  <option value="" disabled selected>Budget Range</option>
+                  <option>₹ 5k - 15k</option>
+                  <option>₹ 15k - 30k</option>
+                  <option>₹ 30k - 50k</option>
+                  <option>₹ 50k+</option>
+                </select>
               </div>
               <div className="form-group">
-                <input type="email" placeholder="Your Email" className="minimal-input" />
+                <textarea name="message" placeholder="Message" className="minimal-input textarea" required></textarea>
               </div>
-              <div className="form-group">
-                <input type="text" placeholder="Company Name" className="minimal-input" />
-              </div>
-              <div className="form-group">
-                <textarea placeholder="Your Message" className="minimal-input textarea"></textarea>
-              </div>
-              <button type="submit" className="minimal-submit">SEND ENQUIRY →</button>
+              <button type="submit" className="minimal-submit" style={{ display: 'inline-block', textAlign: 'center' }}>
+                LET'S TALK
+              </button>
             </form>
           </div>
         </div>
@@ -102,7 +127,13 @@ const Enquiry = () => {
         .minimal-form {
           display: flex;
           flex-direction: column;
-          gap: 30px;
+          gap: 20px;
+        }
+
+        .form-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 20px;
         }
 
         .minimal-input {
@@ -114,6 +145,10 @@ const Enquiry = () => {
           font-size: 13px;
           outline: none;
           transition: 0.3s;
+        }
+
+        .select option {
+          color: #000;
         }
 
         .minimal-input:focus {

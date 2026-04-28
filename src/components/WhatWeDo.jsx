@@ -1,31 +1,58 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import eagleSketch from '../assets/eagle_sketch.png';
-import jaguarSketch from '../assets/jaguar_sketch.png';
-import octopusSketch from '../assets/octopus_sketch.png';
-import dolphinSketch from '../assets/dolphin_sketch.png';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
+import strategyIcon from '../assets/icons8-strategy.gif';
+import contentIcon from '../assets/icons8-thumbnail-view.gif';
+import platformIcon from '../assets/icons8-cross-platform-78.png';
+import engagementIcon from '../assets/icons8-omnichannel.gif';
 
 const WhatWeDo = () => {
+  const [active, setActive] = useState(null);
+
   const services = [
     {
-      title: 'WEB DESIGN & DEVELOPMENT',
-      text: 'Modern, responsive and high-performing websites tailored to your brand.',
-      icon: '💻'
+      title: 'STRATEGY',
+      img: strategyIcon,
+      subtitle: 'Strategic Thinking That Drives Growth',
+      desc: 'At Versiert, strategy isn’t just planning—it’s the foundation of everything we build. We combine market intelligence, data-driven insights, and creative thinking to craft strategies that position your brand for long-term success.',
+      details: [
+        { label: 'Our Approach', text: 'We start by understanding your business, your audience, and your competitive landscape. From there, we design tailored strategies that align with your goals and unlock new growth opportunities.' },
+        { label: 'Data-Driven Decisions', text: 'Every move we make is backed by research and analytics. This ensures that your brand isn’t just visible—but impactful where it matters most.' },
+        { label: 'Long-Term Impact', text: 'Our strategies are built to scale, adapt, and evolve—helping you stay ahead in a constantly changing digital world.' }
+      ]
     },
     {
-      title: 'BRANDING & IDENTITY',
-      text: 'Crafting unique brand identities that connect and leave a lasting impression.',
-      icon: '🎨'
+      title: 'CONTENT EXECUTION',
+      img: contentIcon,
+      subtitle: 'Content That Performs',
+      desc: 'Great ideas mean nothing without execution. At Versiert, we transform strategy into powerful, high-performing content that connects, engages, and converts.',
+      details: [
+        { label: 'SEO-Optimized Content', text: 'We create content designed to rank. From blogs to landing pages, every piece is crafted with search visibility and user intent in mind.' },
+        { label: 'Multi-Format Creation', text: 'Whether it’s written content, visuals, videos, or campaigns—we deliver cohesive storytelling across formats.' },
+        { label: 'Conversion-Focused Execution', text: 'Our content doesn’t just attract attention—it drives action. Every asset is built to guide users through your funnel.' }
+      ]
     },
     {
-      title: 'DIGITAL MARKETING',
-      text: 'Data-driven marketing strategies to grow your brand and reach.',
-      icon: '📈'
+      title: 'MULTI-PLATFORM',
+      img: platformIcon,
+      subtitle: 'Be Everywhere That Matters',
+      desc: 'Your audience doesn’t live on one platform—and neither should your brand. We ensure your presence is strong, consistent, and optimized across all digital touchpoints.',
+      details: [
+        { label: 'Omnichannel Strategy', text: 'We build integrated strategies that connect your website, social media, and digital campaigns into one seamless experience.' },
+        { label: 'Platform-Specific Optimization', text: 'Each platform has its own language. We tailor your content and messaging to perform on every channel.' },
+        { label: 'Unified Brand Experience', text: 'No matter where your audience finds you, they experience the same powerful, consistent brand identity.' }
+      ]
     },
     {
-      title: 'UI/UX STRATEGY',
-      text: 'User-centered design strategies that create meaningful experiences.',
-      icon: '📱'
+      title: 'ENGAGEMENT',
+      img: engagementIcon,
+      subtitle: 'Turning Attention Into Loyalty',
+      desc: 'Engagement is more than likes and clicks—it’s about building meaningful relationships with your audience.',
+      details: [
+        { label: 'Audience Insights', text: 'We analyze behavior, preferences, and trends to understand what truly connects with your audience.' },
+        { label: 'Interactive Content', text: 'From dynamic campaigns to engaging formats, we create experiences that invite participation.' },
+        { label: 'Community Building', text: 'We help you build a loyal audience that doesn’t just follow your brand—but believes in it.' }
+      ]
     }
   ];
 
@@ -48,27 +75,58 @@ const WhatWeDo = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            OUR SERVICES
+            Solutions that drive impact.
           </motion.h2>
         </div>
 
         <div className="services-grid">
           {services.map((service, index) => (
-            <motion.div
+            <div
               key={index}
-              className="service-card"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              className={`service-card ${active === index ? 'active' : ''}`}
+              onClick={() => setActive(active === index ? null : index)}
             >
-              <div className="service-icon">{service.icon}</div>
-              <h3 className="service-card-title">{service.title}</h3>
-              <p className="service-card-text">{service.text}</p>
-              <a href="#" className="learn-more-btn">LEARN MORE →</a>
-            </motion.div>
+              <div className="service-visual">
+                <img src={service.img} alt={service.title} className="service-icon-img" />
+              </div>
+              <div className="service-info">
+                <h3 className="service-card-title">{service.title}</h3>
+                <ArrowRight size={16} className="card-arrow" />
+              </div>
+            </div>
           ))}
         </div>
+
+        <AnimatePresence mode="wait">
+          {active !== null && (
+            <motion.div
+              key={active}
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
+              style={{ overflow: 'hidden' }}
+            >
+              <div className="service-details-container">
+                <p className="service-details-desc">
+                  <strong className="service-details-subtitle">{services[active].subtitle}</strong>
+                  {services[active].desc}
+                </p>
+                <ul className="service-details-list">
+                  {services[active].details.map((detail, i) => (
+                    <li key={i} className="service-detail-item">
+                      <div className="service-detail-header">
+                        <div className="orange-dot" />
+                        <strong>{detail.label}</strong>
+                      </div>
+                      <span className="service-detail-text">{detail.text}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       <div className="section-number-container">
@@ -115,49 +173,112 @@ const WhatWeDo = () => {
           display: flex;
           flex-direction: column;
           height: 100%;
-          transition: 0.3s;
+          transition: all 0.3s ease;
+          cursor: pointer;
         }
 
-        .service-card:hover {
+        .service-card:hover, .service-card.active {
           background: rgba(255, 255, 255, 0.04);
-          border-color: rgba(255, 255, 255, 0.1);
+          border-color: rgba(255, 255, 255, 0.2);
           transform: translateY(-5px);
         }
 
-        .service-icon {
-          font-size: 24px;
+        .service-visual {
+          width: 100%;
+          aspect-ratio: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           margin-bottom: 30px;
-          opacity: 0.8;
+          background: #fff;
+        }
+
+        .service-icon-img {
+          max-width: 50%;
+          max-height: 50%;
+          object-fit: contain;
+        }
+
+        .service-info {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-top: auto;
         }
 
         .service-card-title {
-          font-size: 14px;
+          font-size: 11px;
           font-weight: 800;
           color: #fff;
-          margin-bottom: 20px;
-          line-height: 1.4;
-        }
-
-        .service-card-text {
-          font-size: 12px;
-          color: var(--text-grey-light);
-          line-height: 1.6;
-          margin-bottom: auto;
-          padding-bottom: 30px;
-        }
-
-        .learn-more-btn {
-          font-size: 9px;
-          font-weight: 800;
           letter-spacing: 1px;
-          color: #fff;
-          text-decoration: none;
-          opacity: 0.7;
-          transition: 0.3s;
         }
 
-        .learn-more-btn:hover {
+        .card-arrow {
+          color: #fff;
+          opacity: 0.5;
+          transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .service-card:hover .card-arrow, .service-card.active .card-arrow {
           opacity: 1;
+          transform: translateX(5px);
+        }
+
+        .service-details-container {
+          padding: 60px 0 0 0;
+          display: grid;
+          grid-template-columns: 1.5fr 1fr;
+          gap: 60px;
+          color: #fff;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          margin-top: 60px;
+        }
+
+        .service-details-desc {
+          font-size: 18px;
+          color: var(--text-grey);
+          line-height: 1.6;
+        }
+
+        .service-details-subtitle {
+          display: block;
+          color: #fff;
+          margin-bottom: 10px;
+        }
+
+        .service-details-list {
+          list-style: none;
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+        }
+
+        .service-detail-item {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          font-size: 14px;
+        }
+
+        .service-detail-header {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          color: #fff;
+          font-size: 16px;
+        }
+
+        .orange-dot {
+          width: 6px;
+          height: 6px;
+          background: var(--primary-orange, #FF4D00);
+          border-radius: 50%;
+        }
+
+        .service-detail-text {
+          color: var(--text-grey);
+          padding-left: 16px;
+          line-height: 1.5;
         }
 
         .section-number-container {
@@ -179,9 +300,13 @@ const WhatWeDo = () => {
           }
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
           .services-grid {
             grid-template-columns: 1fr;
+          }
+          .service-details-container {
+            grid-template-columns: 1fr;
+            gap: 40px;
           }
         }
       `}</style>

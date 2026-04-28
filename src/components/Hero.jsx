@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import lionSketch from '../assets/lion_sketch.png';
 import SplitText from './SplitText';
 
 const Hero = () => {
@@ -9,15 +8,15 @@ const Hero = () => {
 
   return (
     <section className="hero">
-      <motion.div 
+      <motion.div
         className="hero-glow"
-        animate={{ 
+        animate={{
           scale: [1, 1.2, 1],
-          opacity: [0.3, 0.5, 0.3] 
+          opacity: [0.3, 0.5, 0.3]
         }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
-      
+
       <div className="side-left">
         <div className="social-links-vertical">
           <a href="#">IG</a>
@@ -32,17 +31,22 @@ const Hero = () => {
       </div>
 
       <div className="container hero-container">
-        <motion.div 
+        <motion.div
           className="hero-content"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
         >
-          <span className="hero-pre-title">WE ARE</span>
+          <span className="hero-pre-title">VERSIERT MEDIA</span>
           <h1 className="hero-title">
-            VERSIERT<br />MEDIA
+            WE BUILD BRANDS<br />THAT RULE.
           </h1>
-          <p className="hero-tagline">A CREATIVE DIGITAL AGENCY</p>
+          <p className="hero-sub-heading">Strategy. Content. Authority.</p>
+          <p className="hero-desc">We are a media & PR agency that helps brands gain attention, build trust and create impact that lasts.</p>
+          <div className="hero-btns">
+            <button className="btn-primary">GET A QUOTE</button>
+            <button className="btn-outline">VIEW OUR WORK</button>
+          </div>
         </motion.div>
       </div>
 
@@ -94,11 +98,55 @@ const Hero = () => {
           text-transform: uppercase;
         }
 
-        .hero-tagline {
+        .hero-sub-heading {
+          font-size: 18px;
+          font-weight: 700;
+          color: #fff;
+          margin-bottom: 20px;
+          letter-spacing: 1px;
+        }
+
+        .hero-desc {
+          font-size: 14px;
+          color: var(--text-grey-light);
+          max-width: 500px;
+          margin: 0 auto 40px;
+          line-height: 1.8;
+        }
+
+        .hero-btns {
+          display: flex;
+          gap: 20px;
+          justify-content: center;
+        }
+
+        .btn-primary {
+          background: #fff;
+          color: #000;
+          border: none;
+          padding: 15px 30px;
           font-size: 10px;
-          letter-spacing: 6px;
-          color: var(--text-grey);
-          text-transform: uppercase;
+          font-weight: 800;
+          letter-spacing: 2px;
+          cursor: pointer;
+          transition: 0.3s;
+        }
+
+        .btn-outline {
+          background: transparent;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          color: #fff;
+          padding: 15px 30px;
+          font-size: 10px;
+          font-weight: 800;
+          letter-spacing: 2px;
+          cursor: pointer;
+          transition: 0.3s;
+        }
+
+        .btn-outline:hover {
+          background: #fff;
+          color: #000;
         }
 
         .side-left {

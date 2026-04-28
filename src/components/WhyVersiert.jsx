@@ -1,24 +1,24 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import bearSketch from '../assets/bear_sketch.png';
+import whyImage from '../assets/economic-information-with-executives-negotiating-background.jpg';
 
 const WhyVersiert = () => {
   const reasons = [
     {
-      title: 'Strategy-First',
-      desc: 'Everything we do is backed by insight and research.'
+      title: 'Proven Results',
+      desc: 'We focus on outcomes that matter—growth, engagement, and ROI.'
     },
     {
-      title: 'Creative Storytelling',
-      desc: 'We craft stories that connect and leave a lasting impression.'
+      title: 'Data Meets Creativity',
+      desc: 'We combine analytical thinking with creative execution to deliver impactful solutions.'
     },
     {
-      title: 'Consistent Execution',
-      desc: 'From idea to execution, we deliver with precision.'
+      title: 'End-to-End Execution',
+      desc: 'From strategy to execution, we handle every aspect of your digital journey.'
     },
     {
-      title: 'Results Driven',
-      desc: 'We focus on what matters - growth, visibility and ROI.'
+      title: 'What Sets Us Apart',
+      desc: 'We don’t believe in one-size-fits-all solutions. Everything we do is tailored, intentional, and designed to create lasting impact.'
     }
   ];
 
@@ -27,8 +27,11 @@ const WhyVersiert = () => {
       <div className="container">
         <div className="why-grid">
           <div className="why-content">
-            <span className="section-pre-title">WHY VERSIERT?</span>
-            <h2>The instinct behind<br />every great brand.</h2>
+            <span className="section-pre-title">WHY VERSIERT</span>
+            <h2>More Than an Agency—<br />A Growth Partner</h2>
+            <p style={{ color: 'var(--text-grey-light)', marginBottom: '40px', fontSize: '16px', lineHeight: '1.6' }}>
+              Choosing Versiert means choosing a team that is invested in your success.
+            </p>
 
             <div className="reasons-grid">
               {reasons.map((r, i) => (
@@ -43,8 +46,8 @@ const WhyVersiert = () => {
 
           <div className="why-visual">
             <motion.img
-              src={bearSketch}
-              alt="Bear Sketch"
+              src={whyImage}
+              alt="Business Strategy"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
