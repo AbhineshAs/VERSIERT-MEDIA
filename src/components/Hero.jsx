@@ -44,8 +44,8 @@ const Hero = () => {
           <p className="hero-sub-heading">Strategy. Content. Authority.</p>
           <p className="hero-desc">We are a media & PR agency that helps brands gain attention, build trust and create impact that lasts.</p>
           <div className="hero-btns">
-            <button className="btn-primary">GET A QUOTE</button>
-            <button className="btn-outline">VIEW OUR WORK</button>
+            <a href="#enquiry" className="btn-primary">GET A QUOTE</a>
+            <a href="#our-work" className="btn-outline">VIEW OUR WORK</a>
           </div>
         </motion.div>
       </div>
@@ -130,6 +130,9 @@ const Hero = () => {
           letter-spacing: 2px;
           cursor: pointer;
           transition: 0.3s;
+          text-decoration: none;
+          display: inline-block;
+          text-align: center;
         }
 
         .btn-outline {
@@ -142,6 +145,9 @@ const Hero = () => {
           letter-spacing: 2px;
           cursor: pointer;
           transition: 0.3s;
+          text-decoration: none;
+          display: inline-block;
+          text-align: center;
         }
 
         .btn-outline:hover {
@@ -207,6 +213,18 @@ const Hero = () => {
         @media (max-width: 1024px) {
           .side-left, .side-right {
             display: none;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .hero-btns {
+            flex-direction: column;
+            width: 100%;
+            padding: 0 20px;
+          }
+          .btn-primary, .btn-outline {
+            width: 100%;
+            box-sizing: border-box;
           }
         }
       `}</style>

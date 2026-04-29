@@ -3,11 +3,15 @@ import WhoWeAre from '../components/WhoWeAre';
 import AnimatedCounter from '../components/AnimatedCounter';
 import { motion } from 'framer-motion';
 
+import imgAbhiram from '../assets/2026-04-29 11.08.43.jpg';
+import imgRoshin from '../assets/2026-04-29 11.09.22.jpg';
+import imgMadhavan from '../assets/2026-04-29 11.09.09.jpg';
+
 const WhoWeArePage = () => {
   const team = [
-    { role: 'FOUNDER & CEO', name: 'ADARSH S.', img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80' },
-    { role: 'CREATIVE DIRECTOR', name: 'SARAH J.', img: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80' },
-    { role: 'STRATEGY HEAD', name: 'MARCUS L.', img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=80' }
+    { role: 'FOUNDER & CEO', name: 'ABHIRAM JAYAN', img: imgAbhiram },
+    { role: 'CREATIVE DIRECTOR', name: 'ROSHIN FRANCIS', img: imgRoshin },
+    { role: 'STRATEGY HEAD', name: 'MADHAVAN', img: imgMadhavan }
   ];
 
   return (
@@ -214,7 +218,7 @@ const WhoWeArePage = () => {
 
         .team-img-container {
           height: 450px;
-          background: #111;
+          background: #000;
           margin-bottom: 25px;
           overflow: hidden;
           border: 1px solid rgba(255, 255, 255, 0.05);

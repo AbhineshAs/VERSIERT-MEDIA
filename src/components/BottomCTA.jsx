@@ -13,8 +13,8 @@ const BottomCTA = () => {
               <span>It deserves dominance.</span>
             </h2>
             <div className="cta-btns">
-              <button className="btn-primary">GET A QUOTE</button>
-              <button className="btn-outline">CONTACT US</button>
+              <a href="#enquiry" className="btn-primary">GET A QUOTE</a>
+              <a href="#enquiry" className="btn-outline">CONTACT US</a>
             </div>
           </div>
           <div className="cta-visual">
@@ -74,6 +74,9 @@ const BottomCTA = () => {
           font-weight: 800;
           letter-spacing: 2px;
           cursor: pointer;
+          text-decoration: none;
+          display: inline-block;
+          text-align: center;
         }
 
         .btn-outline {
@@ -85,6 +88,9 @@ const BottomCTA = () => {
           font-weight: 800;
           letter-spacing: 2px;
           cursor: pointer;
+          text-decoration: none;
+          display: inline-block;
+          text-align: center;
         }
 
         .phoenix-img {
@@ -111,6 +117,14 @@ const BottomCTA = () => {
         @media (max-width: 768px) {
           .cta-text {
             font-size: 32px;
+          }
+          .cta-btns {
+            flex-direction: column;
+            width: 100%;
+          }
+          .btn-primary, .btn-outline {
+            width: 100%;
+            box-sizing: border-box;
           }
         }
       `}</style>

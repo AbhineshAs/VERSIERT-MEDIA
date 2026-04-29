@@ -2,6 +2,17 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const Enquiry = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+    
+    const text = `*New Enquiry*\n\n*Name:* ${data.name}\n*Company:* ${data.company || 'N/A'}\n*Phone:* ${data.phone}\n*Email:* ${data.email}\n*Service:* ${data.service}\n*Budget:* ${data.budget}\n*Message:* ${data.message}`;
+    
+    const whatsappUrl = `https://wa.me/919188219557?text=${encodeURIComponent(text)}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
   return (
     <section id="enquiry" className="enquiry">
       <div className="container">
@@ -17,15 +28,13 @@ const Enquiry = () => {
               </div>
               <div className="detail-item">
                 <label>PHONE</label>
-                <p>+91 88219 55799</p>
+                <p>+91 9188219557</p>
               </div>
             </div>
           </div>
 
           <div className="enquiry-form-wrapper">
-            <form action="https://formsubmit.co/hello@versiert.in" method="POST" className="minimal-form">
-              <input type="hidden" name="_next" value={window.location.origin + "/thanks"} />
-              <input type="hidden" name="_captcha" value="false" />
+            <form onSubmit={handleSubmit} className="minimal-form">
               <div className="form-row">
                 <input type="text" name="name" placeholder="Your Name" className="minimal-input" required />
                 <input type="text" name="company" placeholder="Brand / Company" className="minimal-input" />

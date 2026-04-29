@@ -93,10 +93,11 @@ const Testimonials = () => {
         }
 
         .review-card {
-          flex: 0 0 500px;
+          flex: 0 0 320px;
+          height: 320px;
           background: rgba(255, 255, 255, 0.02);
           border: 1px solid rgba(255, 255, 255, 0.05);
-          padding: 50px 40px;
+          padding: 40px 30px;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
@@ -120,10 +121,10 @@ const Testimonials = () => {
         }
 
         .review-text {
-          font-size: 18px;
+          font-size: 16px;
           color: var(--text-grey);
           line-height: 1.6;
-          margin-bottom: 40px;
+          margin-bottom: 20px;
           font-style: italic;
           position: relative;
           z-index: 1;
@@ -153,11 +154,12 @@ const Testimonials = () => {
 
         @media (max-width: 768px) {
           .review-card {
-            flex: 0 0 350px;
-            padding: 40px 30px;
+            flex: 0 0 280px;
+            height: 280px;
+            padding: 30px 20px;
           }
           .review-text {
-            font-size: 16px;
+            font-size: 14px;
           }
         }
       `}</style>
