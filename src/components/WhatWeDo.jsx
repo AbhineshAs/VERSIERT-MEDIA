@@ -302,6 +302,12 @@ const WhatWeDo = () => {
         }
 
         @media (max-width: 768px) {
+          .what-we-do {
+            padding: 100px 20px;
+          }
+          .services-title {
+            font-size: 32px;
+          }
           .services-grid {
             grid-template-columns: 1fr;
           }

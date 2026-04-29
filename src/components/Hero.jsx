@@ -217,10 +217,19 @@ const Hero = () => {
         }
 
         @media (max-width: 768px) {
+          .hero-title {
+            font-size: clamp(40px, 12vw, 60px);
+            margin-bottom: 20px;
+          }
+          .hero-desc {
+            padding: 0 20px;
+            margin-bottom: 30px;
+          }
           .hero-btns {
             flex-direction: column;
             width: 100%;
             padding: 0 20px;
+            gap: 15px;
           }
           .btn-primary, .btn-outline {
             width: 100%;

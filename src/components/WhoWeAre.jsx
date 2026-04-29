@@ -192,6 +192,18 @@ const WhoWeAre = () => {
             height: 400px;
           }
         }
+
+        @media (max-width: 768px) {
+          .who-we-are {
+            padding: 100px 20px;
+          }
+          .who-title {
+            font-size: 32px;
+          }
+          .visual-wrapper {
+            height: 300px;
+          }
+        }
       `}</style>
     </section>
   );

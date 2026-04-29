@@ -153,6 +153,9 @@ const Testimonials = () => {
         }
 
         @media (max-width: 768px) {
+          .testimonials {
+            padding: 100px 0;
+          }
           .review-card {
             flex: 0 0 280px;
             height: 280px;
