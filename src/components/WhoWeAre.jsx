@@ -27,17 +27,17 @@ const WhoWeAre = () => {
 
               <div className="features-grid">
                 <div className="feature-item">
-                  <div className="feature-icon">🎯</div>
+                  <div className="feature-icon"></div>
                   <span className="feature-label">OUR MISSION</span>
                   <p className="feature-desc">To help brands grow through intelligent strategy, powerful content, and meaningful engagement.</p>
                 </div>
                 <div className="feature-item">
-                  <div className="feature-icon">💡</div>
+                  <div className="feature-icon"></div>
                   <span className="feature-label">OUR APPROACH</span>
                   <p className="feature-desc">We blend creativity with analytics to deliver solutions that are both innovative and effective.</p>
                 </div>
                 <div className="feature-item">
-                  <div className="feature-icon">🤝</div>
+                  <div className="feature-icon"></div>
                   <span className="feature-label">OUR TEAM</span>
                   <p className="feature-desc">Our strength lies in collaboration—bringing together diverse skills to solve complex challenges and deliver exceptional results.</p>
                 </div>
