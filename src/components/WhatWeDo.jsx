@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import strategyIcon from '../assets/icons8-strategy.gif';
-import contentIcon from '../assets/icons8-thumbnail-view.gif';
-import platformIcon from '../assets/icons8-cross-platform-78.png';
-import engagementIcon from '../assets/icons8-omnichannel.gif';
+import strategyIcon from '../assets/48653.jpg';
+import contentIcon from '../assets/2675912.jpg';
+import platformIcon from '../assets/6248154.jpg';
+import engagementIcon from '../assets/abstract-networking-concept-still-life-assortment.jpg';
 
 const WhatWeDo = () => {
   const [active, setActive] = useState(null);
@@ -190,13 +190,14 @@ const WhatWeDo = () => {
           align-items: center;
           justify-content: center;
           margin-bottom: 30px;
-          background: #fff;
+          background: #111;
+          overflow: hidden;
         }
 
         .service-icon-img {
-          max-width: 50%;
-          max-height: 50%;
-          object-fit: contain;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
         }
 
         .service-info {
