@@ -10,7 +10,7 @@
   --accent-color: #FFFFFF;
   --font-main: 'Inter', 'Outfit', sans-serif;
   --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  --section-padding: 120px 8%;
+  --section-padding: 80px 8%;
 }
 
 * {
@@ -170,6 +170,10 @@ button {
 }
 
 @media (max-width: 768px) {
+  :root {
+    --section-padding: 60px 5%;
+  }
+
   h1 {
     font-size: 40px !important;
   }

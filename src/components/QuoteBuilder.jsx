@@ -270,7 +270,7 @@ const QuoteBuilder = () => {
 
       <style jsx>{`
         .quote-builder-section {
-          padding: 150px 0;
+          padding: 80px 0;
           background: #000;
           color: #fff;
           border-top: 1px solid rgba(255, 255, 255, 0.05);
@@ -479,8 +479,8 @@ const QuoteBuilder = () => {
 
         .section-number-container {
           position: absolute;
-          left: 5%;
-          bottom: 5%;
+          left: 20px;
+          bottom: 20px;
         }
 
         .section-number {
@@ -501,6 +501,24 @@ const QuoteBuilder = () => {
           .qb-total-section {
             align-items: flex-start;
             text-align: left;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .quote-builder-section {
+            padding: 60px 0;
+          }
+          .qb-grid {
+            gap: 30px;
+          }
+          .qb-title {
+            margin-bottom: 10px;
+          }
+          .qb-desc {
+            margin-bottom: 20px;
+          }
+          .section-number-container {
+            display: none;
           }
         }
       `}</style>

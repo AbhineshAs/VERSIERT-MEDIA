@@ -75,7 +75,7 @@ const WhatWeDoPage = () => {
         }
 
         .verticals, .workflow {
-          padding: 150px 0;
+          padding: 80px 0;
           border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
@@ -92,7 +92,7 @@ const WhatWeDoPage = () => {
           font-weight: 800;
           color: #fff;
           letter-spacing: 2px;
-          margin-bottom: 60px;
+          margin-bottom: 40px;
         }
 
         .verticals-grid {
@@ -178,6 +178,12 @@ const WhatWeDoPage = () => {
         @media (max-width: 1024px) {
           .verticals-grid, .workflow-grid {
             grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        @media (max-width: 768px) {
+          .verticals, .workflow {
+            padding: 60px 0;
           }
         }
 

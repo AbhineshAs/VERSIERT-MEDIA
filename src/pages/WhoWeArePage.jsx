@@ -49,21 +49,21 @@ const WhoWeArePage = () => {
           </div>
           <div className="timeline">
             <div className="timeline-item">
-              <div className="t-year">2018</div>
+              <div className="t-year">2024</div>
               <div className="t-content">
                 <h3>THE SPARK</h3>
                 <p>Versiert Media is born in a small workspace in Trivandrum, focused on disruptive social content.</p>
               </div>
             </div>
             <div className="timeline-item">
-              <div className="t-year">2020</div>
+              <div className="t-year">2025</div>
               <div className="t-content">
                 <h3>REGIONAL EXPANSION</h3>
                 <p>Establishing our creative hub in Ernakulam, we leveled up our capabilities to transform ambitious brands into undeniable market leaders through high-impact storytelling.</p>
               </div>
             </div>
             <div className="timeline-item">
-              <div className="t-year">2023</div>
+              <div className="t-year">2026</div>
               <div className="t-content">
                 <h3>DOMINANCE</h3>
                 <p>Reached 50+ clients across India and globally, launching our proprietary AI strategy engine.</p>
@@ -97,7 +97,7 @@ const WhoWeArePage = () => {
         }
 
         .dna-section, .milestones, .leadership {
-          padding: 150px 0;
+          padding: 80px 0;
           border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
@@ -127,7 +127,7 @@ const WhoWeArePage = () => {
         .dna-grid {
           display: grid;
           grid-template-columns: 1.5fr 1fr;
-          gap: 80px;
+          gap: 50px;
           align-items: center;
         }
 
@@ -164,7 +164,7 @@ const WhoWeArePage = () => {
         .timeline-item {
           display: flex;
           gap: 50px;
-          margin-bottom: 60px;
+          margin-bottom: 40px;
           position: relative;
         }
 
@@ -247,6 +247,9 @@ const WhoWeArePage = () => {
         }
 
         @media (max-width: 768px) {
+          .dna-section, .milestones, .leadership {
+            padding: 60px 0;
+          }
           .team-grid {
             grid-template-columns: 1fr;
           }

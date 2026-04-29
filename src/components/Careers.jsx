@@ -52,16 +52,16 @@ const Careers = () => {
 
       <style jsx>{`
         .careers {
-          padding: 150px 0;
-          background: #000;
+          padding: 80px 0;
+          background-color: var(--bg-black);
           position: relative;
-          border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .careers-grid {
           display: grid;
-          grid-template-columns: 1fr 1.5fr;
-          gap: 100px;
+          grid-template-columns: 1fr 1fr;
+          gap: 60px;
+          align-items: center;
         }
 
         .section-pre-title {
@@ -150,8 +150,8 @@ const Careers = () => {
 
         .section-number-container {
           position: absolute;
-          left: 5%;
-          bottom: 5%;
+          left: 20px;
+          bottom: 20px;
         }
 
         .section-number {
@@ -165,6 +165,15 @@ const Careers = () => {
           .careers-grid {
             grid-template-columns: 1fr;
             gap: 60px;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .careers {
+            padding: 60px 0;
+          }
+          .section-number-container {
+            display: none;
           }
         }
       `}</style>

@@ -60,7 +60,7 @@ const WhoWeAre = () => {
 
       <style jsx>{`
         .who-we-are {
-          padding: 150px 0;
+          padding: 80px 0;
           background: #000;
           position: relative;
           overflow: hidden;
@@ -69,7 +69,7 @@ const WhoWeAre = () => {
         .who-grid {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 100px;
+          gap: 60px;
           align-items: center;
         }
 
@@ -172,8 +172,8 @@ const WhoWeAre = () => {
 
         .section-number-container {
           position: absolute;
-          left: 5%;
-          bottom: 5%;
+          left: 20px;
+          bottom: 20px;
         }
 
         .section-number {
@@ -195,13 +195,19 @@ const WhoWeAre = () => {
 
         @media (max-width: 768px) {
           .who-we-are {
-            padding: 100px 20px;
+            padding: 60px 20px;
+          }
+          .who-grid {
+            gap: 40px;
           }
           .who-title {
             font-size: 32px;
           }
           .visual-wrapper {
             height: 300px;
+          }
+          .section-number-container {
+            display: none;
           }
         }
       `}</style>

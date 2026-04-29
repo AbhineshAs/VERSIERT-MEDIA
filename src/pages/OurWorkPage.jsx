@@ -65,7 +65,7 @@ const OurWorkPage = () => {
         }
 
         .insight-section {
-          padding: 150px 0;
+          padding: 80px 0;
           border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
@@ -82,11 +82,11 @@ const OurWorkPage = () => {
           font-weight: 800;
           color: #fff;
           letter-spacing: 2px;
-          margin-bottom: 60px;
+          margin-bottom: 40px;
         }
 
         .key-stats {
-          padding: 100px 0;
+          padding: 60px 0;
           background: rgba(255, 255, 255, 0.01);
           border-top: 1px solid rgba(255, 255, 255, 0.05);
           border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -116,7 +116,7 @@ const OurWorkPage = () => {
         .insight-content {
           display: grid;
           grid-template-columns: 1.2fr 1fr;
-          gap: 80px;
+          gap: 50px;
           align-items: center;
         }
 
@@ -178,6 +178,12 @@ const OurWorkPage = () => {
           .stats-strip {
             grid-template-columns: repeat(2, 1fr);
             gap: 40px;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .insight-section {
+            padding: 60px 0;
           }
         }
 

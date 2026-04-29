@@ -198,8 +198,8 @@ const Hero = () => {
 
         .section-number-container {
           position: absolute;
-          left: 5%;
-          bottom: 5%;
+          left: 20px;
+          bottom: 20px;
           z-index: 2;
         }
 
@@ -234,6 +234,9 @@ const Hero = () => {
           .btn-primary, .btn-outline {
             width: 100%;
             box-sizing: border-box;
+          }
+          .section-number-container {
+            display: none;
           }
         }
       `}</style>

@@ -33,17 +33,16 @@ const BottomCTA = () => {
 
       <style jsx>{`
         .bottom-cta {
-          padding: 150px 0;
+          padding: 80px 0;
           background: #000;
           position: relative;
-          border-top: 1px solid rgba(255, 255, 255, 0.05);
           overflow: hidden;
         }
 
         .cta-grid {
           display: grid;
-          grid-template-columns: 1.5fr 1fr;
-          gap: 80px;
+          grid-template-columns: 1fr 1fr;
+          gap: 50px;
           align-items: center;
         }
 
@@ -115,6 +114,12 @@ const BottomCTA = () => {
         }
 
         @media (max-width: 768px) {
+          .bottom-cta {
+            padding: 60px 0;
+          }
+          .cta-grid {
+            gap: 40px;
+          }
           .cta-text {
             font-size: 32px;
           }

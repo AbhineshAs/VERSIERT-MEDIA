@@ -51,7 +51,7 @@ const Testimonials = () => {
 
       <style jsx>{`
         .testimonials {
-          padding: 150px 0;
+          padding: 80px 0;
           background: #000;
           position: relative;
           overflow: hidden;
@@ -59,7 +59,7 @@ const Testimonials = () => {
 
         .section-header {
           text-align: center;
-          margin-bottom: 80px;
+          margin-bottom: 40px;
         }
 
         .section-pre-title {
@@ -94,6 +94,9 @@ const Testimonials = () => {
 
         .review-card {
           flex: 0 0 320px;
+          width: 320px;
+          min-width: 320px;
+          max-width: 320px;
           height: 320px;
           background: rgba(255, 255, 255, 0.02);
           border: 1px solid rgba(255, 255, 255, 0.05);
@@ -103,6 +106,7 @@ const Testimonials = () => {
           justify-content: space-between;
           position: relative;
           transition: 0.3s;
+          aspect-ratio: 1 / 1;
         }
 
         .review-card:hover {
@@ -128,6 +132,8 @@ const Testimonials = () => {
           font-style: italic;
           position: relative;
           z-index: 1;
+          white-space: normal;
+          word-wrap: break-word;
         }
 
         .review-author h4 {
@@ -154,10 +160,16 @@ const Testimonials = () => {
 
         @media (max-width: 768px) {
           .testimonials {
-            padding: 100px 0;
+            padding: 60px 0;
+          }
+          .section-header {
+            margin-bottom: 40px;
           }
           .review-card {
             flex: 0 0 280px;
+            width: 280px;
+            min-width: 280px;
+            max-width: 280px;
             height: 280px;
             padding: 30px 20px;
           }

@@ -86,16 +86,17 @@ const Enquiry = () => {
 
       <style jsx>{`
         .enquiry {
-          padding: 150px 0;
-          background: #000;
+          padding: 80px 0;
+          background-color: var(--bg-black);
           position: relative;
-          border-top: 1px solid rgba(255, 255, 255, 0.05);
+          overflow: hidden;
         }
 
         .enquiry-grid {
           display: grid;
-          grid-template-columns: 1fr 1.5fr;
-          gap: 100px;
+          grid-template-columns: 1fr 1fr;
+          gap: 60px;
+          align-items: center;
         }
 
         .section-pre-title {
@@ -110,7 +111,7 @@ const Enquiry = () => {
           font-size: 32px;
           font-weight: 800;
           color: #fff;
-          margin-bottom: 60px;
+          margin-bottom: 40px;
         }
 
         .contact-details {
@@ -189,8 +190,8 @@ const Enquiry = () => {
 
         .section-number-container {
           position: absolute;
-          left: 5%;
-          bottom: 5%;
+          left: 20px;
+          bottom: 20px;
         }
 
         .section-number {
@@ -204,6 +205,18 @@ const Enquiry = () => {
           .enquiry-grid {
             grid-template-columns: 1fr;
             gap: 60px;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .enquiry {
+            padding: 60px 0;
+          }
+          .enquiry-title {
+            margin-bottom: 30px;
+          }
+          .section-number-container {
+            display: none;
           }
         }
       `}</style>

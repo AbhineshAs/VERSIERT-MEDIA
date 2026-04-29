@@ -28,18 +28,23 @@ const Footer = () => {
 
       <style jsx>{`
         .footer {
-          padding: 100px 0 50px;
+          padding: 60px 0 30px;
           background: #000;
+          position: relative;
           border-top: 1px solid rgba(255, 255, 255, 0.05);
-          text-align: center;
         }
 
-        .footer-tagline {
-          font-size: 8px;
-          letter-spacing: 4px;
-          color: var(--text-grey);
-          display: block;
-          margin-bottom: 20px;
+        .container {
+          max-width: 1400px;
+          margin: 0 auto;
+          padding: 0 5%;
+        }
+
+        .footer-top {
+          display: grid;
+          grid-template-columns: 2fr 1fr 1fr;
+          gap: 40px;
+          margin-bottom: 40px;
         }
 
         .footer-title {
@@ -82,6 +87,12 @@ const Footer = () => {
         }
 
         @media (max-width: 768px) {
+          .footer {
+            padding: 60px 0 30px;
+          }
+          .footer-top {
+            margin-bottom: 40px;
+          }
           .footer-bottom {
             flex-direction: column;
             gap: 20px;

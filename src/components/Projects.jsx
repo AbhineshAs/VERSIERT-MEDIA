@@ -61,14 +61,14 @@ const Projects = () => {
 
       <style jsx>{`
         .our-work {
-          padding: 150px 0;
-          background: #000;
+          padding: 80px 0;
+          background-color: var(--bg-black);
           position: relative;
         }
 
         .section-header {
           text-align: center;
-          margin-bottom: 80px;
+          margin-bottom: 40px;
         }
 
         .section-pre-title {
@@ -167,8 +167,8 @@ const Projects = () => {
 
         .section-number-container {
           position: absolute;
-          left: 5%;
-          bottom: 5%;
+          left: 20px;
+          bottom: 20px;
         }
 
         .section-number {
@@ -185,8 +185,17 @@ const Projects = () => {
         }
 
         @media (max-width: 768px) {
+          .our-work {
+            padding: 60px 0;
+          }
+          .section-header {
+            margin-bottom: 40px;
+          }
           .projects-slider {
             grid-template-columns: 1fr;
+          }
+          .section-number-container {
+            display: none;
           }
         }
       `}</style>

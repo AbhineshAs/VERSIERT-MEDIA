@@ -135,14 +135,14 @@ const WhatWeDo = () => {
 
       <style jsx>{`
         .what-we-do {
-          padding: 150px 0;
+          padding: 80px 0;
           background: #000;
           position: relative;
         }
 
         .section-header {
           text-align: center;
-          margin-bottom: 80px;
+          margin-bottom: 40px;
         }
 
         .section-pre-title {
@@ -284,8 +284,8 @@ const WhatWeDo = () => {
 
         .section-number-container {
           position: absolute;
-          left: 5%;
-          bottom: 5%;
+          left: 20px;
+          bottom: 20px;
         }
 
         .section-number {
@@ -303,7 +303,10 @@ const WhatWeDo = () => {
 
         @media (max-width: 768px) {
           .what-we-do {
-            padding: 100px 20px;
+            padding: 60px 20px;
+          }
+          .section-header {
+            margin-bottom: 40px;
           }
           .services-title {
             font-size: 32px;
@@ -314,6 +317,9 @@ const WhatWeDo = () => {
           .service-details-container {
             grid-template-columns: 1fr;
             gap: 40px;
+          }
+          .section-number-container {
+            display: none;
           }
         }
       `}</style>

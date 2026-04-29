@@ -59,7 +59,7 @@ const WhyVersiert = () => {
 
       <style jsx>{`
         .why-versiert {
-          padding: 120px 0;
+          padding: 80px 0;
           background-color: var(--bg-black);
           border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
@@ -67,7 +67,7 @@ const WhyVersiert = () => {
         .why-grid {
           display: grid;
           grid-template-columns: 1.5fr 1fr;
-          gap: 80px;
+          gap: 50px;
           align-items: center;
         }
 
@@ -127,6 +127,12 @@ const WhyVersiert = () => {
           .why-visual {
             display: flex;
             justify-content: center;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .why-versiert {
+            padding: 60px 0;
           }
         }
 

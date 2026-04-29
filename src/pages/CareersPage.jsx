@@ -65,7 +65,7 @@ const CareersPage = () => {
         }
 
         .culture, .openings {
-          padding: 150px 0;
+          padding: 80px 0;
           border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
@@ -95,7 +95,7 @@ const CareersPage = () => {
         .culture-grid {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 80px;
+          gap: 50px;
           align-items: center;
         }
 
@@ -180,6 +180,9 @@ const CareersPage = () => {
         }
 
         @media (max-width: 768px) {
+          .culture, .openings {
+            padding: 60px 0;
+          }
           .job-item {
             flex-direction: column;
             align-items: flex-start;

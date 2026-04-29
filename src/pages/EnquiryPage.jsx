@@ -31,7 +31,7 @@ const EnquiryPage = () => {
         }
 
         .partnership {
-          padding: 150px 0;
+          padding: 80px 0;
           border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
@@ -76,7 +76,11 @@ const EnquiryPage = () => {
           background: var(--text-grey-light);
         }
 
-
+        @media (max-width: 768px) {
+          .partnership {
+            padding: 60px 0;
+          }
+        }
       `}</style>
     </motion.div>
   );
