@@ -3,15 +3,11 @@ import WhoWeAre from '../components/WhoWeAre';
 import AnimatedCounter from '../components/AnimatedCounter';
 import { motion } from 'framer-motion';
 
-import imgAbhiram from '../assets/2026-04-29 11.08.43.jpg';
-import imgRoshin from '../assets/2026-04-29 11.09.22.jpg';
-import imgMadhavan from '../assets/2026-04-29 11.09.09.jpg';
-
 const WhoWeArePage = () => {
   const team = [
-    { role: 'FOUNDER & CEO', name: 'ABHIRAM JAYAN', img: imgAbhiram },
-    { role: 'CREATIVE DIRECTOR', name: 'ROSHIN FRANCIS', img: imgRoshin },
-    { role: 'STRATEGY HEAD', name: 'MADHAVAN', img: imgMadhavan }
+    { role: 'FOUNDER & CEO', name: 'ABHIRAM JAYAN' },
+    { role: 'CREATIVE DIRECTOR', name: 'ROSHIN FRANCIS' },
+    { role: 'STRATEGY HEAD', name: 'MADHAVAN' }
   ];
 
   return (
@@ -38,7 +34,7 @@ const WhoWeArePage = () => {
               </div>
               <div className="stat-card">
                 <h4><AnimatedCounter value={12} />+</h4>
-                <p>GLOBAL MARKETS</p>
+                <p>INDIAN STATES</p>
               </div>
             </div>
           </div>
@@ -56,21 +52,21 @@ const WhoWeArePage = () => {
               <div className="t-year">2018</div>
               <div className="t-content">
                 <h3>THE SPARK</h3>
-                <p>Versiert Media is born in a small garage in Dubai, focused on disruptive social content.</p>
+                <p>Versiert Media is born in a small workspace in Trivandrum, focused on disruptive social content.</p>
               </div>
             </div>
             <div className="timeline-item">
               <div className="t-year">2020</div>
               <div className="t-content">
-                <h3>GLOBAL EXPANSION</h3>
-                <p>We opened our London office and shifted focus to cinematic brand storytelling.</p>
+                <h3>REGIONAL EXPANSION</h3>
+                <p>Establishing our creative hub in Ernakulam, we leveled up our capabilities to transform ambitious brands into undeniable market leaders through high-impact storytelling.</p>
               </div>
             </div>
             <div className="timeline-item">
               <div className="t-year">2023</div>
               <div className="t-content">
                 <h3>DOMINANCE</h3>
-                <p>Reached 100+ global clients and launched our proprietary AI strategy engine.</p>
+                <p>Reached 50+ clients across India and globally, launching our proprietary AI strategy engine.</p>
               </div>
             </div>
           </div>
@@ -86,9 +82,6 @@ const WhoWeArePage = () => {
           <div className="team-grid">
             {team.map((member, i) => (
               <div key={i} className="team-card">
-                <div className="team-img-container">
-                  <img src={member.img} alt={member.name} />
-                </div>
                 <span className="team-role">{member.role}</span>
                 <h3 className="team-name">{member.name}</h3>
               </div>
@@ -216,29 +209,20 @@ const WhoWeArePage = () => {
           margin-top: 60px;
         }
 
-        .team-img-container {
-          height: 450px;
-          background: #000;
-          margin-bottom: 25px;
-          overflow: hidden;
+        .team-card {
+          padding: 40px;
+          background: rgba(255, 255, 255, 0.02);
           border: 1px solid rgba(255, 255, 255, 0.05);
+          transition: 0.3s;
         }
 
-        .team-img-container img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          filter: grayscale(1);
-          transition: 0.8s;
-        }
-
-        .team-card:hover img {
-          filter: grayscale(0);
-          transform: scale(1.05);
+        .team-card:hover {
+          background: rgba(255, 255, 255, 0.04);
+          transform: translateY(-5px);
         }
 
         .team-role {
-          font-size: 9px;
+          font-size: 10px;
           font-weight: 800;
           color: var(--text-grey);
           letter-spacing: 2px;
@@ -247,7 +231,7 @@ const WhoWeArePage = () => {
         }
 
         .team-name {
-          font-size: 16px;
+          font-size: 24px;
           font-weight: 800;
           color: #fff;
         }
