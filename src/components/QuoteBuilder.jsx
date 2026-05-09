@@ -1,524 +1,889 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import html2pdf from 'html2pdf.js';
+import { Check, Download, Trash2, Plus, Info } from 'lucide-react';
 
 const QuoteBuilder = () => {
-  const [service, setService] = useState('Content Creation');
-  const [packageSize, setPackageSize] = useState('6 Videos');
-  const [addOns, setAddOns] = useState({
-    'Script Writing': true,
-    'Anchoring': true,
-    'Paid Ads': false,
-    'Influencer Push': true
-  });
-  const [total, setTotal] = useState(89999);
+  const [activeCategory, setActiveCategory] = useState('Content Creation');
+  const [selectedServices, setSelectedServices] = useState([]);
+  const [total, setTotal] = useState(0);
 
-  const pricing = {
-    services: {
-      'Content Creation': 34999,
-      'PR Campaign': 49999,
-      'Social Media Management': 29999
+  const categories = {
+    'Content Creation': {
+      icon: '📹',
+      services: [
+        { name: 'Brand Building/Talking Head', price: 6000, unit: 'per reel' },
+        { name: 'Concept Videos', price: 9000, unit: 'per reel' },
+        { name: 'UGC Contents', price: 3000, unit: 'per reel' }
+      ],
+      included: ['Concept Videos', 'Brand Building Videos', 'UGC Strategy']
     },
-    packages: {
-      '4 Videos': 0,
-      '6 Videos': 20000,
-      '8 Videos': 40000
+    'Digital Marketing': {
+      icon: '📢',
+      services: [
+        { name: 'Paid Ads', price: 800, unit: 'per day (service charge)' },
+        { name: 'Marketing Campaigns', price: 5000, unit: 'per campaign' },
+        { name: 'Strategy Building', price: 5000, unit: 'one-time' },
+        { name: 'Email Marketing', price: 800, unit: 'per day' },
+        { name: 'Social Media Marketing', price: 800, unit: 'per day' },
+        { name: 'LinkedIn Marketing', price: 800, unit: 'per week' },
+        { name: 'Influencer Marketing', price: 0, unit: 'As per influencer' },
+        { name: 'Content Development', price: 2000, unit: '' },
+        { name: 'Content Design & Implementation', price: 6000, unit: 'per video' }
+      ],
+      included: ['Campaign Strategy', 'Ad Management', 'Reporting']
     },
-    addons: {
-      'Script Writing': 10000,
-      'Anchoring': 10000,
-      'Paid Ads': 20000,
-      'Influencer Push': 15000
+    'PR Services': {
+      icon: '🗞️',
+      services: [
+        { name: 'Brand Reputation Management', price: 50000, unit: '' },
+        { name: 'Media Relations', price: 50000, unit: '' },
+        { name: 'Personal Branding', price: 50000, unit: '' },
+        { name: 'Digital PR', price: 50000, unit: '' },
+        { name: 'UGC PR', price: 4000, unit: 'per video' },
+        { name: 'Influencer Collab PR', price: 0, unit: 'As per Influencer' }
+      ],
+      included: ['Media Outreach', 'Press Releases', 'Crisis Management']
+    },
+    'Video Editing': {
+      icon: '✂️',
+      services: [
+        { name: 'Motion Graphics', price: 3000, unit: '' },
+        { name: 'Wedding Highlights', price: 2500, unit: '' },
+        { name: 'Shortfilms', price: 5000, unit: '' },
+        { name: 'Colourgrading', price: 5000, unit: '' },
+        { name: 'Event Aftermovie', price: 2000, unit: '' },
+        { name: 'Ad Editing', price: 2500, unit: '' },
+        { name: 'Cinematic Editing', price: 2500, unit: '' },
+        { name: 'Fast Delivery', price: 500, unit: '' }
+      ],
+      included: ['Multi-cam Editing', 'Sound Design', 'Export in 4K']
+    },
+    'Wedding/Event': {
+      icon: '📸',
+      services: [
+        { name: 'Wedding Coverage', price: 150000, unit: '' },
+        { name: 'Engagement Coverage', price: 50000, unit: '' },
+        { name: 'Birthdays', price: 15000, unit: '' },
+        { name: 'Corporate Events', price: 150000, unit: '' },
+        { name: 'House Warming', price: 10000, unit: '' },
+        { name: 'Express Delivery', price: 2000, unit: '' }
+      ],
+      included: ['Professional Photography', 'High-end Post Processing']
     }
   };
 
-  useEffect(() => {
-    let newTotal = pricing.services[service] || 0;
-    newTotal += pricing.packages[packageSize] || 0;
-    
-    Object.keys(addOns).forEach(key => {
-      if (addOns[key]) {
-        newTotal += pricing.addons[key];
-      }
-    });
-    
-    setTotal(newTotal);
-  }, [service, packageSize, addOns]);
+  const quickAddons = [
+    { name: 'Fast Delivery', price: 500 },
+    { name: 'Express Delivery', price: 2000 },
+    { name: 'UGC Content', price: 4000, unit: 'per video' },
+    { name: 'Influencer Collab', price: 0, unit: 'As per Influencer' }
+  ];
 
-  const toggleAddOn = (key) => {
-    setAddOns(prev => ({
-      ...prev,
-      [key]: !prev[key]
-    }));
+  useEffect(() => {
+    const newTotal = selectedServices.reduce((acc, curr) => acc + curr.price, 0);
+    setTotal(newTotal);
+  }, [selectedServices]);
+
+  const originalTotal = Math.round(total * 1.3);
+  const discountAmount = originalTotal - total;
+
+  const toggleService = (service, category) => {
+    const exists = selectedServices.find(s => s.name === service.name && s.category === category);
+    if (exists) {
+      setSelectedServices(selectedServices.filter(s => !(s.name === service.name && s.category === category)));
+    } else {
+      setSelectedServices([...selectedServices, { ...service, category }]);
+    }
+  };
+
+  const removeService = (name, category) => {
+    setSelectedServices(selectedServices.filter(s => !(s.name === name && s.category === category)));
   };
 
   const handleDownloadPDF = () => {
-    const date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-    const selectedAddons = Object.keys(addOns).filter(key => addOns[key]);
+    const date = new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' });
     
     const htmlContent = `
-      <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #333; max-width: 800px; margin: 0 auto; padding: 40px; background: #fff;">
-        
-        <!-- Header -->
-        <div style="border-bottom: 2px solid #ff5722; padding-bottom: 20px; margin-bottom: 40px; display: flex; justify-content: space-between; align-items: flex-end;">
+      <div style="font-family: 'Inter', sans-serif; color: #1a1a1a; max-width: 850px; margin: 0 auto; padding: 50px; background: #fff;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #000; padding-bottom: 30px; margin-bottom: 40px;">
           <div>
-            <h1 style="margin: 0; font-size: 32px; font-weight: 800; letter-spacing: 2px; color: #000;">VERSIERT MEDIA</h1>
-            <p style="margin: 5px 0 0 0; font-size: 14px; color: #666; letter-spacing: 1px;">DIGITAL MARKETING PROPOSAL</p>
+            <h1 style="margin: 0; font-size: 28px; font-weight: 900; letter-spacing: -0.5px;">VERSIERT MEDIA</h1>
+            <p style="margin: 5px 0 0 0; font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 2px;">Strategy • Content • PR</p>
           </div>
-          <div style="text-align: right; font-size: 14px; color: #666;">
-            <p style="margin: 0;">Date: ${date}</p>
-            <p style="margin: 5px 0 0 0;">Prepared for: Valued Client</p>
+          <div style="text-align: right;">
+            <p style="margin: 0; font-size: 14px; font-weight: 600;">PROPOSAL #${Math.floor(Math.random() * 10000)}</p>
+            <p style="margin: 5px 0 0 0; font-size: 13px; color: #666;">${date}</p>
           </div>
         </div>
 
-        <!-- Intro -->
         <div style="margin-bottom: 40px;">
-          <h2 style="font-size: 20px; color: #000; margin-bottom: 10px;">Investment Summary</h2>
-          <p style="font-size: 14px; line-height: 1.6; color: #555;">
-            Thank you for considering Versiert Media. Below is the estimated cost breakdown based on your selected service, package, and add-ons. We look forward to the opportunity to build something powerful together.
-          </p>
+          <h2 style="font-size: 18px; font-weight: 800; margin-bottom: 15px;">SERVICE ESTIMATE</h2>
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr style="background: #f5f5f5;">
+                <th style="padding: 12px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 2px solid #eee;">Category</th>
+                <th style="padding: 12px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 2px solid #eee;">Service Description</th>
+                <th style="padding: 12px; text-align: right; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 2px solid #eee;">Amount (INR)</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${selectedServices.map(s => `
+                <tr>
+                  <td style="padding: 15px 12px; border-bottom: 1px solid #eee; font-size: 13px; color: #666;">${s.category}</td>
+                  <td style="padding: 15px 12px; border-bottom: 1px solid #eee; font-size: 14px; font-weight: 600;">${s.name} <span style="font-size: 11px; color: #999; font-weight: 400;">${s.unit ? `(${s.unit})` : ''}</span></td>
+                  <td style="padding: 15px 12px; border-bottom: 1px solid #eee; text-align: right; font-size: 14px; font-weight: 700;">₹ ${Intl.NumberFormat('en-IN').format(s.price)}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
         </div>
 
-        <!-- Breakdown Table -->
-        <table style="width: 100%; border-collapse: collapse; margin-bottom: 40px;">
-          <thead>
-            <tr style="background: #f8f8f8; text-align: left;">
-              <th style="padding: 15px; border-bottom: 1px solid #ddd; font-size: 12px; letter-spacing: 1px; color: #000;">DESCRIPTION</th>
-              <th style="padding: 15px; border-bottom: 1px solid #ddd; font-size: 12px; letter-spacing: 1px; color: #000; text-align: right;">AMOUNT (INR)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="padding: 15px; border-bottom: 1px solid #eee;">
-                <strong>Core Service:</strong> ${service}
-              </td>
-              <td style="padding: 15px; border-bottom: 1px solid #eee; text-align: right;">
-                ₹ ${Intl.NumberFormat('en-IN').format(pricing.services[service])}
-              </td>
-            </tr>
-            
-            ${pricing.packages[packageSize] > 0 ? `
-            <tr>
-              <td style="padding: 15px; border-bottom: 1px solid #eee;">
-                <strong>Package Tier:</strong> ${packageSize}
-              </td>
-              <td style="padding: 15px; border-bottom: 1px solid #eee; text-align: right;">
-                ₹ ${Intl.NumberFormat('en-IN').format(pricing.packages[packageSize])}
-              </td>
-            </tr>
-            ` : `
-            <tr>
-              <td style="padding: 15px; border-bottom: 1px solid #eee;">
-                <strong>Package Tier:</strong> ${packageSize}
-              </td>
-              <td style="padding: 15px; border-bottom: 1px solid #eee; text-align: right;">
-                Included
-              </td>
-            </tr>
-            `}
-            
-            ${selectedAddons.length > 0 ? selectedAddons.map(addon => `
-            <tr>
-              <td style="padding: 15px; border-bottom: 1px solid #eee;">
-                <strong>Add-on:</strong> ${addon}
-              </td>
-              <td style="padding: 15px; border-bottom: 1px solid #eee; text-align: right;">
-                ₹ ${Intl.NumberFormat('en-IN').format(pricing.addons[addon])}
-              </td>
-            </tr>
-            `).join('') : `
-            <tr>
-              <td style="padding: 15px; border-bottom: 1px solid #eee; color: #999; font-style: italic;">
-                No additional add-ons selected
-              </td>
-              <td style="padding: 15px; border-bottom: 1px solid #eee; text-align: right;">
-                -
-              </td>
-            </tr>
-            `}
-          </tbody>
-        </table>
-
-        <!-- Total -->
-        <div style="display: flex; justify-content: flex-end; margin-bottom: 60px;">
-          <div style="width: 300px;">
-            <div style="display: flex; justify-content: space-between; padding: 10px 15px; border-bottom: 1px solid #ddd;">
-              <span style="font-weight: bold; color: #555;">Subtotal:</span>
+        <div style="display: flex; justify-content: flex-end; margin-bottom: 50px;">
+          <div style="width: 350px; background: #fafafa; padding: 25px; border-radius: 8px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; color: #666;">
+              <span>Market Price</span>
+              <span style="text-decoration: line-through;">₹ ${Intl.NumberFormat('en-IN').format(originalTotal)}</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 14px; color: #2e7d32; font-weight: 700;">
+              <span>Special Discount</span>
+              <span>- ₹ ${Intl.NumberFormat('en-IN').format(discountAmount)}</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-weight: 900; font-size: 20px; color: #000; border-top: 2px solid #eee; padding-top: 15px; margin-top: 15px;">
+              <span>FINAL ESTIMATE</span>
               <span>₹ ${Intl.NumberFormat('en-IN').format(total)}</span>
             </div>
-            <div style="display: flex; justify-content: space-between; padding: 15px; background: #000; color: #fff; margin-top: 10px;">
-              <span style="font-weight: 800; font-size: 18px;">ESTIMATED TOTAL:*</span>
-              <span style="font-weight: 800; font-size: 18px;">₹ ${Intl.NumberFormat('en-IN').format(total)}</span>
-            </div>
-            <p style="font-size: 10px; color: #999; text-align: right; margin-top: 5px;">* Exclusive of applicable taxes</p>
+            <p style="font-size: 11px; color: #888; margin-top: 15px; line-height: 1.5;">* Note: Prices are service charges only. Platform fees, travel, permits, and third-party charges are extra (if applicable).</p>
           </div>
         </div>
 
-        <!-- Footer -->
-        <div style="text-align: center; font-size: 12px; color: #999; border-top: 1px solid #eee; padding-top: 20px;">
-          <p style="margin: 0 0 5px 0;">This is an electronically generated estimate and does not constitute a binding contract.</p>
-          <p style="margin: 0;">hello@versiert.in | +91 9188219557 | versiert.in</p>
+        <div style="border-top: 1px solid #eee; padding-top: 30px; font-size: 12px; color: #666; line-height: 1.6;">
+          <p style="margin: 0 0 10px 0;"><strong>Terms:</strong> This estimate is valid for 15 days from the date of issue. 50% advance payment is required to commence work.</p>
+          <div style="display: flex; justify-content: space-between; margin-top: 20px; color: #999;">
+            <span>hello@versiert.in</span>
+            <span>+91 9188219557</span>
+            <span>versiert.in</span>
+          </div>
         </div>
       </div>
     `;
 
     const element = document.createElement('div');
     element.innerHTML = htmlContent;
-
     const opt = {
-      margin:       [0.5, 0],
-      filename:     'Versiert media.pdf',
-      image:        { type: 'jpeg', quality: 0.98 },
-      html2canvas:  { scale: 2 },
-      jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+      margin: 0,
+      filename: `Versiert_Quote_${Date.now()}.pdf`,
+      image: { type: 'jpeg', quality: 1 },
+      html2canvas: { scale: 3, useCORS: true },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
-    
     html2pdf().set(opt).from(element).save();
   };
 
   return (
-    <section className="quote-builder-section">
+    <section id="pricing" className="quote-builder-new">
       <div className="container">
-        <div className="qb-grid">
-          {/* Left Side */}
-          <div className="qb-intro">
-            <span className="section-pre-title">QUOTE BUILDER —</span>
-            <h2 className="qb-title">Build your package.<br />Get an instant estimate.</h2>
-            <p className="qb-desc">Tell us what you need and we'll show you the estimated cost in real time.</p>
-            <div className="qb-arrow">
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--primary-orange)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
+        <div className="qb-header">
+          <motion.span 
+            className="section-pre-title"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            OUR SERVICES & PRICING
+          </motion.span>
+          <motion.h2 
+            className="qb-title"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+          >
+            Transparent Pricing. Premium Quality.
+          </motion.h2>
+        </div>
+
+        <div className="qb-main-grid">
+          {/* Categories Side */}
+          <div className="qb-categories-nav">
+            {Object.keys(categories).map(cat => (
+              <button 
+                key={cat}
+                className={`cat-nav-item ${activeCategory === cat ? 'active' : ''}`}
+                onClick={() => setActiveCategory(cat)}
+              >
+                <span className="cat-icon">{categories[cat].icon}</span>
+                <span className="cat-name">{cat}</span>
+                {selectedServices.some(s => s.category === cat) && (
+                  <span className="cat-count">
+                    {selectedServices.filter(s => s.category === cat).length}
+                  </span>
+                )}
+              </button>
+            ))}
+          </div>
+
+          {/* Services Selection */}
+          <div className="qb-services-selection">
+            <div className="selection-header">
+              <h3>{activeCategory}</h3>
+              <p>Select the services you need from this category</p>
+            </div>
+            
+            <div className="services-list-grid">
+              {categories[activeCategory].services.map((s, i) => {
+                const isActive = selectedServices.some(item => item.name === s.name && item.category === activeCategory);
+                return (
+                  <motion.div 
+                    key={i}
+                    className={`service-selection-card ${isActive ? 'active' : ''}`}
+                    onClick={() => toggleService(s, activeCategory)}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.05 }}
+                  >
+                    <div className="service-header">
+                      <h4 className="s-name">{s.name}</h4>
+                      <div className={`check-circle ${isActive ? 'checked' : ''}`}>
+                        {isActive && <Check size={14} />}
+                      </div>
+                    </div>
+                    <div className="service-footer">
+                      <span className="s-price">
+                        {s.price > 0 ? `₹${Intl.NumberFormat('en-IN').format(s.price)}` : 'Variable'}
+                      </span>
+                      {s.unit && <span className="s-unit">{s.unit}</span>}
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            <div className="category-inclusions">
+              <div className="inclusion-title">
+                <Info size={14} />
+                <span>What's Typically Included:</span>
+              </div>
+              <ul className="inclusion-list">
+                {categories[activeCategory].included.map((inc, i) => (
+                  <li key={i}>{inc}</li>
+                ))}
+              </ul>
             </div>
           </div>
 
-          {/* Right Side - Interactive Builder */}
-          <div className="qb-interactive">
-            <div className="qb-columns">
-              {/* Step 1 */}
-              <div className="qb-col">
-                <span className="step-label">STEP 1</span>
-                <h4 className="step-title">Select Service</h4>
-                <div className="options-list">
-                  {Object.keys(pricing.services).map(s => (
-                    <button 
-                      key={s} 
-                      className={`option-btn ${service === s ? 'active' : ''}`}
-                      onClick={() => setService(s)}
-                    >
-                      {s}
-                      {service === s && <span className="check-icon">✓</span>}
-                    </button>
-                  ))}
-                </div>
+          {/* Summary / Cart Side */}
+          <div className="qb-summary-panel">
+            <div className="summary-card">
+              <div className="summary-header">
+                <h4>Your Selection</h4>
+                <span className="item-total-count">{selectedServices.length} Items</span>
               </div>
 
-              {/* Step 2 */}
-              <div className="qb-col">
-                <span className="step-label">STEP 2</span>
-                <h4 className="step-title">Select Package</h4>
-                <div className="options-list">
-                  {Object.keys(pricing.packages).map(p => (
-                    <button 
-                      key={p} 
-                      className={`option-btn ${packageSize === p ? 'active' : ''}`}
-                      onClick={() => setPackageSize(p)}
+              <div className="selected-items-list">
+                <AnimatePresence mode="popLayout">
+                  {selectedServices.length === 0 ? (
+                    <motion.div 
+                      className="empty-summary"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
                     >
-                      {p}
-                      {packageSize === p && <span className="check-icon">✓</span>}
-                    </button>
-                  ))}
-                </div>
+                      <Plus size={40} />
+                      <p>No services selected yet</p>
+                    </motion.div>
+                  ) : (
+                    selectedServices.map((s, i) => (
+                      <motion.div 
+                        key={`${s.name}-${s.category}`}
+                        className="selected-item-row"
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                      >
+                        <div className="item-info">
+                          <span className="item-cat-label">{s.category}</span>
+                          <span className="item-name-label">{s.name}</span>
+                        </div>
+                        <div className="item-actions">
+                          <span className="item-price-label">₹{Intl.NumberFormat('en-IN').format(s.price)}</span>
+                          <button 
+                            className="remove-btn"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              removeService(s.name, s.category);
+                            }}
+                          >
+                            <Trash2 size={14} />
+                          </button>
+                        </div>
+                      </motion.div>
+                    ))
+                  )}
+                </AnimatePresence>
               </div>
 
-              {/* Step 3 */}
-              <div className="qb-col">
-                <span className="step-label">STEP 3</span>
-                <h4 className="step-title">Add-ons</h4>
-                <div className="options-list">
-                  {Object.keys(pricing.addons).map(a => (
-                    <label key={a} className="checkbox-label">
-                      <input 
-                        type="checkbox" 
-                        checked={addOns[a]} 
-                        onChange={() => toggleAddOn(a)}
-                      />
-                      <span className="custom-checkbox">
-                        {addOns[a] && <span className="check-icon">✓</span>}
-                      </span>
-                      {a}
-                    </label>
-                  ))}
+              <div className="summary-footer">
+                <div className="summary-details">
+                  <div className="detail-row">
+                    <span>Market Price</span>
+                    <span className="market-price">₹{Intl.NumberFormat('en-IN').format(originalTotal)}</span>
+                  </div>
+                  <div className="detail-row discount">
+                    <span>Special Discount</span>
+                    <span>-₹{Intl.NumberFormat('en-IN').format(discountAmount)}</span>
+                  </div>
                 </div>
-              </div>
-              {/* Total Section */}
-              <div className="qb-col qb-total-section">
-                <span className="total-label">ESTIMATED COST</span>
-                <h3 className="total-price">₹ {Intl.NumberFormat('en-IN').format(total)}</h3>
-                <span className="tax-note">*Exclusive of Taxes</span>
+                <div className="total-row">
+                  <span>Estimated Total</span>
+                  <span className="final-price">₹{Intl.NumberFormat('en-IN').format(total)}</span>
+                </div>
+                <p className="tax-info">*Exclusive of taxes and extra charges</p>
                 
-                <button className="proposal-btn" onClick={handleDownloadPDF}>GET FULL PROPOSAL</button>
+                <button 
+                  className="download-proposal-btn"
+                  disabled={selectedServices.length === 0}
+                  onClick={handleDownloadPDF}
+                >
+                  <Download size={18} />
+                  GENERATE PROPOSAL
+                </button>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="section-number-container">
-        <span className="section-number">.04</span>
+        <div className="quick-addons-strip">
+          <span className="addon-label">Quick Add-ons:</span>
+          {quickAddons.map((addon, i) => {
+            const isActive = selectedServices.some(s => s.name === addon.name && s.category === 'Add-on');
+            return (
+              <button 
+                key={i} 
+                className={`addon-pill ${isActive ? 'active' : ''}`}
+                onClick={() => toggleService(addon, 'Add-on')}
+              >
+                <span className="a-name">{addon.name}</span>
+                <span className="a-price">
+                  {addon.price > 0 ? `₹${Intl.NumberFormat('en-IN').format(addon.price)}` : addon.unit}
+                </span>
+                {isActive && <Check size={12} className="a-check" />}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       <style jsx>{`
-        .quote-builder-section {
-          padding: 80px 0;
-          background: #000;
+        .quote-builder-new {
+          padding: 100px 0;
+          background: #050505;
           color: #fff;
-          border-top: 1px solid rgba(255, 255, 255, 0.05);
           position: relative;
         }
 
-        .qb-grid {
-          display: grid;
-          grid-template-columns: 1fr 2fr;
-          gap: 60px;
-          align-items: flex-start;
+        .qb-header {
+          text-align: center;
+          margin-bottom: 60px;
         }
 
         .section-pre-title {
-          font-size: 10px;
+          font-size: 11px;
           letter-spacing: 4px;
-          color: var(--primary-orange, #ff5722);
+          color: var(--text-grey, #888);
           display: block;
-          margin-bottom: 20px;
-          text-transform: uppercase;
-          font-weight: 800;
+          margin-bottom: 15px;
+          font-weight: 700;
         }
 
         .qb-title {
-          font-size: 40px;
-          font-weight: 800;
-          line-height: 1.2;
-          margin-bottom: 20px;
+          font-size: 42px;
+          font-weight: 900;
+          letter-spacing: -1px;
         }
 
-        .qb-desc {
-          font-size: 14px;
-          color: var(--text-grey-light, #aaa);
-          line-height: 1.6;
-          max-width: 300px;
-          margin-bottom: 40px;
-        }
-
-        .qb-arrow {
-          margin-top: 20px;
-          opacity: 0.8;
-          transform: rotate(15deg);
-        }
-
-        .qb-interactive {
-          background: #0a0a0a;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          padding: 40px;
-        }
-
-        .qb-columns {
+        .qb-main-grid {
           display: grid;
-          grid-template-columns: repeat(4, 1fr);
+          grid-template-columns: 280px 1fr 380px;
+          gap: 30px;
+          align-items: start;
         }
 
-        .qb-col {
-          padding: 0 30px;
-          border-left: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .qb-col:first-child {
-          padding-left: 0;
-          border-left: none;
-        }
-
-        .qb-col:last-child {
-          padding-right: 0;
-        }
-
-        .step-label {
-          font-size: 10px;
-          color: var(--text-grey, #666);
-          letter-spacing: 2px;
-          font-weight: 800;
-          display: block;
-          margin-bottom: 10px;
-        }
-
-        .step-title {
-          font-size: 16px;
-          font-weight: 800;
-          margin-bottom: 25px;
-          color: #fff;
-        }
-
-        .options-list {
+        /* Nav */
+        .qb-categories-nav {
           display: flex;
           flex-direction: column;
-          gap: 15px;
+          gap: 10px;
         }
 
-        .option-btn {
-          background: transparent;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          color: #fff;
-          padding: 15px;
-          text-align: left;
-          font-size: 13px;
-          font-weight: 600;
-          cursor: pointer;
-          transition: 0.3s;
+        .cat-nav-item {
+          background: rgba(255, 255, 255, 0.02);
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          padding: 18px 25px;
           display: flex;
-          justify-content: space-between;
           align-items: center;
+          gap: 15px;
+          color: #888;
+          cursor: pointer;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          text-align: left;
+          position: relative;
         }
 
-        .option-btn:hover {
-          border-color: rgba(255, 255, 255, 0.3);
-        }
-
-        .option-btn.active {
-          border-color: var(--primary-orange, #ff5722);
-          color: var(--primary-orange, #ff5722);
-          background: rgba(255, 87, 34, 0.05);
-        }
-
-        .check-icon {
-          background: var(--primary-orange, #ff5722);
+        .cat-nav-item:hover {
+          background: rgba(255, 255, 255, 0.05);
           color: #fff;
+        }
+
+        .cat-nav-item.active {
+          background: #fff;
+          color: #000;
+          border-color: #fff;
+        }
+
+        .cat-icon {
+          font-size: 20px;
+        }
+
+        .cat-name {
+          font-size: 13px;
+          font-weight: 800;
+          letter-spacing: 0.5px;
+          text-transform: uppercase;
+        }
+
+        .cat-count {
+          position: absolute;
+          right: 20px;
+          background: #ff4d00;
+          color: #fff;
+          font-size: 10px;
           width: 18px;
           height: 18px;
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 10px;
-          font-weight: bold;
+          font-weight: 900;
         }
 
-        .checkbox-label {
-          display: flex;
-          align-items: center;
-          gap: 15px;
+        /* Selection Area */
+        .qb-services-selection {
+          background: rgba(255, 255, 255, 0.02);
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          padding: 40px;
+          min-height: 500px;
+        }
+
+        .selection-header {
+          margin-bottom: 30px;
+        }
+
+        .selection-header h3 {
+          font-size: 24px;
+          font-weight: 900;
+          margin-bottom: 5px;
+        }
+
+        .selection-header p {
           font-size: 13px;
-          font-weight: 600;
-          color: #fff;
+          color: #666;
+        }
+
+        .services-list-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 15px;
+          margin-bottom: 40px;
+        }
+
+        .service-selection-card {
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          padding: 20px;
           cursor: pointer;
+          transition: all 0.3s;
         }
 
-        .checkbox-label input {
-          display: none;
+        .service-selection-card:hover {
+          background: rgba(255, 255, 255, 0.05);
+          border-color: rgba(255, 255, 255, 0.1);
         }
 
-        .custom-checkbox {
+        .service-selection-card.active {
+          border-color: #fff;
+          background: rgba(255, 255, 255, 0.08);
+        }
+
+        .service-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          margin-bottom: 15px;
+        }
+
+        .s-name {
+          font-size: 14px;
+          font-weight: 700;
+          max-width: 80%;
+          line-height: 1.4;
+        }
+
+        .check-circle {
           width: 20px;
           height: 20px;
-          border: 1px solid rgba(255, 255, 255, 0.2);
+          border: 2px solid rgba(255, 255, 255, 0.1);
+          border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
           transition: 0.3s;
         }
 
-        .checkbox-label input:checked + .custom-checkbox {
-          border-color: var(--primary-orange, #ff5722);
-          background: var(--primary-orange, #ff5722);
+        .check-circle.checked {
+          background: #fff;
+          border-color: #fff;
+          color: #000;
         }
 
-        .checkbox-label input:checked + .custom-checkbox .check-icon {
-          background: transparent;
-        }
-
-        .qb-total-section {
+        .service-footer {
           display: flex;
           flex-direction: column;
-          align-items: flex-start;
-          text-align: left;
         }
 
-        .total-label {
+        .s-price {
+          font-size: 18px;
+          font-weight: 900;
+          color: #fff;
+        }
+
+        .s-unit {
+          font-size: 10px;
+          color: #666;
+          margin-top: 2px;
+        }
+
+        .category-inclusions {
+          border-top: 1px solid rgba(255, 255, 255, 0.05);
+          padding-top: 30px;
+        }
+
+        .inclusion-title {
+          display: flex;
+          align-items: center;
+          gap: 8px;
           font-size: 12px;
-          font-weight: 800;
-          letter-spacing: 2px;
-          color: #fff;
-          margin-bottom: 10px;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          color: #888;
+          margin-bottom: 15px;
         }
 
-        .total-price {
-          font-size: 48px;
-          font-weight: 800;
-          color: #fff;
-          margin-bottom: 5px;
+        .inclusion-list {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 10px;
+          list-style: none;
         }
 
-        .tax-note {
+        .inclusion-list li {
+          font-size: 13px;
+          color: #555;
+          padding-left: 15px;
+          position: relative;
+        }
+
+        .inclusion-list li::before {
+          content: '•';
+          position: absolute;
+          left: 0;
+          color: #888;
+        }
+
+        /* Summary Panel */
+        .qb-summary-panel {
+          position: sticky;
+          top: 100px;
+        }
+
+        .summary-card {
+          background: #fff;
+          color: #000;
+          padding: 40px;
+          border-radius: 4px;
+        }
+
+        .summary-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 30px;
+          border-bottom: 2px solid #000;
+          padding-bottom: 15px;
+        }
+
+        .summary-header h4 {
+          font-size: 18px;
+          font-weight: 900;
+          text-transform: uppercase;
+        }
+
+        .item-total-count {
           font-size: 11px;
-          color: var(--text-grey, #666);
+          font-weight: 800;
+          background: #000;
+          color: #fff;
+          padding: 4px 10px;
+        }
+
+        .selected-items-list {
+          min-height: 200px;
+          max-height: 400px;
+          overflow-y: auto;
+          margin-bottom: 30px;
+        }
+
+        .empty-summary {
+          height: 200px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          color: #ccc;
+          gap: 15px;
+        }
+
+        .empty-summary p {
+          font-size: 13px;
+          font-weight: 600;
+        }
+
+        .selected-item-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 15px 0;
+          border-bottom: 1px solid #eee;
+        }
+
+        .item-info {
+          display: flex;
+          flex-direction: column;
+          gap: 3px;
+        }
+
+        .item-cat-label {
+          font-size: 9px;
+          font-weight: 800;
+          color: #999;
+          text-transform: uppercase;
+        }
+
+        .item-name-label {
+          font-size: 14px;
+          font-weight: 700;
+        }
+
+        .item-actions {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+        }
+
+        .item-price-label {
+          font-size: 14px;
+          font-weight: 800;
+        }
+
+        .remove-btn {
+          background: none;
+          border: none;
+          color: #ff4d00;
+          cursor: pointer;
+          opacity: 0.5;
+          transition: 0.3s;
+        }
+
+        .remove-btn:hover {
+          opacity: 1;
+          transform: scale(1.1);
+        }
+
+        .summary-footer {
+          border-top: 2px solid #000;
+          padding-top: 25px;
+        }
+
+        .summary-details {
+          margin-bottom: 20px;
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .detail-row {
+          display: flex;
+          justify-content: space-between;
+          font-size: 14px;
+          font-weight: 600;
+          color: #666;
+        }
+
+        .market-price {
+          text-decoration: line-through;
+          opacity: 0.7;
+        }
+
+        .discount {
+          color: #2e7d32;
+        }
+
+        .total-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 10px;
+          padding-top: 15px;
+          border-top: 1px solid #eee;
+        }
+
+        .total-row span:first-child {
+          font-size: 14px;
+          font-weight: 700;
+          color: #666;
+        }
+
+        .final-price {
+          font-size: 32px;
+          font-weight: 900;
+        }
+
+        .tax-info {
+          font-size: 11px;
+          color: #999;
           margin-bottom: 25px;
         }
 
-        .proposal-btn {
-          background: var(--primary-orange, #ff5722);
+        .download-proposal-btn {
+          width: 100%;
+          background: #000;
           color: #fff;
           border: none;
-          padding: 15px 30px;
-          font-size: 11px;
-          font-weight: 800;
-          letter-spacing: 2px;
+          padding: 18px;
+          font-size: 12px;
+          font-weight: 900;
+          letter-spacing: 1px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 12px;
           cursor: pointer;
           transition: 0.3s;
         }
 
-        .proposal-btn:hover {
-          background: #e64a19;
+        .download-proposal-btn:hover {
+          background: #222;
+          transform: translateY(-2px);
         }
 
-        .section-number-container {
-          position: absolute;
-          left: 20px;
-          bottom: 20px;
+        .download-proposal-btn:disabled {
+          background: #eee;
+          color: #ccc;
+          cursor: not-allowed;
+          transform: none;
         }
 
-        .section-number {
-          font-size: 24px;
+        .quick-addons-strip {
+          margin-top: 60px;
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          flex-wrap: wrap;
+          padding: 20px;
+          background: rgba(255, 255, 255, 0.02);
+          border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .addon-label {
+          font-size: 11px;
+          font-weight: 900;
+          text-transform: uppercase;
+          color: #888;
+          letter-spacing: 2px;
+        }
+
+        .addon-pill {
+          background: rgba(255, 255, 255, 0.05);
+          padding: 10px 25px;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          font-size: 12px;
+          border-radius: 100px;
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          cursor: pointer;
+          transition: all 0.3s;
+          color: #888;
+        }
+
+        .addon-pill:hover {
+          background: rgba(255, 255, 255, 0.08);
+          color: #fff;
+        }
+
+        .addon-pill.active {
+          background: #fff;
+          color: #000;
+          border-color: #fff;
+        }
+
+        .a-name {
           font-weight: 800;
-          color: var(--text-grey, #666);
-          opacity: 0.3;
+          text-transform: uppercase;
+          font-size: 11px;
+          letter-spacing: 0.5px;
         }
 
-        @media (max-width: 1024px) {
-          .qb-grid {
-            grid-template-columns: 1fr;
+        .a-price {
+          font-weight: 600;
+          opacity: 0.7;
+        }
+
+        .a-check {
+          color: #000;
+        }
+
+        @media (max-width: 1200px) {
+          .qb-main-grid {
+            grid-template-columns: 1fr 1fr;
           }
-          .qb-columns {
-            grid-template-columns: 1fr;
-            gap: 30px;
+          .qb-categories-nav {
+            grid-column: span 2;
+            flex-direction: row;
+            overflow-x: auto;
+            padding-bottom: 10px;
           }
-          .qb-total-section {
-            align-items: flex-start;
-            text-align: left;
+          .cat-nav-item {
+            flex-shrink: 0;
+            padding: 15px 20px;
           }
         }
 
         @media (max-width: 768px) {
-          .quote-builder-section {
-            padding: 60px 0;
+          .qb-main-grid {
+            grid-template-columns: 1fr;
           }
-          .qb-grid {
-            gap: 30px;
+          .qb-categories-nav {
+            grid-column: span 1;
+          }
+          .services-list-grid {
+            grid-template-columns: 1fr;
+          }
+          .qb-summary-panel {
+            position: static;
           }
           .qb-title {
-            margin-bottom: 10px;
-          }
-          .qb-desc {
-            margin-bottom: 20px;
-          }
-          .section-number-container {
-            display: none;
+            font-size: 32px;
           }
         }
       `}</style>

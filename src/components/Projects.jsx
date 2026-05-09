@@ -1,11 +1,14 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { X, Play } from 'lucide-react';
 import projectVideo1 from '../assets/video_2026-04-28_11-01-02.mp4';
 import projectVideo2 from '../assets/vid 3.mp4';
 import projectVideo3 from '../assets/0916 (2)(1).mp4';
 import projectVideo4 from '../assets/COOPER.mp4';
 
 const Projects = () => {
+  const [selectedVideo, setSelectedVideo] = useState(null);
+
   const projects = [
     { title: 'VERSIERT SHOWREEL', category: 'Brand Film', video: projectVideo1, desc: 'A cinematic showcase of our best work.' },
     { title: 'CAMPAIGN 01', category: 'Content Series', video: projectVideo2, desc: 'A modern brand experience built for dominance.' },
@@ -29,17 +32,24 @@ const Projects = () => {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
+              onClick={() => setSelectedVideo(project.video)}
+              style={{ cursor: 'pointer' }}
             >
               <div className="project-image-container">
                 {project.video ? (
-                  <video 
-                    src={project.video} 
-                    className="project-img" 
-                    autoPlay 
-                    loop 
-                    muted 
-                    playsInline
-                  />
+                  <div className="video-wrapper">
+                    <video 
+                      src={project.video} 
+                      className="project-img" 
+                      autoPlay 
+                      loop 
+                      muted 
+                      playsInline
+                    />
+                    <div className="play-overlay">
+                      <Play fill="white" size={40} />
+                    </div>
+                  </div>
                 ) : (
                   <img src={project.image} alt={project.title} className="project-img" />
                 )}
@@ -48,12 +58,42 @@ const Projects = () => {
                 <span className="project-category">{project.category}</span>
                 <h3 className="project-name">{project.title}</h3>
                 <p className="project-desc">{project.desc}</p>
-                <a href="#" className="view-project-link">VIEW PROJECT →</a>
+                <button className="view-project-link">VIEW PROJECT →</button>
               </div>
             </motion.div>
           ))}
         </div>
       </div>
+
+      <AnimatePresence>
+        {selectedVideo && (
+          <motion.div 
+            className="video-modal-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedVideo(null)}
+          >
+            <motion.div 
+              className="video-modal-content"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button className="close-modal" onClick={() => setSelectedVideo(null)}>
+                <X size={24} />
+              </button>
+              <video 
+                src={selectedVideo} 
+                controls 
+                autoPlay 
+                className="modal-video-player"
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <div className="section-number-container">
         <span className="section-number">.05</span>
@@ -111,6 +151,32 @@ const Projects = () => {
           height: 200px;
           overflow: hidden;
           margin-bottom: 25px;
+          position: relative;
+        }
+
+        .video-wrapper {
+          position: relative;
+          width: 100%;
+          height: 100%;
+        }
+
+        .play-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0,0,0,0.4);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          opacity: 0;
+          transition: 0.3s;
+          z-index: 2;
+        }
+
+        .project-slide:hover .play-overlay {
+          opacity: 1;
         }
 
         .project-img {
@@ -159,10 +225,69 @@ const Projects = () => {
           text-decoration: none;
           opacity: 0.7;
           transition: 0.3s;
+          background: none;
+          border: none;
+          padding: 0;
+          cursor: pointer;
+          text-align: left;
         }
 
         .view-project-link:hover {
           opacity: 1;
+        }
+
+        /* Modal Styles */
+        .video-modal-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100vh;
+          background: rgba(0, 0, 0, 0.9);
+          backdrop-filter: blur(10px);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 1000;
+          padding: 20px;
+        }
+
+        .video-modal-content {
+          position: relative;
+          width: 100%;
+          max-width: 1000px;
+          background: #000;
+          border-radius: 4px;
+          box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+          overflow: hidden;
+        }
+
+        .close-modal {
+          position: absolute;
+          top: 20px;
+          right: 20px;
+          background: rgba(255, 255, 255, 0.1);
+          border: none;
+          color: #fff;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          z-index: 10;
+          transition: 0.3s;
+        }
+
+        .close-modal:hover {
+          background: rgba(255, 255, 255, 0.2);
+          transform: rotate(90deg);
+        }
+
+        .modal-video-player {
+          width: 100%;
+          display: block;
         }
 
         .section-number-container {
@@ -196,6 +321,9 @@ const Projects = () => {
           }
           .section-number-container {
             display: none;
+          }
+          .video-modal-content {
+            max-width: 100%;
           }
         }
       `}</style>
