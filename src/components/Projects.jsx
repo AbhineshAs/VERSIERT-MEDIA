@@ -243,51 +243,54 @@ const Projects = () => {
           left: 0;
           width: 100%;
           height: 100vh;
-          background: rgba(0, 0, 0, 0.9);
+          background: rgba(0, 0, 0, 0.95);
           backdrop-filter: blur(10px);
           display: flex;
           align-items: center;
           justify-content: center;
-          z-index: 1000;
-          padding: 20px;
+          z-index: 9999;
+          padding: 40px;
         }
 
         .video-modal-content {
           position: relative;
           width: 100%;
-          max-width: 1000px;
-          background: #000;
-          border-radius: 4px;
-          box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-          overflow: hidden;
+          height: 100%;
+          max-width: 1600px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
         .close-modal {
-          position: absolute;
-          top: 20px;
-          right: 20px;
+          position: fixed;
+          top: 30px;
+          right: 30px;
           background: rgba(255, 255, 255, 0.1);
-          border: none;
+          border: 1px solid rgba(255, 255, 255, 0.2);
           color: #fff;
-          width: 40px;
-          height: 40px;
+          width: 50px;
+          height: 50px;
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
           cursor: pointer;
-          z-index: 10;
+          z-index: 10001;
           transition: 0.3s;
         }
 
         .close-modal:hover {
-          background: rgba(255, 255, 255, 0.2);
-          transform: rotate(90deg);
+          background: rgba(255, 255, 255, 0.3);
+          transform: rotate(90deg) scale(1.1);
         }
 
         .modal-video-player {
-          width: 100%;
-          display: block;
+          max-width: 100%;
+          max-height: 100%;
+          object-fit: contain;
+          box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+          border-radius: 8px;
         }
 
         .section-number-container {
@@ -324,6 +327,16 @@ const Projects = () => {
           }
           .video-modal-content {
             max-width: 100%;
+            padding: 0;
+          }
+          .video-modal-overlay {
+            padding: 20px;
+          }
+          .close-modal {
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
           }
         }
       `}</style>

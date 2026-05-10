@@ -2,8 +2,17 @@ import React from 'react';
 
 const ClientMarquee = () => {
   const clients = [
-    "NOISE", "BOAT", "MAMAEARTH", "TVS", "DR. SHETH'S",
-    "BELLA VITA", "LENSKART", "CRED", "SWIGGY", "ZOMATO"
+    "Kompetenzen Technologies",
+    "Greenovative Foods Pvt Ltd",
+    "Carbon Fitness",
+    "Starbucks",
+    "Campfly",
+    "Intalign",
+    "One Life Premium",
+    "Whitetrack technologies",
+    "Scipy Technologies",
+    "Kerala State Electricity Board",
+    "Brewbliss Kombucha"
   ];
 
   return (
@@ -34,7 +43,7 @@ const ClientMarquee = () => {
         .marquee-content {
           display: flex;
           white-space: nowrap;
-          animation: marquee 25s linear infinite;
+          animation: marquee 30s linear infinite;
         }
 
         .client-item {

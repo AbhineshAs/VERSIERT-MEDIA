@@ -3,24 +3,34 @@ import React from 'react';
 const Testimonials = () => {
   const reviews = [
     {
-      text: "Versiert didn't just grow our social numbers; they changed our entire market perception. Truly elite.",
-      author: "Kunal B.",
-      role: "FinTech Founder"
+      text: "Versiert Media completely changed how our brand looks online. The content felt premium, professional, and actually brought us more customers.",
+      author: "Anu Manohar",
+      role: "Co-Founder, Kompetenzen Technologies"
     },
     {
-      text: "The cinematic quality they bring to every single piece of content is unmatched in the industry.",
-      author: "Elena R.",
-      role: "Luxury Brand CEO"
+      text: "The team understood our vision instantly and delivered content that matched our brand perfectly. Smooth process from start to finish.",
+      author: "Harshad Harsi",
+      role: "Director, Campfly Pvt Ltd"
     },
     {
-      text: "Their strategic approach to our brand overhaul delivered results beyond our highest expectations.",
-      author: "Rahul S.",
-      role: "Tech Entrepreneur"
+      text: "Team Versiert has developed some nice videos for our marketing campaigns. They were very creative during the idea stage and very flexible during the execution phase. It was very easy to work with them, and overall, they delivered excellent value for money.",
+      author: "Unnikrishnan",
+      role: "Directorate, Greenovative Foods Pvt Ltd"
     },
     {
-      text: "A true growth partner. They don't just execute, they elevate everything they touch.",
-      author: "Sarah M.",
-      role: "Marketing Director"
+      text: "We saw a noticeable increase in engagement and inquiries after working with Versiert Media. Highly recommended for businesses serious about growth.",
+      author: "Dr Niyas Nazeer Sait",
+      role: "Founder, Intalign Aligners and Bracers"
+    },
+    {
+      text: "Creative, fast, and professional. Every video and campaign they delivered exceeded our expectations.",
+      author: "PRO",
+      role: "Kerala State Electricity Board"
+    },
+    {
+      text: "Their storytelling and content strategy helped us stand out in a crowded market. One of the best creative teams we’ve worked with.",
+      author: "Gokul",
+      role: "CEO, Scipy Technologies"
     }
   ];
 
@@ -93,11 +103,11 @@ const Testimonials = () => {
         }
 
         .review-card {
-          flex: 0 0 320px;
-          width: 320px;
-          min-width: 320px;
-          max-width: 320px;
-          height: 320px;
+          flex: 0 0 380px;
+          width: 380px;
+          min-width: 380px;
+          max-width: 380px;
+          min-height: 380px;
           background: rgba(255, 255, 255, 0.02);
           border: 1px solid rgba(255, 255, 255, 0.05);
           padding: 40px 30px;
@@ -106,7 +116,6 @@ const Testimonials = () => {
           justify-content: space-between;
           position: relative;
           transition: 0.3s;
-          aspect-ratio: 1 / 1;
         }
 
         .review-card:hover {
@@ -166,11 +175,11 @@ const Testimonials = () => {
             margin-bottom: 40px;
           }
           .review-card {
-            flex: 0 0 280px;
-            width: 280px;
-            min-width: 280px;
-            max-width: 280px;
-            height: 280px;
+            flex: 0 0 300px;
+            width: 300px;
+            min-width: 300px;
+            max-width: 300px;
+            min-height: 340px;
             padding: 30px 20px;
           }
           .review-text {

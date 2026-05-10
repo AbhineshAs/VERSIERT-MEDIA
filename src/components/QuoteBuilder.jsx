@@ -12,6 +12,7 @@ const QuoteBuilder = () => {
     'Content Creation': {
       icon: '📹',
       services: [
+        { name: 'Video', price: 5000, unit: 'per video' },
         { name: 'Brand Building/Talking Head', price: 6000, unit: 'per reel' },
         { name: 'Concept Videos', price: 9000, unit: 'per reel' },
         { name: 'UGC Contents', price: 3000, unit: 'per reel' }
@@ -70,6 +71,48 @@ const QuoteBuilder = () => {
         { name: 'Express Delivery', price: 2000, unit: '' }
       ],
       included: ['Professional Photography', 'High-end Post Processing']
+    },
+    'Web Development': {
+      icon: '💻',
+      services: [
+        { name: 'Portfolio Website', price: 8000, unit: 'per website' },
+        { name: 'Business Website', price: 15000, unit: 'per website' },
+        { name: 'E-Commerce Website', price: 25000, unit: 'per website' },
+        { name: 'Custom Web Application', price: 30000, unit: 'per app' },
+        { name: 'LMS / Webinar Platform', price: 40000, unit: 'per platform' },
+        { name: 'Booking System Website', price: 25000, unit: 'per website' },
+        { name: 'Travel & Tourism Website', price: 20000, unit: 'per website' },
+        { name: 'School / College Management System', price: 40000, unit: 'per system' },
+        { name: 'API Development & Integration', price: 8000, unit: 'per integration' },
+        { name: 'Authentication System (JWT/Login)', price: 5000, unit: 'per project' },
+        { name: 'Website Redesign', price: 10000, unit: 'per project' },
+        { name: 'Responsive UI/UX Design', price: 5000, unit: 'per project' },
+        { name: 'Website Maintenance', price: 3000, unit: 'per month' },
+        { name: 'Bug Fixing & Performance Optimization', price: 2000, unit: 'per project' }
+      ],
+      included: ['Custom Code', 'Responsive Design', 'SEO Optimization', 'Deployment']
+    },
+    'Hosting & Infrastructure': {
+      icon: '🌐',
+      services: [
+        { name: 'Domain Purchase (.com)', price: 800, unit: 'per year' },
+        { name: 'Domain Purchase (.in)', price: 500, unit: 'per year' },
+        { name: 'Premium Domain Setup', price: 2000, unit: 'one-time' },
+        { name: 'Shared Hosting Setup', price: 2000, unit: 'per year' },
+        { name: 'VPS Hosting Setup', price: 6000, unit: 'per year' },
+        { name: 'Cloud Hosting (AWS/Azure)', price: 3000, unit: 'per month' },
+        { name: 'Vercel Deployment', price: 2000, unit: 'per deployment' },
+        { name: 'Render Deployment', price: 2000, unit: 'per deployment' },
+        { name: 'Netlify Deployment', price: 2000, unit: 'per deployment' },
+        { name: 'SSL Certificate Setup', price: 1000, unit: 'per certificate' },
+        { name: 'Business Email Setup', price: 2000, unit: 'per project' },
+        { name: 'DNS Configuration', price: 1000, unit: 'per project' },
+        { name: 'Website Hosting Migration', price: 3000, unit: 'per migration' },
+        { name: 'Website Maintenance', price: 3000, unit: 'per month' },
+        { name: 'Website Backup & Security', price: 2000, unit: 'per project' },
+        { name: 'Performance Optimization', price: 3000, unit: 'per project' }
+      ],
+      included: ['Server Configuration', 'Security Setup', 'Initial Optimization']
     }
   };
 
@@ -80,21 +123,48 @@ const QuoteBuilder = () => {
     { name: 'Influencer Collab', price: 0, unit: 'As per Influencer' }
   ];
 
+  const formatQuantity = (qty, unit) => {
+    if (!unit || !unit.startsWith('per ')) return qty;
+    let baseUnit = unit.replace('per ', '').trim();
+    if (baseUnit === 'day (service charge)') baseUnit = 'day';
+
+    baseUnit = baseUnit.charAt(0).toUpperCase() + baseUnit.slice(1);
+
+    if (qty > 1 && !baseUnit.endsWith('s')) {
+      return `${qty} ${baseUnit}s`;
+    }
+    return `${qty} ${baseUnit}`;
+  };
+
   useEffect(() => {
-    const newTotal = selectedServices.reduce((acc, curr) => acc + curr.price, 0);
-    setTotal(newTotal);
+    const sum = selectedServices.reduce((acc, curr) => acc + (curr.price * (curr.quantity || 1)), 0);
+    setTotal(sum);
   }, [selectedServices]);
 
-  const originalTotal = Math.round(total * 1.3);
-  const discountAmount = originalTotal - total;
+  const originalTotal = total;
+  const discountAmount = selectedServices.reduce((acc, s) => {
+    const isDev = s.category === 'Web Development' || s.category === 'Hosting & Infrastructure';
+    return acc + (isDev ? 1099 : Math.round(s.price * (s.quantity || 1) * 0.3));
+  }, 0);
+  const finalEstimate = originalTotal - discountAmount;
 
   const toggleService = (service, category) => {
     const exists = selectedServices.find(s => s.name === service.name && s.category === category);
     if (exists) {
       setSelectedServices(selectedServices.filter(s => !(s.name === service.name && s.category === category)));
     } else {
-      setSelectedServices([...selectedServices, { ...service, category }]);
+      setSelectedServices([...selectedServices, { ...service, category, quantity: 1 }]);
     }
+  };
+
+  const updateQuantity = (name, category, delta) => {
+    setSelectedServices(selectedServices.map(s => {
+      if (s.name === name && s.category === category) {
+        const newQuantity = Math.max(1, (s.quantity || 1) + delta);
+        return { ...s, quantity: newQuantity };
+      }
+      return s;
+    }));
   };
 
   const removeService = (name, category) => {
@@ -103,7 +173,7 @@ const QuoteBuilder = () => {
 
   const handleDownloadPDF = () => {
     const date = new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' });
-    
+
     const htmlContent = `
       <div style="font-family: 'Inter', sans-serif; color: #1a1a1a; max-width: 850px; margin: 0 auto; padding: 50px; background: #fff;">
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #000; padding-bottom: 30px; margin-bottom: 40px;">
@@ -131,8 +201,8 @@ const QuoteBuilder = () => {
               ${selectedServices.map(s => `
                 <tr>
                   <td style="padding: 15px 12px; border-bottom: 1px solid #eee; font-size: 13px; color: #666;">${s.category}</td>
-                  <td style="padding: 15px 12px; border-bottom: 1px solid #eee; font-size: 14px; font-weight: 600;">${s.name} <span style="font-size: 11px; color: #999; font-weight: 400;">${s.unit ? `(${s.unit})` : ''}</span></td>
-                  <td style="padding: 15px 12px; border-bottom: 1px solid #eee; text-align: right; font-size: 14px; font-weight: 700;">₹ ${Intl.NumberFormat('en-IN').format(s.price)}</td>
+                  <td style="padding: 15px 12px; border-bottom: 1px solid #eee; font-size: 14px; font-weight: 600;">${s.name} ${(s.quantity || 1) > 1 ? `<span style="font-size: 12px; color: #666;">(x${s.quantity})</span>` : ''} <span style="font-size: 11px; color: #999; font-weight: 400;">${s.unit ? `(${s.unit})` : ''}</span></td>
+                  <td style="padding: 15px 12px; border-bottom: 1px solid #eee; text-align: right; font-size: 14px; font-weight: 700;">₹ ${Intl.NumberFormat('en-IN').format(s.price * (s.quantity || 1))}</td>
                 </tr>
               `).join('')}
             </tbody>
@@ -151,8 +221,11 @@ const QuoteBuilder = () => {
             </div>
             <div style="display: flex; justify-content: space-between; font-weight: 900; font-size: 20px; color: #000; border-top: 2px solid #eee; padding-top: 15px; margin-top: 15px;">
               <span>FINAL ESTIMATE</span>
-              <span>₹ ${Intl.NumberFormat('en-IN').format(total)}</span>
+              <span>₹ ${Intl.NumberFormat('en-IN').format(finalEstimate)}</span>
             </div>
+            ${selectedServices.some(s => s.category === 'Web Development' || s.category === 'Hosting & Infrastructure') ? `
+              <p style="font-size: 10px; color: #ff4d00; margin-top: 10px; font-weight: 700; text-transform: uppercase;">* Price vary as per your requirements</p>
+            ` : ''}
             <p style="font-size: 11px; color: #888; margin-top: 15px; line-height: 1.5;">* Note: Prices are service charges only. Platform fees, travel, permits, and third-party charges are extra (if applicable).</p>
           </div>
         </div>
@@ -184,7 +257,7 @@ const QuoteBuilder = () => {
     <section id="pricing" className="quote-builder-new">
       <div className="container">
         <div className="qb-header">
-          <motion.span 
+          <motion.span
             className="section-pre-title"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -192,7 +265,7 @@ const QuoteBuilder = () => {
           >
             OUR SERVICES & PRICING
           </motion.span>
-          <motion.h2 
+          <motion.h2
             className="qb-title"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -207,7 +280,7 @@ const QuoteBuilder = () => {
           {/* Categories Side */}
           <div className="qb-categories-nav">
             {Object.keys(categories).map(cat => (
-              <button 
+              <button
                 key={cat}
                 className={`cat-nav-item ${activeCategory === cat ? 'active' : ''}`}
                 onClick={() => setActiveCategory(cat)}
@@ -228,13 +301,16 @@ const QuoteBuilder = () => {
             <div className="selection-header">
               <h3>{activeCategory}</h3>
               <p>Select the services you need from this category</p>
+              {(activeCategory === 'Web Development' || activeCategory === 'Hosting & Infrastructure') && (
+                <p className="dev-note">*Price vary as per your requirements</p>
+              )}
             </div>
-            
+
             <div className="services-list-grid">
               {categories[activeCategory].services.map((s, i) => {
                 const isActive = selectedServices.some(item => item.name === s.name && item.category === activeCategory);
                 return (
-                  <motion.div 
+                  <motion.div
                     key={i}
                     className={`service-selection-card ${isActive ? 'active' : ''}`}
                     onClick={() => toggleService(s, activeCategory)}
@@ -283,7 +359,7 @@ const QuoteBuilder = () => {
               <div className="selected-items-list">
                 <AnimatePresence mode="popLayout">
                   {selectedServices.length === 0 ? (
-                    <motion.div 
+                    <motion.div
                       className="empty-summary"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
@@ -293,7 +369,7 @@ const QuoteBuilder = () => {
                     </motion.div>
                   ) : (
                     selectedServices.map((s, i) => (
-                      <motion.div 
+                      <motion.div
                         key={`${s.name}-${s.category}`}
                         className="selected-item-row"
                         initial={{ opacity: 0, x: 20 }}
@@ -303,10 +379,15 @@ const QuoteBuilder = () => {
                         <div className="item-info">
                           <span className="item-cat-label">{s.category}</span>
                           <span className="item-name-label">{s.name}</span>
+                          <div className="qty-controls-sm">
+                            <button className="qty-btn-sm" onClick={(e) => { e.stopPropagation(); updateQuantity(s.name, s.category, -1); }}>-</button>
+                            <span className="qty-val">{formatQuantity(s.quantity || 1, s.unit)}</span>
+                            <button className="qty-btn-sm" onClick={(e) => { e.stopPropagation(); updateQuantity(s.name, s.category, 1); }}>+</button>
+                          </div>
                         </div>
                         <div className="item-actions">
-                          <span className="item-price-label">₹{Intl.NumberFormat('en-IN').format(s.price)}</span>
-                          <button 
+                          <span className="item-price-label">₹{Intl.NumberFormat('en-IN').format(s.price * (s.quantity || 1))}</span>
+                          <button
                             className="remove-btn"
                             onClick={(e) => {
                               e.stopPropagation();
@@ -335,11 +416,11 @@ const QuoteBuilder = () => {
                 </div>
                 <div className="total-row">
                   <span>Estimated Total</span>
-                  <span className="final-price">₹{Intl.NumberFormat('en-IN').format(total)}</span>
+                  <span className="final-price">₹{Intl.NumberFormat('en-IN').format(finalEstimate)}</span>
                 </div>
                 <p className="tax-info">*Exclusive of taxes and extra charges</p>
-                
-                <button 
+
+                <button
                   className="download-proposal-btn"
                   disabled={selectedServices.length === 0}
                   onClick={handleDownloadPDF}
@@ -357,8 +438,8 @@ const QuoteBuilder = () => {
           {quickAddons.map((addon, i) => {
             const isActive = selectedServices.some(s => s.name === addon.name && s.category === 'Add-on');
             return (
-              <button 
-                key={i} 
+              <button
+                key={i}
                 className={`addon-pill ${isActive ? 'active' : ''}`}
                 onClick={() => toggleService(addon, 'Add-on')}
               >
@@ -487,6 +568,14 @@ const QuoteBuilder = () => {
         .selection-header p {
           font-size: 13px;
           color: #666;
+        }
+
+        .dev-note {
+          color: #ff4d00 !important;
+          font-weight: 700;
+          margin-top: 10px;
+          font-size: 11px !important;
+          text-transform: uppercase;
         }
 
         .services-list-grid {
@@ -693,6 +782,40 @@ const QuoteBuilder = () => {
         .item-price-label {
           font-size: 14px;
           font-weight: 800;
+        }
+
+        .qty-controls-sm {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin-top: 5px;
+        }
+
+        .qty-btn-sm {
+          background: #f5f5f5;
+          border: 1px solid #eee;
+          width: 22px;
+          height: 22px;
+          border-radius: 4px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: bold;
+          font-size: 12px;
+          cursor: pointer;
+          color: #000;
+          transition: 0.2s;
+        }
+
+        .qty-btn-sm:hover {
+          background: #e0e0e0;
+        }
+
+        .qty-val {
+          font-size: 12px;
+          font-weight: 700;
+          min-width: 12px;
+          text-align: center;
         }
 
         .remove-btn {
