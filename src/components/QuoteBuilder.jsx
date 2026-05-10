@@ -143,8 +143,22 @@ const QuoteBuilder = () => {
 
   const originalTotal = total;
   const discountAmount = selectedServices.reduce((acc, s) => {
+    const qty = s.quantity || 1;
+    const itemTotal = s.price * qty;
     const isDev = s.category === 'Web Development' || s.category === 'Hosting & Infrastructure';
-    return acc + (isDev ? 1099 : Math.round(s.price * (s.quantity || 1) * 0.3));
+    
+    if (isDev) {
+      return acc + 1099;
+    }
+
+    // Volume-based discount logic (📹, 📢, 🗞️, ✂️, 📸)
+    let volumeDiscount = 0;
+    if (qty >= 3 && qty <= 5) volumeDiscount = 0.05;
+    else if (qty >= 6 && qty <= 9) volumeDiscount = 0.08;
+    else if (qty >= 10) volumeDiscount = 0.10;
+
+    const totalDiscountPct = 0.30 + volumeDiscount;
+    return acc + Math.round(itemTotal * totalDiscountPct);
   }, 0);
   const finalEstimate = originalTotal - discountAmount;
 

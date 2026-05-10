@@ -1,14 +1,49 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, Play } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Volume2, VolumeX } from 'lucide-react';
 import projectVideo1 from '../assets/video_2026-04-28_11-01-02.mp4';
 import projectVideo2 from '../assets/vid 3.mp4';
 import projectVideo3 from '../assets/0916 (2)(1).mp4';
 import projectVideo4 from '../assets/COOPER.mp4';
 
-const Projects = () => {
-  const [selectedVideo, setSelectedVideo] = useState(null);
+const ProjectCard = ({ project, index }) => {
+  const [isMuted, setIsMuted] = useState(true);
 
+  return (
+    <motion.div 
+      className="project-card"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.1 }}
+    >
+      <div className="video-box">
+        <video 
+          src={project.video} 
+          autoPlay 
+          loop 
+          muted={isMuted} 
+          playsInline
+          className="uncropped-video"
+        />
+        <button 
+          className="individual-mute-btn" 
+          onClick={() => setIsMuted(!isMuted)}
+          aria-label={isMuted ? "Unmute video" : "Mute video"}
+        >
+          {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
+        </button>
+      </div>
+      <div className="project-details">
+        <span className="p-cat">{project.category}</span>
+        <h3 className="p-title">{project.title}</h3>
+        <p className="p-desc">{project.desc}</p>
+      </div>
+    </motion.div>
+  );
+};
+
+const Projects = () => {
   const projects = [
     { title: 'VERSIERT SHOWREEL', category: 'Brand Film', video: projectVideo1, desc: 'A cinematic showcase of our best work.' },
     { title: 'CAMPAIGN 01', category: 'Content Series', video: projectVideo2, desc: 'A modern brand experience built for dominance.' },
@@ -24,319 +59,135 @@ const Projects = () => {
           <h2 className="projects-title">Work that speaks for us.</h2>
         </div>
 
-        <div className="projects-slider">
+        <div className="projects-grid">
           {projects.map((project, i) => (
-            <motion.div 
-              key={i} 
-              className="project-slide"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              onClick={() => setSelectedVideo(project.video)}
-              style={{ cursor: 'pointer' }}
-            >
-              <div className="project-image-container">
-                {project.video ? (
-                  <div className="video-wrapper">
-                    <video 
-                      src={project.video} 
-                      className="project-img" 
-                      autoPlay 
-                      loop 
-                      muted 
-                      playsInline
-                    />
-                    <div className="play-overlay">
-                      <Play fill="white" size={40} />
-                    </div>
-                  </div>
-                ) : (
-                  <img src={project.image} alt={project.title} className="project-img" />
-                )}
-              </div>
-              <div className="project-info">
-                <span className="project-category">{project.category}</span>
-                <h3 className="project-name">{project.title}</h3>
-                <p className="project-desc">{project.desc}</p>
-                <button className="view-project-link">VIEW PROJECT →</button>
-              </div>
-            </motion.div>
+            <ProjectCard key={i} project={project} index={i} />
           ))}
         </div>
       </div>
 
-      <AnimatePresence>
-        {selectedVideo && (
-          <motion.div 
-            className="video-modal-overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedVideo(null)}
-          >
-            <motion.div 
-              className="video-modal-content"
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button className="close-modal" onClick={() => setSelectedVideo(null)}>
-                <X size={24} />
-              </button>
-              <video 
-                src={selectedVideo} 
-                controls 
-                autoPlay 
-                className="modal-video-player"
-              />
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <div className="section-number-container">
-        <span className="section-number">.05</span>
-      </div>
-
       <style jsx>{`
         .our-work {
-          padding: 80px 0;
-          background-color: var(--bg-black);
-          position: relative;
+          padding: 100px 0;
+          background: #000;
+          color: #fff;
         }
 
         .section-header {
-          text-align: center;
-          margin-bottom: 40px;
-        }
-
-        .section-pre-title {
-          font-size: 10px;
-          letter-spacing: 4px;
-          color: var(--text-grey);
-          display: block;
-          margin-bottom: 20px;
-        }
-
-        .projects-title {
-          font-size: 36px;
-          font-weight: 800;
-          color: #fff;
-          letter-spacing: 2px;
-        }
-
-        .projects-slider {
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: 20px;
-        }
-
-        .project-slide {
-          background: rgba(255, 255, 255, 0.02);
-          border: 1px solid rgba(255, 255, 255, 0.05);
-          padding: 30px;
-          display: flex;
-          flex-direction: column;
-          transition: 0.3s;
-        }
-
-        .project-slide:hover {
-          background: rgba(255, 255, 255, 0.04);
-          transform: translateY(-5px);
-        }
-
-        .project-image-container {
-          width: 100%;
-          height: 200px;
-          overflow: hidden;
-          margin-bottom: 25px;
-          position: relative;
-        }
-
-        .video-wrapper {
-          position: relative;
-          width: 100%;
-          height: 100%;
-        }
-
-        .play-overlay {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: rgba(0,0,0,0.4);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          opacity: 0;
-          transition: 0.3s;
-          z-index: 2;
-        }
-
-        .project-slide:hover .play-overlay {
-          opacity: 1;
-        }
-
-        .project-img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          filter: grayscale(1);
-          transition: 0.5s;
-        }
-
-        .project-slide:hover .project-img {
-          filter: grayscale(0);
-          transform: scale(1.1);
-        }
-
-        .project-category {
-          font-size: 8px;
-          letter-spacing: 2px;
-          color: var(--text-grey);
-          font-weight: 700;
-          margin-bottom: 10px;
-          display: block;
-          text-transform: uppercase;
-        }
-
-        .project-name {
-          font-size: 18px;
-          font-weight: 800;
-          color: #fff;
-          margin-bottom: 15px;
-          letter-spacing: 1px;
-        }
-
-        .project-desc {
-          font-size: 12px;
-          color: var(--text-grey-light);
-          line-height: 1.6;
-          margin-bottom: 20px;
-        }
-
-        .view-project-link {
-          font-size: 9px;
-          font-weight: 800;
-          letter-spacing: 1px;
-          color: #fff;
-          text-decoration: none;
-          opacity: 0.7;
-          transition: 0.3s;
-          background: none;
-          border: none;
-          padding: 0;
-          cursor: pointer;
+          margin-bottom: 60px;
           text-align: left;
         }
 
-        .view-project-link:hover {
-          opacity: 1;
+        .section-pre-title {
+          font-size: 11px;
+          letter-spacing: 4px;
+          color: #666;
+          display: block;
+          margin-bottom: 15px;
+          font-weight: 700;
         }
 
-        /* Modal Styles */
-        .video-modal-overlay {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100vh;
-          background: rgba(0, 0, 0, 0.95);
-          backdrop-filter: blur(10px);
+        .projects-title {
+          font-size: 42px;
+          font-weight: 900;
+          letter-spacing: -1px;
+        }
+
+        .projects-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 60px;
+        }
+
+        .project-card {
           display: flex;
-          align-items: center;
-          justify-content: center;
-          z-index: 9999;
-          padding: 40px;
+          flex-direction: column;
+          gap: 25px;
         }
 
-        .video-modal-content {
+        .video-box {
+          width: 100%;
+          background: #0a0a0a;
+          border-radius: 4px;
+          overflow: hidden;
+          line-height: 0;
+          box-shadow: 0 20px 50px rgba(0,0,0,0.5);
           position: relative;
-          width: 100%;
-          height: 100%;
-          max-width: 1600px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
         }
 
-        .close-modal {
-          position: fixed;
-          top: 30px;
-          right: 30px;
-          background: rgba(255, 255, 255, 0.1);
+        .uncropped-video {
+          width: 100%;
+          height: auto;
+          display: block;
+        }
+
+        .individual-mute-btn {
+          position: absolute;
+          bottom: 20px;
+          right: 20px;
+          background: rgba(0, 0, 0, 0.6);
           border: 1px solid rgba(255, 255, 255, 0.2);
           color: #fff;
-          width: 50px;
-          height: 50px;
+          width: 36px;
+          height: 36px;
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
           cursor: pointer;
-          z-index: 10001;
-          transition: 0.3s;
+          transition: all 0.3s;
+          backdrop-filter: blur(4px);
+          z-index: 10;
         }
 
-        .close-modal:hover {
-          background: rgba(255, 255, 255, 0.3);
-          transform: rotate(90deg) scale(1.1);
+        .individual-mute-btn:hover {
+          background: #fff;
+          color: #000;
+          transform: scale(1.1);
         }
 
-        .modal-video-player {
-          max-width: 100%;
-          max-height: 100%;
-          object-fit: contain;
-          box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-          border-radius: 8px;
+        .project-details {
+          padding: 0 5px;
         }
 
-        .section-number-container {
-          position: absolute;
-          left: 20px;
-          bottom: 20px;
-        }
-
-        .section-number {
-          font-size: 24px;
+        .p-cat {
+          font-size: 10px;
+          letter-spacing: 2px;
+          color: #ff4d00;
           font-weight: 800;
-          color: var(--text-grey);
-          opacity: 0.3;
+          text-transform: uppercase;
+          margin-bottom: 10px;
+          display: block;
         }
 
-        @media (max-width: 1024px) {
-          .projects-slider {
-            grid-template-columns: repeat(2, 1fr);
-          }
+        .p-title {
+          font-size: 24px;
+          font-weight: 900;
+          margin-bottom: 12px;
+        }
+
+        .p-desc {
+          font-size: 14px;
+          color: #888;
+          line-height: 1.6;
+          max-width: 90%;
         }
 
         @media (max-width: 768px) {
-          .our-work {
-            padding: 60px 0;
-          }
-          .section-header {
-            margin-bottom: 40px;
-          }
-          .projects-slider {
+          .projects-grid {
             grid-template-columns: 1fr;
+            gap: 60px;
           }
-          .section-number-container {
-            display: none;
+
+          .projects-title {
+            font-size: 32px;
           }
-          .video-modal-content {
-            max-width: 100%;
-            padding: 0;
-          }
-          .video-modal-overlay {
-            padding: 20px;
-          }
-          .close-modal {
-            top: 15px;
+          
+          .individual-mute-btn {
+            bottom: 15px;
             right: 15px;
-            width: 40px;
-            height: 40px;
+            width: 32px;
+            height: 32px;
           }
         }
       `}</style>
