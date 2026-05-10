@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import whyImage from '../assets/economic-information-with-executives-negotiating-background.jpg';
+import whyImage from '../assets/2026-05-10 23.01.13.jpg';
 
 const WhyVersiert = () => {
   const reasons = [

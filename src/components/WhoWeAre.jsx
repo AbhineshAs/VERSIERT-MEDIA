@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import teamImg from '../assets/2026-05-10 23.03.22.jpg';
 
 const WhoWeAre = () => {
   const stats = [
@@ -48,7 +49,7 @@ const WhoWeAre = () => {
           <div className="who-visual">
             <div className="visual-wrapper">
               <div className="spotlight"></div>
-              <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800" alt="Team" className="team-img" />
+              <img src={teamImg} alt="Team" className="team-img" />
             </div>
           </div>
         </div>

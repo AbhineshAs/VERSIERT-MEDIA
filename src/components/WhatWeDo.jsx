@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import strategyIcon from '../assets/48653.jpg';
-import contentIcon from '../assets/2675912.jpg';
-import platformIcon from '../assets/6248154.jpg';
-import engagementIcon from '../assets/abstract-networking-concept-still-life-assortment.jpg';
+import strategyIcon from '../assets/2026-05-10 22.57.43.jpg';
+import contentIcon from '../assets/2026-05-10 22.56.54.jpg';
+import platformIcon from '../assets/2026-05-10 22.54.40.jpg';
+import engagementIcon from '../assets/2026-05-10 22.55.33.jpg';
 
 const WhatWeDo = () => {
   const [active, setActive] = useState(null);
