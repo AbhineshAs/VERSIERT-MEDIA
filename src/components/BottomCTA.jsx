@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import phoenixSketch from '../assets/phoenix_sketch.png';
+import phoenixSketch from '../assets/2026-05-10 22.52.54.jpg';
 
 const BottomCTA = () => {
   return (
@@ -18,9 +18,9 @@ const BottomCTA = () => {
             </div>
           </div>
           <div className="cta-visual">
-            <motion.img 
-              src={phoenixSketch} 
-              alt="Phoenix" 
+            <motion.img
+              src={phoenixSketch}
+              alt="Phoenix"
               className="phoenix-img"
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}

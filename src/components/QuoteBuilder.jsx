@@ -141,26 +141,7 @@ const QuoteBuilder = () => {
     setTotal(sum);
   }, [selectedServices]);
 
-  const originalTotal = total;
-  const discountAmount = selectedServices.reduce((acc, s) => {
-    const qty = s.quantity || 1;
-    const itemTotal = s.price * qty;
-    const isDev = s.category === 'Web Development' || s.category === 'Hosting & Infrastructure';
-    
-    if (isDev) {
-      return acc + 1099;
-    }
-
-    // Volume-based discount logic (📹, 📢, 🗞️, ✂️, 📸)
-    let volumeDiscount = 0;
-    if (qty >= 3 && qty <= 5) volumeDiscount = 0.05;
-    else if (qty >= 6 && qty <= 9) volumeDiscount = 0.08;
-    else if (qty >= 10) volumeDiscount = 0.10;
-
-    const totalDiscountPct = 0.30 + volumeDiscount;
-    return acc + Math.round(itemTotal * totalDiscountPct);
-  }, 0);
-  const finalEstimate = originalTotal - discountAmount;
+  const finalEstimate = total;
 
   const toggleService = (service, category) => {
     const exists = selectedServices.find(s => s.name === service.name && s.category === category);
@@ -224,17 +205,8 @@ const QuoteBuilder = () => {
         </div>
 
         <div style="display: flex; justify-content: flex-end; margin-bottom: 50px;">
-          <div style="width: 350px; background: #fafafa; padding: 25px; border-radius: 8px;">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; color: #666;">
-              <span>Market Price</span>
-              <span style="text-decoration: line-through;">₹ ${Intl.NumberFormat('en-IN').format(originalTotal)}</span>
-            </div>
-            <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 14px; color: #2e7d32; font-weight: 700;">
-              <span>Special Discount</span>
-              <span>- ₹ ${Intl.NumberFormat('en-IN').format(discountAmount)}</span>
-            </div>
             <div style="display: flex; justify-content: space-between; font-weight: 900; font-size: 20px; color: #000; border-top: 2px solid #eee; padding-top: 15px; margin-top: 15px;">
-              <span>FINAL ESTIMATE</span>
+              <span>TOTAL ESTIMATE</span>
               <span>₹ ${Intl.NumberFormat('en-IN').format(finalEstimate)}</span>
             </div>
             ${selectedServices.some(s => s.category === 'Web Development' || s.category === 'Hosting & Infrastructure') ? `
@@ -265,6 +237,20 @@ const QuoteBuilder = () => {
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
     html2pdf().set(opt).from(element).save();
+    
+    // WhatsApp Notification Logic
+    const serviceList = selectedServices.map(s => 
+      `- ${s.name} ${s.quantity > 1 ? `(x${s.quantity})` : ''}: ₹${Intl.NumberFormat('en-IN').format(s.price * (s.quantity || 1))}`
+    ).join('\n');
+
+    const whatsappMessage = `*NEW PROPOSAL GENERATED* 📄\n\n*Services:*\n${serviceList}\n\n*Total Estimate:* ₹${Intl.NumberFormat('en-IN').format(finalEstimate)}\n*Date:* ${date}\n\n_Generated via Versiert Media Quote Builder_`;
+    
+    const whatsappUrl = `https://wa.me/919188219557?text=${encodeURIComponent(whatsappMessage)}`;
+    
+    // Small delay to ensure PDF download starts before redirecting
+    setTimeout(() => {
+      window.open(whatsappUrl, '_blank');
+    }, 1000);
   };
 
   return (
@@ -418,18 +404,8 @@ const QuoteBuilder = () => {
               </div>
 
               <div className="summary-footer">
-                <div className="summary-details">
-                  <div className="detail-row">
-                    <span>Market Price</span>
-                    <span className="market-price">₹{Intl.NumberFormat('en-IN').format(originalTotal)}</span>
-                  </div>
-                  <div className="detail-row discount">
-                    <span>Special Discount</span>
-                    <span>-₹{Intl.NumberFormat('en-IN').format(discountAmount)}</span>
-                  </div>
-                </div>
                 <div className="total-row">
-                  <span>Estimated Total</span>
+                  <span>Total Amount</span>
                   <span className="final-price">₹{Intl.NumberFormat('en-IN').format(finalEstimate)}</span>
                 </div>
                 <p className="tax-info">*Exclusive of taxes and extra charges</p>

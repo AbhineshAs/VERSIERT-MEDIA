@@ -4,7 +4,7 @@ const Testimonials = () => {
   const reviews = [
     {
       text: "Versiert Media completely changed how our brand looks online. The content felt premium, professional, and actually brought us more customers.",
-      author: "Anu Manohar",
+      author: "Manu Manohar",
       role: "Co-Founder, Kompetenzen Technologies"
     },
     {
