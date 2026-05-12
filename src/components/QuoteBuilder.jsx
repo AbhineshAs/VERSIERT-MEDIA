@@ -95,22 +95,22 @@ const QuoteBuilder = () => {
     'Hosting & Infrastructure': {
       icon: '🌐',
       services: [
-        { name: 'Domain Purchase (.com)', price: 800, unit: 'per year' },
-        { name: 'Domain Purchase (.in)', price: 500, unit: 'per year' },
-        { name: 'Premium Domain Setup', price: 2000, unit: 'one-time' },
-        { name: 'Shared Hosting Setup', price: 2000, unit: 'per year' },
-        { name: 'VPS Hosting Setup', price: 6000, unit: 'per year' },
-        { name: 'Cloud Hosting (AWS/Azure)', price: 3000, unit: 'per month' },
-        { name: 'Vercel Deployment', price: 2000, unit: 'per deployment' },
-        { name: 'Render Deployment', price: 2000, unit: 'per deployment' },
-        { name: 'Netlify Deployment', price: 2000, unit: 'per deployment' },
-        { name: 'SSL Certificate Setup', price: 1000, unit: 'per certificate' },
-        { name: 'Business Email Setup', price: 2000, unit: 'per project' },
-        { name: 'DNS Configuration', price: 1000, unit: 'per project' },
-        { name: 'Website Hosting Migration', price: 3000, unit: 'per migration' },
-        { name: 'Website Maintenance', price: 3000, unit: 'per month' },
-        { name: 'Website Backup & Security', price: 2000, unit: 'per project' },
-        { name: 'Performance Optimization', price: 3000, unit: 'per project' }
+        { name: 'Domain Purchase (.com)' },
+        { name: 'Domain Purchase (.in)' },
+        { name: 'Premium Domain Setup' },
+        { name: 'Shared Hosting Setup' },
+        { name: 'VPS Hosting Setup' },
+        { name: 'Cloud Hosting (AWS/Azure)' },
+        { name: 'Vercel Deployment' },
+        { name: 'Render Deployment' },
+        { name: 'Netlify Deployment' },
+        { name: 'SSL Certificate Setup' },
+        { name: 'Business Email Setup' },
+        { name: 'DNS Configuration' },
+        { name: 'Website Hosting Migration' },
+        { name: 'Website Maintenance' },
+        { name: 'Website Backup & Security' },
+        { name: 'Performance Optimization' }
       ],
       included: ['Server Configuration', 'Security Setup', 'Initial Optimization']
     }
@@ -137,7 +137,7 @@ const QuoteBuilder = () => {
   };
 
   useEffect(() => {
-    const sum = selectedServices.reduce((acc, curr) => acc + (curr.price * (curr.quantity || 1)), 0);
+    const sum = selectedServices.reduce((acc, curr) => acc + ((curr.price || 0) * (curr.quantity || 1)), 0);
     setTotal(sum);
   }, [selectedServices]);
 
@@ -197,7 +197,7 @@ const QuoteBuilder = () => {
                 <tr>
                   <td style="padding: 15px 12px; border-bottom: 1px solid #eee; font-size: 13px; color: #666;">${s.category}</td>
                   <td style="padding: 15px 12px; border-bottom: 1px solid #eee; font-size: 14px; font-weight: 600;">${s.name} ${(s.quantity || 1) > 1 ? `<span style="font-size: 12px; color: #666;">(x${s.quantity})</span>` : ''} <span style="font-size: 11px; color: #999; font-weight: 400;">${s.unit ? `(${s.unit})` : ''}</span></td>
-                  <td style="padding: 15px 12px; border-bottom: 1px solid #eee; text-align: right; font-size: 14px; font-weight: 700;">₹ ${Intl.NumberFormat('en-IN').format(s.price * (s.quantity || 1))}</td>
+                  <td style="padding: 15px 12px; border-bottom: 1px solid #eee; text-align: right; font-size: 14px; font-weight: 700;">${s.price > 0 ? `₹ ${Intl.NumberFormat('en-IN').format(s.price * (s.quantity || 1))}` : 'Variable'}</td>
                 </tr>
               `).join('')}
             </tbody>
@@ -207,7 +207,7 @@ const QuoteBuilder = () => {
         <div style="display: flex; justify-content: flex-end; margin-bottom: 50px;">
             <div style="display: flex; justify-content: space-between; font-weight: 900; font-size: 20px; color: #000; border-top: 2px solid #eee; padding-top: 15px; margin-top: 15px;">
               <span>TOTAL ESTIMATE</span>
-              <span>₹ ${Intl.NumberFormat('en-IN').format(finalEstimate)}</span>
+              <span>${finalEstimate > 0 ? `₹ ${Intl.NumberFormat('en-IN').format(finalEstimate)}` : 'As per your requirements'}</span>
             </div>
             ${selectedServices.some(s => s.category === 'Web Development' || s.category === 'Hosting & Infrastructure') ? `
               <p style="font-size: 10px; color: #ff4d00; margin-top: 10px; font-weight: 700; text-transform: uppercase;">* Price vary as per your requirements</p>
@@ -237,16 +237,16 @@ const QuoteBuilder = () => {
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
     html2pdf().set(opt).from(element).save();
-    
+
     // WhatsApp Notification Logic
-    const serviceList = selectedServices.map(s => 
+    const serviceList = selectedServices.map(s =>
       `- ${s.name} ${s.quantity > 1 ? `(x${s.quantity})` : ''}: ₹${Intl.NumberFormat('en-IN').format(s.price * (s.quantity || 1))}`
     ).join('\n');
 
     const whatsappMessage = `*NEW PROPOSAL GENERATED* 📄\n\n*Services:*\n${serviceList}\n\n*Total Estimate:* ₹${Intl.NumberFormat('en-IN').format(finalEstimate)}\n*Date:* ${date}\n\n_Generated via Versiert Media Quote Builder_`;
-    
+
     const whatsappUrl = `https://wa.me/919188219557?text=${encodeURIComponent(whatsappMessage)}`;
-    
+
     // Small delay to ensure PDF download starts before redirecting
     setTimeout(() => {
       window.open(whatsappUrl, '_blank');
@@ -386,7 +386,11 @@ const QuoteBuilder = () => {
                           </div>
                         </div>
                         <div className="item-actions">
-                          <span className="item-price-label">₹{Intl.NumberFormat('en-IN').format(s.price * (s.quantity || 1))}</span>
+                          <span className="item-price-label">
+                            {s.price > 0 
+                              ? `₹${Intl.NumberFormat('en-IN').format(s.price * (s.quantity || 1))}` 
+                              : "Variable"}
+                          </span>
                           <button
                             className="remove-btn"
                             onClick={(e) => {
@@ -406,7 +410,12 @@ const QuoteBuilder = () => {
               <div className="summary-footer">
                 <div className="total-row">
                   <span>Total Amount</span>
-                  <span className="final-price">₹{Intl.NumberFormat('en-IN').format(finalEstimate)}</span>
+                  <span className="final-price">
+                    {finalEstimate > 0 
+                      ? `₹${Intl.NumberFormat('en-IN').format(finalEstimate)}` 
+                      : (selectedServices.length > 0 ? "As per your requirements" : "₹0")
+                    }
+                  </span>
                 </div>
                 <p className="tax-info">*Exclusive of taxes and extra charges</p>
 

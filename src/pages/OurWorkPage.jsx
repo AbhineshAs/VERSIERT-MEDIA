@@ -19,7 +19,7 @@ const OurWorkPage = () => {
         <div className="container">
           <div className="stats-strip">
             <div className="s-item">
-              <h3><AnimatedCounter value={500} />M+</h3>
+              <h3><AnimatedCounter value={1} />M+</h3>
               <span className="s-label">TOTAL VIEWS</span>
             </div>
             <div className="s-item">
@@ -27,7 +27,7 @@ const OurWorkPage = () => {
               <span className="s-label">CLIENT RETENTION</span>
             </div>
             <div className="s-item">
-              <h3><AnimatedCounter value={12} />+</h3>
+              <h3><AnimatedCounter value={0} />+</h3>
               <span className="s-label">GLOBAL AWARDS</span>
             </div>
             <div className="s-item">

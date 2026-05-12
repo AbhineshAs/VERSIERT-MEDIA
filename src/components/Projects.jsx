@@ -5,12 +5,16 @@ import projectVideo1 from '../assets/video_2026-04-28_11-01-02.mp4';
 import projectVideo2 from '../assets/vid 3.mp4';
 import projectVideo3 from '../assets/0916 (2)(1).mp4';
 import projectVideo4 from '../assets/COOPER.mp4';
+import projectVideo5 from '../assets/White Track.mp4';
+import projectVideo6 from '../assets/ISRL_Final Out.mp4';
+import projectVideo7 from '../assets/2026-05-12 10.48.33.mp4';
+
 
 const ProjectCard = ({ project, index }) => {
   const [isMuted, setIsMuted] = useState(true);
 
   return (
-    <motion.div 
+    <motion.div
       className="project-card"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -18,16 +22,16 @@ const ProjectCard = ({ project, index }) => {
       transition={{ delay: index * 0.1 }}
     >
       <div className="video-box">
-        <video 
-          src={project.video} 
-          autoPlay 
-          loop 
-          muted={isMuted} 
+        <video
+          src={project.video}
+          autoPlay
+          loop
+          muted={isMuted}
           playsInline
           className="uncropped-video"
         />
-        <button 
-          className="individual-mute-btn" 
+        <button
+          className="individual-mute-btn"
           onClick={() => setIsMuted(!isMuted)}
           aria-label={isMuted ? "Unmute video" : "Mute video"}
         >
@@ -43,13 +47,18 @@ const ProjectCard = ({ project, index }) => {
   );
 };
 
-const Projects = () => {
-  const projects = [
+const Projects = ({ limit }) => {
+  const allProjects = [
     { title: 'VERSIERT SHOWREEL', category: 'Brand Film', video: projectVideo1, desc: 'A cinematic showcase of our best work.' },
     { title: 'CAMPAIGN 01', category: 'Content Series', video: projectVideo2, desc: 'A modern brand experience built for dominance.' },
     { title: 'CAMPAIGN 02', category: 'Performance Ads', video: projectVideo3, desc: 'A modern brand experience built for dominance.' },
-    { title: 'COOPER', category: 'Product Launch', video: projectVideo4, desc: 'A modern brand experience built for dominance.' }
+    { title: 'COOPER', category: 'Product Launch', video: projectVideo4, desc: 'A modern brand experience built for dominance.' },
+    { title: 'WHITE TRACK', category: 'Product Launch', video: projectVideo5, desc: 'A modern brand experience built for dominance.' },
+    { title: 'ISRL', category: 'Product Launch', video: projectVideo6, desc: 'A modern brand experience built for dominance.' },
+    { title: 'COKE', category: 'Product Launch', video: projectVideo7, desc: 'A modern brand experience built for dominance.' }
   ];
+
+  const displayProjects = limit ? allProjects.slice(0, limit) : allProjects;
 
   return (
     <section id="our-work" className="our-work">
@@ -60,7 +69,7 @@ const Projects = () => {
         </div>
 
         <div className="projects-grid">
-          {projects.map((project, i) => (
+          {displayProjects.map((project, i) => (
             <ProjectCard key={i} project={project} index={i} />
           ))}
         </div>

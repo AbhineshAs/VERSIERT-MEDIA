@@ -33,8 +33,8 @@ const WhoWeArePage = () => {
                 <p>UPTIME DOMINANCE</p>
               </div>
               <div className="stat-card">
-                <h4><AnimatedCounter value={12} />+</h4>
-                <p>INDIAN STATES</p>
+                <h4><AnimatedCounter value={10} />+</h4>
+                <p>kerala districts</p>
               </div>
             </div>
           </div>
@@ -59,7 +59,7 @@ const WhoWeArePage = () => {
               <div className="t-year">2025</div>
               <div className="t-content">
                 <h3>REGIONAL EXPANSION</h3>
-                <p>Establishing our creative hub in Ernakulam, we leveled up our capabilities to transform ambitious brands into undeniable market leaders through high-impact storytelling.</p>
+                <p>Establishing our creative hub in Trivandrum, we leveled up our capabilities to transform ambitious brands into undeniable market leaders through high-impact storytelling.</p>
               </div>
             </div>
             <div className="timeline-item">

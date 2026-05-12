@@ -156,7 +156,7 @@ const WhoWeAre = () => {
           height: 100%;
           object-fit: cover;
           opacity: 0.6;
-          filter: grayscale(1);
+          
         }
 
         .spotlight {

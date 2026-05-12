@@ -26,7 +26,7 @@ const Home = () => {
       <ClientMarquee />
       <WhatWeDo />
       <QuoteBuilder />
-      <Projects />
+      <Projects limit={4} />
       <Testimonials />
       <Enquiry />
       <Careers />

@@ -24,6 +24,12 @@ const WhyVersiert = () => {
 
   return (
     <section className="why-versiert section-white">
+      {/* SVG Filter to make white transparent */}
+      <svg width="0" height="0" style={{ position: 'absolute' }}>
+        <filter id="white-to-transparent">
+          <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  -1 -1 -1 3 0" />
+        </filter>
+      </svg>
       <div className="container">
         <div className="why-grid">
           <div className="why-content">
@@ -48,6 +54,7 @@ const WhyVersiert = () => {
             <motion.img
               src={whyImage}
               alt="Business Strategy"
+              style={{ filter: 'url(#white-to-transparent) brightness(1.1) contrast(1.1)' }}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
