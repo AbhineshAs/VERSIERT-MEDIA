@@ -16,13 +16,14 @@ const Footer = () => {
             <h2 className="footer-title">THANKS FOR VISITING</h2>
           </motion.div>
 
-          <div className="footer-bottom">
-            <p className="copyright">© 2026 Versiert Solutions. All rights reserved.</p>
-            <div className="footer-links">
-              <a href="#">PRIVACY POLICY</a>
-              <a href="#">TERMS & CONDITIONS</a>
+            <div className="footer-bottom">
+              <p className="copyright">© 2026 Versiert Solutions. All rights reserved.</p>
+              <div className="footer-links">
+                <a href="https://www.instagram.com/versiert_media._/" target="_blank" rel="noopener noreferrer">INSTAGRAM</a>
+                <a href="#">PRIVACY POLICY</a>
+                <a href="#">TERMS & CONDITIONS</a>
+              </div>
             </div>
-          </div>
         </div>
       </div>
 

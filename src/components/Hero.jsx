@@ -19,7 +19,7 @@ const Hero = () => {
 
       <div className="side-left">
         <div className="social-links-vertical">
-          <a href="#">IG</a>
+          <a href="https://www.instagram.com/versiert_media._/" target="_blank" rel="noopener noreferrer">IG</a>
           <a href="#">LN</a>
           <a href="#">YT</a>
           <a href="#">TW</a>

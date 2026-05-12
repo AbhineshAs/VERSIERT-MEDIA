@@ -30,6 +30,10 @@ const Enquiry = () => {
                 <label>PHONE</label>
                 <p>+91 9188219557</p>
               </div>
+              <div className="detail-item">
+                <label>INSTAGRAM</label>
+                <p><a href="https://www.instagram.com/versiert_media._/" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>@versiert_media._</a></p>
+              </div>
             </div>
           </div>
 
